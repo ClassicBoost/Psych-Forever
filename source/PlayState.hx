@@ -2179,7 +2179,7 @@ class PlayState extends MusicBeatState
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				introAssets.set('default', ['ui/ready', 'ui/set', 'ui/go']);
-				introAssets.set('pixel', ['pixel/ready-pixel', 'pixel/set-pixel', 'pixel/date-pixel']);
+				introAssets.set('pixel', ['ui/pixel/ready-pixel', 'ui/pixel/set-pixel', 'ui/pixel/date-pixel']);
 
 				var introAlts:Array<String> = introAssets.get('default');
 				var antialias:Bool = ClientPrefs.globalAntialiasing;
