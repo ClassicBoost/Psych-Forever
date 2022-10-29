@@ -14,7 +14,6 @@ class StrumNote extends FlxSprite
 	public var direction:Float = 90;//plan on doing scroll directions soon -bb
 	public var downScroll:Bool = false;//plan on doing scroll directions soon -bb
 	public var sustainReduce:Bool = true;
-	public static var targetLocation:String = 'notes/';
 	
 	private var player:Int;
 	
@@ -35,7 +34,7 @@ class StrumNote extends FlxSprite
 		this.noteData = leData;
 		super(x, y);
 
-		var skin:String = targetLocation + 'NOTE_assets';
+		var skin:String = 'notes/NOTE_assets';
 		if(PlayState.SONG.arrowSkin != null && PlayState.SONG.arrowSkin.length > 1) skin = PlayState.SONG.arrowSkin;
 		texture = skin; //Load texture and anims
 
@@ -49,7 +48,6 @@ class StrumNote extends FlxSprite
 
 		if(PlayState.isPixelStage)
 		{
-			targetLocation = '';
 			loadGraphic(Paths.image('ui/pixel/' + texture));
 			width = width / 4;
 			height = height / 5;
@@ -84,7 +82,6 @@ class StrumNote extends FlxSprite
 		}
 		else
 		{
-			targetLocation = 'notes/';
 			frames = Paths.getSparrowAtlas(texture);
 			animation.addByPrefix('green', 'arrowUP');
 			animation.addByPrefix('blue', 'arrowDOWN');
