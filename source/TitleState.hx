@@ -72,6 +72,16 @@ class TitleState extends MusicBeatState
 
 	var wackyImage:FlxSprite;
 
+	public static var urMomDied:String;
+	public static var randomCrashLol:Array<String> = 
+	[
+		'Was that suppose to happen?',
+		'God damn it.',
+		'Shit just happened.',
+		'Did you select the wrong difficulty?',
+		'It\'s still unfinished!',
+	];
+
 	#if TITLE_SCREEN_EASTER_EGG
 	var easterEggKeys:Array<String> = [
 		'SHADOW', 'RIVER', 'SHUBS', 'BBPANZU'
@@ -136,7 +146,7 @@ class TitleState extends MusicBeatState
 		#if CHECK_FOR_UPDATES
 		if(ClientPrefs.checkForUpdates && !closedState) {
 			trace('checking for update');
-			var http = new haxe.Http("https://raw.githubusercontent.com/ShadowMario/FNF-PsychEngine/main/gitVersion.txt");
+			var http = new haxe.Http("https://raw.githubusercontent.com/ClassicBoost/Psych-Forever-Definitive/master/gitVersion.txt");
 
 			http.onData = function (data:String)
 			{
@@ -266,6 +276,8 @@ class TitleState extends MusicBeatState
 				FlxG.sound.playMusic(Paths.music('freakyMenu'), 0);
 			}
 		}
+
+		randomCrashMessage();
 
 		Conductor.changeBPM(titleJSON.bpm);
 		persistentUpdate = true;
@@ -787,4 +799,10 @@ class TitleState extends MusicBeatState
 			skippedIntro = true;
 		}
 	}
+
+	public static function randomCrashMessage():flixel.system.FlxAssets.FlxGraphicAsset
+		{
+			var chance:Int = FlxG.random.int(0, randomCrashLol.length - 1);
+			return urMomDied = (randomCrashLol[chance]);
+		}
 }

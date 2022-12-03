@@ -33,6 +33,11 @@ class ClientPrefs {
 	public static var pauseMusic:String = 'Tea Time';
 	public static var checkForUpdates:Bool = true;
 	public static var simpleJudgements = false;
+	// Modded Specific
+	public static var opponentSplashes:Bool = true;
+	public static var mechanicsSystem:Bool = true;
+	public static var lateDamage:Bool = true;
+
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
 		'scrolltype' => 'multiplicative', 
@@ -56,9 +61,9 @@ class ClientPrefs {
 
 	public static var comboOffset:Array<Int> = [0, 0, 0, 0];
 	public static var ratingOffset:Int = 0;
-	public static var sickWindow:Int = 45;
-	public static var goodWindow:Int = 90;
-	public static var badWindow:Int = 135;
+	public static var sickWindow:Int = 55;
+	public static var goodWindow:Int = 80;
+	public static var badWindow:Int = 120;
 	public static var safeFrames:Float = 10;
 
 	//Every key has two binds, add your key bind down here and then add your control on options/ControlsSubState.hx and Controls.hx
@@ -130,6 +135,11 @@ class ClientPrefs {
 		FlxG.save.data.pauseMusic = pauseMusic;
 		FlxG.save.data.checkForUpdates = checkForUpdates;
 		FlxG.save.data.simpleJudgements = simpleJudgements;
+
+		// Modded Specific
+		FlxG.save.data.opponentSplashes = opponentSplashes;
+		FlxG.save.data.mechanicsSystem = mechanicsSystem;
+		FlxG.save.data.lateDamage = lateDamage;
 	
 		FlxG.save.flush();
 
@@ -249,6 +259,17 @@ class ClientPrefs {
 			{
 				gameplaySettings.set(name, value);
 			}
+		}
+
+		// Modded Specific
+		if(FlxG.save.data.opponentSplashes != null) {
+			opponentSplashes = FlxG.save.data.opponentSplashes;
+		}
+		if(FlxG.save.data.mechanicsSystem != null) {
+			mechanicsSystem = FlxG.save.data.mechanicsSystem;
+		}
+		if(FlxG.save.data.lateDamage != null) {
+			lateDamage = FlxG.save.data.lateDamage;
 		}
 		
 		// flixel automatically saves your volume!
