@@ -249,7 +249,7 @@ class ChartingState extends MusicBeatState
 		waveformSprite = new FlxSprite(GRID_SIZE, 0).makeGraphic(FlxG.width, FlxG.height, 0x00FFFFFF);
 		add(waveformSprite);
 
-		var eventIcon:FlxSprite = new FlxSprite(-GRID_SIZE - 5, -90).loadGraphic(Paths.image('eventArrow'));
+		var eventIcon:FlxSprite = new FlxSprite(-GRID_SIZE - 5, -90).loadGraphic(Paths.image('menus/chart/eventArrow'));
 		leftIcon = new HealthIcon('bf');
 		rightIcon = new HealthIcon('dad');
 		eventIcon.scrollFactor.set(1, 1);
@@ -298,7 +298,7 @@ class ChartingState extends MusicBeatState
 		strumLine = new FlxSprite(0, 50).makeGraphic(Std.int(GRID_SIZE * 9), 4);
 		add(strumLine);
 
-		quant = new AttachedSprite('chart_quant','chart_quant');
+		quant = new AttachedSprite('menus/chart/chart_quant','chart_quant');
 		quant.animation.addByPrefix('q','chart_quant',0,false);
 		quant.animation.play('q', true, false, 0);
 		quant.sprTracker = strumLine;
@@ -2682,7 +2682,7 @@ class ChartingState extends MusicBeatState
 			note.sustainLength = daSus;
 			note.noteType = i[3];
 		} else { //Event note
-			note.loadGraphic(Paths.image('eventArrow'));
+			note.loadGraphic(Paths.image('menus/chart/eventArrow'));
 			note.eventName = getEventName(i[1]);
 			note.eventLength = i[1].length;
 			if(i[1].length < 2)

@@ -327,7 +327,7 @@ class AlphaCharacter extends FlxSprite
 	{
 		super(x, y);
 		this.parent = parent;
-		image = 'alphabet';
+		image = 'menus/alphabet';
 		antialiasing = ClientPrefs.globalAntialiasing;
 
 		var curLetter:Letter = allLetters.get('?');

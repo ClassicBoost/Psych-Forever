@@ -354,7 +354,7 @@ class ModsMenuState extends MusicBeatState
 			}
 			else
 			{
-				newMod.icon.loadGraphic(Paths.image('unknownMod'));
+				newMod.icon.loadGraphic(Paths.image('menus/mods/unknownMod'));
 			}
 			newMod.icon.sprTracker = newMod.alphabet;
 			newMod.icon.xAdd = -newMod.icon.width - 30;

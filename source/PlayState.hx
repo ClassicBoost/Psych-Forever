@@ -522,25 +522,25 @@ class PlayState extends MusicBeatState
 		switch (curStage)
 		{
 			case 'stage': //Week 1
-				var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+				var bg:BGSprite = new BGSprite('backgrounds/stage/stageback', -600, -200, 0.9, 0.9);
 				add(bg);
 
-				var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+				var stageFront:BGSprite = new BGSprite('backgrounds/stage/stagefront', -650, 600, 0.9, 0.9);
 				stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 				stageFront.updateHitbox();
 				add(stageFront);
 				if(!ClientPrefs.lowQuality) {
-					var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+					var stageLight:BGSprite = new BGSprite('backgrounds/stage/stage_light', -125, -100, 0.9, 0.9);
 					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
 					stageLight.updateHitbox();
 					add(stageLight);
-					var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+					var stageLight:BGSprite = new BGSprite('backgrounds/stage/stage_light', 1225, -100, 0.9, 0.9);
 					stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
 					stageLight.updateHitbox();
 					stageLight.flipX = true;
 					add(stageLight);
 
-					var stageCurtains:BGSprite = new BGSprite('stagecurtains', -500, -300, 1.3, 1.3);
+					var stageCurtains:BGSprite = new BGSprite('backgrounds/stage/stagecurtains', -500, -300, 1.3, 1.3);
 					stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 					stageCurtains.updateHitbox();
 					add(stageCurtains);
@@ -2638,7 +2638,7 @@ class PlayState extends MusicBeatState
 				dadbattleBlack.visible = false;
 				add(dadbattleBlack);
 
-				dadbattleLight = new BGSprite('spotlight', 400, -400);
+				dadbattleLight = new BGSprite('backgrounds/stage/spotlight', 400, -400);
 				dadbattleLight.alpha = 0.375;
 				dadbattleLight.blend = ADD;
 				dadbattleLight.visible = false;
@@ -2650,7 +2650,7 @@ class PlayState extends MusicBeatState
 				add(dadbattleSmokes);
 
 				var offsetX = 200;
-				var smoke:BGSprite = new BGSprite('smoke', -1550 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
+				var smoke:BGSprite = new BGSprite('backgrounds/stage/smoke', -1550 + offsetX, 660 + FlxG.random.float(-20, 20), 1.2, 1.05);
 				smoke.setGraphicSize(Std.int(smoke.width * FlxG.random.float(1.1, 1.22)));
 				smoke.updateHitbox();
 				smoke.velocity.x = FlxG.random.float(15, 22);
