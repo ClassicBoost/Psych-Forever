@@ -77,6 +77,7 @@ class ChartingState extends MusicBeatState
 	var eventStuff:Array<Dynamic> =
 	[
 		['', "Nothing. Yep, that's right."],
+		['Opponent Damage', "The opponent can hurt you if enabled!\n\nValue 1: Damage\nValue 2: Health cap (set to 0 to kill)"],
 		['Dadbattle Spotlight', "Used in Dad Battle,\nValue 1: 0/1 = ON/OFF,\n2 = Target Dad\n3 = Target BF"],
 		['Hey!', "Plays the \"Hey!\" animation from Bopeebo,\nValue 1: BF = Only Boyfriend, GF = Only Girlfriend,\nSomething else = Both.\nValue 2: Custom animation duration,\nleave it blank for 0.6s"],
 		['Set GF Speed', "Sets GF head bopping speed,\nValue 1: 1 = Normal speed,\n2 = 1/2 speed, 4 = 1/4 speed etc.\nUsed on Fresh during the beatbox parts.\n\nWarning: Value must be integer!"],
@@ -238,7 +239,7 @@ class ChartingState extends MusicBeatState
 
 		vortex = FlxG.save.data.chart_vortex;
 		ignoreWarnings = FlxG.save.data.ignoreWarnings;
-		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menuDesat'));
+		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/menuDesat'));
 		bg.scrollFactor.set();
 		bg.color = 0xFF222222;
 		add(bg);
@@ -339,17 +340,21 @@ class ChartingState extends MusicBeatState
 		UI_box.scrollFactor.set();
 
 		text =
-		"W/S or Mouse Wheel - Change Conductor's strum time
+		"BASIC CONTROLS
+		\nW/S or Mouse Wheel - Change Conductor's strum time
 		\nA/D - Go to the previous/next section
 		\nLeft/Right - Change Snap
 		\nUp/Down - Change Conductor's Strum Time with Snapping
+		\n
+		\nEXTRA CONTROLS
 		\nLeft Bracket / Right Bracket - Change Song Playback Rate (SHIFT to go Faster)
 		\nALT + Left Bracket / Right Bracket - Reset Song Playback Rate
 		\nHold Shift to move 4x faster
 		\nHold Control and click on an arrow to select it
 		\nZ/X - Zoom in/out
 		\n
-		\nEsc - Test your chart inside Chart Editor
+		\nMISC
+		\nEsc - Test your chart inside Chart Editor (WIP)
 		\nEnter - Play your chart
 		\nQ/E - Decrease/Increase Note Sustain Length
 		\nSpace - Stop/Resume song";
@@ -358,7 +363,7 @@ class ChartingState extends MusicBeatState
 		for (i in 0...tipTextArray.length) {
 			var tipText:FlxText = new FlxText(UI_box.x, UI_box.y + UI_box.height + 8, 0, tipTextArray[i], 16);
 			tipText.y += i * 12;
-			tipText.setFormat(Paths.font("vcr.ttf"), 14, FlxColor.WHITE, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
+			tipText.setFormat(Paths.font("vcr.ttf"), 12, FlxColor.WHITE, LEFT/*, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK*/);
 			//tipText.borderSize = 2;
 			tipText.scrollFactor.set();
 			add(tipText);
@@ -2050,7 +2055,7 @@ class ChartingState extends MusicBeatState
 			var metroStep:Int = Math.floor(((Conductor.songPosition + metronomeOffsetStepper.value) / metroInterval) / 1000);
 			var lastMetroStep:Int = Math.floor(((lastConductorPos + metronomeOffsetStepper.value) / metroInterval) / 1000);
 			if(metroStep != lastMetroStep) {
-				FlxG.sound.play(Paths.sound('Metronome_Tick'));
+				FlxG.sound.play(Paths.sound('chart/Metronome_Tick'));
 				//trace('Ticked');
 			}
 		}

@@ -289,7 +289,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 	var daText:TypedAlphabet = null;
 	var ignoreThisFrame:Bool = true; //First frame is reserved for loading dialogue images
 
-	public var closeSound:String = 'dialogueClose';
+	public var closeSound:String = 'cancelMenu';
 	public var closeVolume:Float = 1;
 	override function update(elapsed:Float)
 	{
@@ -309,7 +309,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 					if(skipDialogueThing != null) {
 						skipDialogueThing();
 					}
-				} else if(currentText >= dialogueList.dialogue.length) {
+				} else if((currentText >= dialogueList.dialogue.length) || FlxG.keys.justPressed.SPACE) {
 					dialogueEnded = true;
 					for (i in 0...textBoxTypes.length) {
 						var checkArray:Array<String> = ['', 'center-'];
@@ -492,7 +492,7 @@ class DialogueBoxPsych extends FlxSpriteGroup
 
 		daText.text = curDialogue.text;
 		daText.sound = curDialogue.sound;
-		if(daText.sound == null || daText.sound.trim() == '') daText.sound = 'dialogue';
+		if(daText.sound == null || daText.sound.trim() == '') daText.sound = 'dialogue/pixelText';
 		
 		daText.y = DEFAULT_TEXT_Y;
 		if(daText.rows > 2) daText.y -= LONG_TEXT_ADD;

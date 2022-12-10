@@ -30,13 +30,14 @@ class ClientPrefs {
 	public static var healthBarAlpha:Float = 1;
 	public static var controllerMode:Bool = false;
 	public static var hitsoundVolume:Float = 0;
-	public static var pauseMusic:String = 'Tea Time';
+	public static var pauseMusic:String = 'Still';
 	public static var checkForUpdates:Bool = true;
 	public static var simpleJudgements = false;
 	// Modded Specific
 	public static var opponentSplashes:Bool = true;
 	public static var mechanicsSystem:Bool = true;
 	public static var lateDamage:Bool = true;
+	public static var showAccuracy:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -140,6 +141,7 @@ class ClientPrefs {
 		FlxG.save.data.opponentSplashes = opponentSplashes;
 		FlxG.save.data.mechanicsSystem = mechanicsSystem;
 		FlxG.save.data.lateDamage = lateDamage;
+		FlxG.save.data.showAccuracy = showAccuracy;
 	
 		FlxG.save.flush();
 
@@ -270,6 +272,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.lateDamage != null) {
 			lateDamage = FlxG.save.data.lateDamage;
+		}
+		if(FlxG.save.data.showAccuracy != null) {
+			showAccuracy = FlxG.save.data.showAccuracy;
 		}
 		
 		// flixel automatically saves your volume!

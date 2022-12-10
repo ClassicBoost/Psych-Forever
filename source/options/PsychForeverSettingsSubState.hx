@@ -34,26 +34,7 @@ class PsychForeverSettingsSubState extends BaseOptionsMenu
 		title = 'Psych Forever Settings';
 		rpcTitle = 'Psych Forever Settings Menu'; //for Discord Rich Presence
 
-		var option:Option = new Option('Opponent Note Splashes',
-			'If checked, opponent will have note splashes.\nDoes not work if opponent strums is disabled.',
-			'opponentSplashes',
-			'bool',
-			true);
-		addOption(option);
-
-		var option:Option = new Option('Mechanics',
-			'If unchecked, mechanics will be disabled. pussy',
-			'mechanicsSystem',
-			'bool',
-			true);
-		addOption(option);
-
-		var option:Option = new Option('Late Damage',
-			'If checked, hitting notes late or early will hurt you.',
-			'lateDamage',
-			'bool',
-			true);
-		addOption(option);
+		// USELESS LMAO
 
 		super();
 	}

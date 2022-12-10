@@ -117,7 +117,7 @@
 						4750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -174,7 +174,7 @@
 						7125,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -236,7 +236,7 @@
 						8500,
 						6,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -283,7 +283,7 @@
 						11125,
 						7,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -345,13 +345,13 @@
 						13250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						13875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -398,7 +398,7 @@
 						15000,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -496,7 +496,7 @@
 						19750,
 						6,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -548,7 +548,7 @@
 						21750,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -778,19 +778,19 @@
 						28250,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						28875,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						29625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -852,19 +852,19 @@
 						30500,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						31000,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						31625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1038,19 +1038,19 @@
 						36625,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						37250,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						37875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1112,19 +1112,19 @@
 						38375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						39000,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						39625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1333,31 +1333,31 @@
 						44500,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						44625,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						45375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						45500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						45875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1424,31 +1424,31 @@
 						46500,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						46875,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						47500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						47375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						46750,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1667,37 +1667,37 @@
 						52250,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						52500,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						52750,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						52875,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						53625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						53750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -1774,49 +1774,49 @@
 						54500,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						54625,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						54750,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						54875,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						55375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						55500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						55625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						55750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2080,97 +2080,97 @@
 						60000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						61875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						60625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2262,97 +2262,97 @@
 						62000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						62875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						63250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2440,25 +2440,25 @@
 						67125,
 						4,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						67500,
 						5,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						67750,
 						6,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						67875,
 						6,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2495,7 +2495,7 @@
 						68750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2608,7 +2608,7 @@
 						72875,
 						7,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2655,13 +2655,13 @@
 						75000,
 						6,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						75500,
 						5,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2723,13 +2723,13 @@
 						76875,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						77625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2776,13 +2776,13 @@
 						78625,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						79500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2859,19 +2859,19 @@
 						80250,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						80875,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						81625,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -2923,49 +2923,49 @@
 						82750,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83500,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83625,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83750,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83875,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83125,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83250,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						83375,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3057,97 +3057,97 @@
 						84000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						84875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						85125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3239,97 +3239,97 @@
 						86000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						86875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87125,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87250,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87375,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87500,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87625,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87750,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						87875,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,
@@ -3341,25 +3341,25 @@
 						88000,
 						3,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						88000,
 						2,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						88000,
 						1,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					],
 					[
 						88000,
 						0,
 						0,
-						"Glitch Note"
+						"Hurt Note"
 					]
 				],
 				"lengthInSteps": 16,

@@ -29,7 +29,7 @@ using StringTools;
 
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Note Colors', 'Controls', 'Adjust Delay and Combo', 'Graphics', 'Visuals and UI', 'Gameplay', 'Psych Forever Settings'];
+	var options:Array<String> = ['Preferences', 'Appearance', 'Controls', 'Exit'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -42,12 +42,14 @@ class OptionsState extends MusicBeatState
 				openSubState(new options.ControlsSubState());
 			case 'Graphics':
 				openSubState(new options.GraphicsSettingsSubState());
-			case 'Visuals and UI':
-				openSubState(new options.VisualsUISubState());
-			case 'Gameplay':
-				openSubState(new options.GameplaySettingsSubState());
+			case 'Appearance':
+				openSubState(new options.AppearanceSubState());
+			case 'Preferences':
+				openSubState(new options.PreferencesSettingsSubState());
 			case 'Psych Forever Settings':
 				openSubState(new options.PsychForeverSettingsSubState());
+			case 'Exit':
+				MusicBeatState.switchState(new MainMenuState());
 			case 'Adjust Delay and Combo':
 				LoadingState.loadAndSwitchState(new options.NoteOffsetState());
 		}
@@ -60,6 +62,14 @@ class OptionsState extends MusicBeatState
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
 		#end
+
+		if(ClientPrefs.pauseMusic == 'None') {
+			// do nothing
+		}
+		else
+			FlxG.sound.playMusic(Paths.music(Paths.formatToSongPath(ClientPrefs.pauseMusic)));
+
+		curSelected = 0;
 
 		var bg:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/menuDesat'));
 		bg.color = 0xFFea71fd;
@@ -80,9 +90,9 @@ class OptionsState extends MusicBeatState
 			grpOptions.add(optionText);
 		}
 
-		selectorLeft = new Alphabet(0, 0, '>', true);
+		selectorLeft = new Alphabet(0, 0, '', true);
 		add(selectorLeft);
-		selectorRight = new Alphabet(0, 0, '<', true);
+		selectorRight = new Alphabet(0, 0, '', true);
 		add(selectorRight);
 
 		changeSelection();
@@ -129,9 +139,11 @@ class OptionsState extends MusicBeatState
 			item.targetY = bullShit - curSelected;
 			bullShit++;
 
-			item.alpha = 0.6;
+			item.alpha = 0.9;
+			item.color = 0xFFFFFFFF;
 			if (item.targetY == 0) {
 				item.alpha = 1;
+				item.color = 0xFFFFEF68;
 				selectorLeft.x = item.x - 63;
 				selectorLeft.y = item.y;
 				selectorRight.x = item.x + item.width + 15;

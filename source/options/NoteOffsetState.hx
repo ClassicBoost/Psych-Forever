@@ -61,26 +61,26 @@ class NoteOffsetState extends MusicBeatState
 		persistentUpdate = true;
 		FlxG.sound.pause();
 		// Stage
-		var bg:BGSprite = new BGSprite('stageback', -600, -200, 0.9, 0.9);
+		var bg:BGSprite = new BGSprite('backgrounds/stage/stageback', -600, -200, 0.9, 0.9);
 		add(bg);
 
-		var stageFront:BGSprite = new BGSprite('stagefront', -650, 600, 0.9, 0.9);
+		var stageFront:BGSprite = new BGSprite('backgrounds/stage/stagefront', -650, 600, 0.9, 0.9);
 		stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
 		stageFront.updateHitbox();
 		add(stageFront);
 
 		if(!ClientPrefs.lowQuality) {
-			var stageLight:BGSprite = new BGSprite('stage_light', -125, -100, 0.9, 0.9);
+			var stageLight:BGSprite = new BGSprite('backgrounds/stage/stage_light', -125, -100, 0.9, 0.9);
 			stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
 			stageLight.updateHitbox();
 			add(stageLight);
-			var stageLight:BGSprite = new BGSprite('stage_light', 1225, -100, 0.9, 0.9);
+			var stageLight:BGSprite = new BGSprite('backgrounds/stage/stage_light', 1225, -100, 0.9, 0.9);
 			stageLight.setGraphicSize(Std.int(stageLight.width * 1.1));
 			stageLight.updateHitbox();
 			stageLight.flipX = true;
 			add(stageLight);
 
-			var stageCurtains:BGSprite = new BGSprite('stagecurtains', -500, -300, 1.3, 1.3);
+			var stageCurtains:BGSprite = new BGSprite('backgrounds/stage/stagecurtains', -500, -300, 1.3, 1.3);
 			stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
 			stageCurtains.updateHitbox();
 			add(stageCurtains);
@@ -103,7 +103,7 @@ class NoteOffsetState extends MusicBeatState
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.35;
 
-		rating = new FlxSprite().loadGraphic(Paths.image('ui/sick'));
+		rating = new FlxSprite().loadGraphic(Paths.image('ui/judgements/sick-early'));
 		rating.cameras = [camHUD];
 		rating.setGraphicSize(Std.int(rating.width * 0.7));
 		rating.updateHitbox();
@@ -124,7 +124,7 @@ class NoteOffsetState extends MusicBeatState
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite(43 * daLoop).loadGraphic(Paths.image('ui/num' + i));
+			var numScore:FlxSprite = new FlxSprite(43 * daLoop).loadGraphic(Paths.image('ui/combo/num' + i));
 			numScore.cameras = [camHUD];
 			numScore.setGraphicSize(Std.int(numScore.width * 0.5));
 			numScore.updateHitbox();
