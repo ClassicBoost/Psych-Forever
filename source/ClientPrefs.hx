@@ -38,6 +38,7 @@ class ClientPrefs {
 	public static var mechanicsSystem:Bool = true;
 	public static var lateDamage:Bool = true;
 	public static var showAccuracy:Bool = true;
+	public static var psychIconBop:Bool = false;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -142,6 +143,7 @@ class ClientPrefs {
 		FlxG.save.data.mechanicsSystem = mechanicsSystem;
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.showAccuracy = showAccuracy;
+		FlxG.save.data.psychIconBop = psychIconBop;
 	
 		FlxG.save.flush();
 
@@ -275,6 +277,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.showAccuracy != null) {
 			showAccuracy = FlxG.save.data.showAccuracy;
+		}
+		if(FlxG.save.data.psychIconBop != null) {
+			psychIconBop = FlxG.save.data.psychIconBop;
 		}
 		
 		// flixel automatically saves your volume!

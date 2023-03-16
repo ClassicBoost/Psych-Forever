@@ -5,7 +5,7 @@ import openfl.utils.Assets as OpenFlAssets;
 
 using StringTools;
 
-class HealthIcon extends FlxSprite
+class HealthIconPsych extends FlxSprite
 {
 	public var sprTracker:FlxSprite;
 	private var isOldIcon:Bool = false;
@@ -27,11 +27,6 @@ class HealthIcon extends FlxSprite
 
 		if (sprTracker != null)
 			setPosition(sprTracker.x + sprTracker.width + 12, sprTracker.y - 30);
-
-		if (ClientPrefs.psychIconBop) {
-			offset.x = iconOffsets[0];
-			offset.y = iconOffsets[1];
-		}
 	}
 
 	public function swapOldIcon() {
@@ -63,6 +58,13 @@ class HealthIcon extends FlxSprite
 				antialiasing = false;
 			}
 		}
+	}
+
+	override function updateHitbox()
+	{
+		super.updateHitbox();
+		offset.x = iconOffsets[0];
+		offset.y = iconOffsets[1];
 	}
 
 	public function getCharacter():String {

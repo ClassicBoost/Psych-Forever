@@ -37,7 +37,7 @@ class Main extends Sprite
 	public static var fpsVar:FPS;
 
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
-	public static var psychForeverVersion:String = '0.1.3';
+	public static var psychForeverVersion:String = '0.1.4';
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 

@@ -94,6 +94,13 @@ class AppearanceSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Psych Icon Bop',
+			'Should it use the regular Psych Engine bop?',
+			'psychIconBop',
+			'bool',
+			false);
+		addOption(option);
+
 		var option:Option = new Option('Opponent Note Splashes',
 			'If checked, opponent will have note splashes.\nDoes not work if opponent strums is disabled, or not visible.',
 			'opponentSplashes',

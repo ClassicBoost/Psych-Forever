@@ -101,7 +101,10 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				checkbox.sprTracker = optionText;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
-			} else {
+			} else if (optionsArray[i].type == 'none') {
+				//well what do you expect?
+			}
+			else {
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
@@ -152,7 +155,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if(nextAccept <= 0)
 		{
 			var usesCheckbox = true;
-			if(curOption.type != 'bool')
+			if(curOption.type != 'bool' || curOption.type == 'none')
 			{
 				usesCheckbox = false;
 			}
