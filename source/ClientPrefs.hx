@@ -39,6 +39,7 @@ class ClientPrefs {
 	public static var lateDamage:Bool = true;
 	public static var showAccuracy:Bool = true;
 	public static var psychIconBop:Bool = false;
+	public static var autoPlayFreeplaySongs:Bool = true;
 
 	public static var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,
@@ -144,6 +145,7 @@ class ClientPrefs {
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.showAccuracy = showAccuracy;
 		FlxG.save.data.psychIconBop = psychIconBop;
+		FlxG.save.data.autoPlayFreeplaySongs = autoPlayFreeplaySongs;
 	
 		FlxG.save.flush();
 
@@ -255,6 +257,9 @@ class ClientPrefs {
 		}
 		if(FlxG.save.data.pauseMusic != null) {
 			pauseMusic = FlxG.save.data.pauseMusic;
+		}
+		if(FlxG.save.data.autoPlayFreeplaySongs != null) {
+			autoPlayFreeplaySongs = FlxG.save.data.autoPlayFreeplaySongs;
 		}
 		if(FlxG.save.data.gameplaySettings != null)
 		{

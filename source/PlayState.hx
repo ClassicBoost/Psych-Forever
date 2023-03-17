@@ -2247,6 +2247,7 @@ class PlayState extends MusicBeatState
 				{
 					case 0:
 						FlxG.sound.play(Paths.sound('countdowns/$countdowntype/intro3' + introSoundsSuffix), 0.6);
+						iconBop();
 					case 1:
 						countdownReady = new FlxSprite().loadGraphic(Paths.image(introAlts[0]));
 						countdownReady.cameras = [camHUD];
@@ -2268,6 +2269,7 @@ class PlayState extends MusicBeatState
 							}
 						});
 						FlxG.sound.play(Paths.sound('countdowns/$countdowntype/intro2' + introSoundsSuffix), 0.6);
+						iconBop();
 					case 2:
 						countdownSet = new FlxSprite().loadGraphic(Paths.image(introAlts[1]));
 						countdownSet.cameras = [camHUD];
@@ -2288,6 +2290,7 @@ class PlayState extends MusicBeatState
 							}
 						});
 						FlxG.sound.play(Paths.sound('countdowns/$countdowntype/intro1' + introSoundsSuffix), 0.6);
+						iconBop();
 					case 3:
 						countdownGo = new FlxSprite().loadGraphic(Paths.image(introAlts[2]));
 						countdownGo.cameras = [camHUD];
@@ -2310,7 +2313,9 @@ class PlayState extends MusicBeatState
 							}
 						});
 						FlxG.sound.play(Paths.sound('countdowns/$countdowntype/introGo' + introSoundsSuffix), 0.6);
+						iconBop();
 					case 4:
+						iconBop();
 				}
 
 				notes.forEachAlive(function(note:Note) {
@@ -5153,6 +5158,22 @@ class PlayState extends MusicBeatState
 		callOnLuas('onStepHit', []);
 	}
 
+	function iconBop() {
+		if (!ClientPrefs.psychIconBop) {
+		iconP1.scale.set(1.3, 1.3);
+		iconP2.scale.set(1.3, 1.3);
+
+		iconP1.updateHitbox();
+		iconP2.updateHitbox();
+		} else {
+		iconP1psych.scale.set(1.2, 1.2);
+		iconP2psych.scale.set(1.2, 1.2);
+
+		iconP1psych.updateHitbox();
+		iconP2psych.updateHitbox();
+		}
+	}
+
 	var lightningStrikeBeat:Int = 0;
 	var lightningOffset:Int = 8;
 
@@ -5172,19 +5193,7 @@ class PlayState extends MusicBeatState
 			notes.sort(FlxSort.byY, ClientPrefs.downScroll ? FlxSort.ASCENDING : FlxSort.DESCENDING);
 		}
 
-		if (!ClientPrefs.psychIconBop) {
-		iconP1.scale.set(1.3, 1.3);
-		iconP2.scale.set(1.3, 1.3);
-
-		iconP1.updateHitbox();
-		iconP2.updateHitbox();
-		} else {
-		iconP1psych.scale.set(1.2, 1.2);
-		iconP2psych.scale.set(1.2, 1.2);
-
-		iconP1psych.updateHitbox();
-		iconP2psych.updateHitbox();
-		}
+		iconBop();
 
 		if (gf != null && curBeat % Math.round(gfSpeed * gf.danceEveryNumBeats) == 0 && gf.animation.curAnim != null && !gf.animation.curAnim.name.startsWith("sing") && !gf.stunned)
 		{

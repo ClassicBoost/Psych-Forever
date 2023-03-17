@@ -108,6 +108,13 @@ class AppearanceSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Auto Play Freeplay Songs',
+			'If checked, freeplay songs will be played automatically.\nNot reccomended since missing song files can cause crashes.',
+			'autoPlayFreeplaySongs',
+			'bool',
+			true);
+		addOption(option);
+
 		var option:Option = new Option('Hide HUD',
 			'If checked, hides most HUD elements.',
 			'hideHud',
