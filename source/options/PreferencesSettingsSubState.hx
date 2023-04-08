@@ -63,6 +63,14 @@ class PreferencesSettingsSubState extends BaseOptionsMenu
 			true);
 		addOption(option);
 
+		var option:Option = new Option('Input System:',
+			"What should the input system use?",
+			'inputsystemlmao',
+			'string',
+			'Kade',
+			['Kade', 'Psych']);
+		addOption(option);
+
 		var option:Option = new Option('Ghost Tapping',
 			"If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.",
 			'ghostTapping',
@@ -87,6 +95,13 @@ class PreferencesSettingsSubState extends BaseOptionsMenu
 		var option:Option = new Option('Mechanics',
 			'If unchecked, mechanics will be disabled. pussy',
 			'mechanicsSystem',
+			'bool',
+			true);
+		addOption(option);
+
+		var option:Option = new Option('Complex Accuracy',
+			'If checked, the accuracy will be based on milliseconds.',
+			'advancedAccuracy',
 			'bool',
 			true);
 		addOption(option);

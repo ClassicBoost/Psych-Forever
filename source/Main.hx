@@ -43,7 +43,7 @@ class Main extends Sprite
 	public static var fpsVar:FPS;
 
 	public static var psychEngineVersion:String = '0.6.3'; //This is also used for Discord RPC
-	public static var psychForeverVersion:String = '0.1.4b';
+	public static var psychForeverVersion:String = '0.1.5';
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -127,7 +127,7 @@ class Main extends Sprite
 	#if CRASH_HANDLER
 	function onCrash(e:UncaughtErrorEvent):Void
 	{
-		var errMsg:String = "";
+		var errMsg:String = "\nAnd then Psych Forever crashed!\n";
 		var path:String;
 		var callStack:Array<StackItem> = CallStack.exceptionStack(true);
 		var dateNow:String = Date.now().toString();
@@ -148,7 +148,7 @@ class Main extends Sprite
 			}
 		}
 
-		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ShadowMario/FNF-PsychEngine\n\n> Crash Handler written by: sqirra-rng";
+		errMsg += "\nUncaught Error: " + e.error + "\nPlease report this error to the GitHub page: https://github.com/ClassicBoost/Psych-Forever-Definitive\n\n> Crash Handler written by: sqirra-rng";
 
 		if (!FileSystem.exists("./crash/"))
 			FileSystem.createDirectory("./crash/");
