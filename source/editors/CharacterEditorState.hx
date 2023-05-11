@@ -33,6 +33,7 @@ import Character;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
+import editors.*;
 
 #if MODS_ALLOWED
 import sys.FileSystem;
@@ -72,7 +73,7 @@ class CharacterEditorState extends MusicBeatState
 	private var camMenu:FlxCamera;
 
 	var changeBGbutton:FlxButton;
-	var leHealthIcon:HealthIcon;
+	var leHealthIcon:CharacterIcon;
 	var characterList:Array<String> = [];
 
 	var cameraFollowPointer:FlxSprite;
@@ -119,8 +120,8 @@ class CharacterEditorState extends MusicBeatState
 		add(healthBarBG);
 		healthBarBG.cameras = [camHUD];
 
-		leHealthIcon = new HealthIcon(char.healthIcon, false);
-		leHealthIcon.y = FlxG.height - 150;
+		leHealthIcon = new CharacterIcon(char.healthIcon, false);
+		leHealthIcon.y = FlxG.height - 200;
 		add(leHealthIcon);
 		leHealthIcon.cameras = [camHUD];
 

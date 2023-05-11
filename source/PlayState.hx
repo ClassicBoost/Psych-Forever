@@ -275,8 +275,6 @@ class PlayState extends MusicBeatState
 	var tankmanRun:FlxTypedGroup<TankmenBG>;
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
-	public var kadeInputSystem:Bool = false;
-
 	public var songScore:Int = 0;
 	public var songHits:Int = 0;
 	public var songMisses:Int = 0;
@@ -412,8 +410,6 @@ class PlayState extends MusicBeatState
 		practiceMode = ClientPrefs.getGameplaySetting('practice', false);
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay', false);
 		mechanicsShit = ClientPrefs.mechanicsSystem;
-
-		kadeInputSystem = ClientPrefs.inputsystemlmao == "Kade";
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
