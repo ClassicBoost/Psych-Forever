@@ -145,6 +145,12 @@ class PlayState extends MusicBeatState
 	public static var storyPlaylist:Array<String> = [];
 	public static var storyDifficulty:Int = 1;
 
+	//Camera Shit
+	private var bfCamMovementX:Int = 0;
+	private var bfCamMovementY:Int = 0;
+	private var dadCamMovementX:Int = 0;
+	private var dadCamMovementY:Int = 0;
+
 	public var spawnTime:Float = 2000;
 
 	public var vocals:FlxSound;
@@ -1221,10 +1227,12 @@ class PlayState extends MusicBeatState
 		var creditsText:Bool = credits != '';
 		// totally didnt took this from KE (sorry)
 		songWatermark = new FlxText(4, 0, 0, "PSYCH FOREVER ENGINE v" + Main.psychForeverVersion, 12);
-		songWatermark.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songWatermark.setFormat(Paths.font('vcr.ttf'), 24, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		songWatermark.x = FlxG.width - songWatermark.width - 5;
 		songWatermark.scrollFactor.set();
 		songWatermark.visible = !ClientPrefs.hideHud;
 		songWatermark.cameras = [camHUD];
+		songWatermark.setPosition(FlxG.width - (songWatermark.width + 5), 5);
 		add(songWatermark);
 		if (creditsText)
 		{
@@ -3100,6 +3108,11 @@ class PlayState extends MusicBeatState
 		setOnLuas('curDecStep', curDecStep);
 		setOnLuas('curDecBeat', curDecBeat);
 
+		if (generatedMusic && !endingSong && !isCameraOnForcedPos)
+			{
+				moveCameraSection();
+			}
+
 		if(botplayTxt.visible) {
 			botplaySine += 180 * elapsed;
 			botplayTxt.alpha = 1 - Math.sin((Math.PI * botplaySine) / 180);
@@ -3965,15 +3978,15 @@ class PlayState extends MusicBeatState
 		if(isDad)
 		{
 			camFollow.set(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
+			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0] + dadCamMovementX;
+			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1] + dadCamMovementY;
 			tweenCamIn();
 		}
 		else
 		{
 			camFollow.set(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
+			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0] + bfCamMovementX;
+			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1] + bfCamMovementY;
 		}
 	}
 
@@ -4670,6 +4683,7 @@ class PlayState extends MusicBeatState
 			var spr:StrumNote = playerStrums.members[key];
 			if(spr != null)
 			{
+				spr.resetAnimBF = 0;
 				spr.playAnim('static');
 				spr.resetAnim = 0;
 			}
@@ -4897,6 +4911,21 @@ class PlayState extends MusicBeatState
 		StrumPlayAnim(true, Std.int(Math.abs(note.noteData)), time);
 		note.hitByOpponent = true;
 
+		switch (note.noteData){
+			case 0:
+				dadCamMovementX = -10;
+				dadCamMovementY = 0;
+			case 1:
+				dadCamMovementX = 0;
+				dadCamMovementY = 10;
+			case 2:
+				dadCamMovementX = 0;
+				dadCamMovementY = -10;
+			case 3:
+				dadCamMovementX = 10;
+				dadCamMovementY = 0;
+		}
+
 		callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
 
 		if (health >= requiredHPig) health -= damagelevel;
@@ -4957,6 +4986,21 @@ class PlayState extends MusicBeatState
 			}
 			health += note.hitHealth * healthGain;
 
+			switch (note.noteData){
+				case 0:
+					bfCamMovementX = 10;
+					bfCamMovementY = 0;
+				case 1:
+					bfCamMovementX = 0;
+					bfCamMovementY = 10;
+				case 2:
+					bfCamMovementX = 0;
+					bfCamMovementY = -10;
+				case 3:
+					bfCamMovementX = -10;
+					bfCamMovementY = 0;
+			}
+
 			if(!note.noAnimation) {
 				var animToPlay:String = singAnimations[Std.int(Math.abs(note.noteData))];
 
@@ -4989,19 +5033,12 @@ class PlayState extends MusicBeatState
 				}
 			}
 
-			if(cpuControlled) {
-				var time:Float = 0.15;
-				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-					time += 0.15;
-				}
-				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
-			} else {
-				var spr = playerStrums.members[note.noteData];
-				if(spr != null)
-				{
-					spr.playAnim('confirm', true);
-				}
+			var time:Float = 0.2;
+			if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
+				time += 0.15;
 			}
+			StrumPlayAnim(false, Std.int(Math.abs(note.noteData)), time);
+
 			note.wasGoodHit = true;
 			vocals.volume = 1;
 
@@ -5401,11 +5438,6 @@ class PlayState extends MusicBeatState
 
 		if (SONG.notes[curSection] != null)
 		{
-			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
-			{
-				moveCameraSection();
-			}
-
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.camZooms)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
@@ -5469,7 +5501,11 @@ class PlayState extends MusicBeatState
 
 		if(spr != null) {
 			spr.playAnim('confirm', true);
+			if (isDad || cpuControlled)
 			spr.resetAnim = time;
+			else {
+			spr.resetAnimBF = time;
+			}
 		}
 	}
 

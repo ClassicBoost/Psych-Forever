@@ -293,6 +293,9 @@ class ClientPrefs {
 		if(FlxG.save.data.inputsystemlmao != null) {
 			inputsystemlmao = FlxG.save.data.inputsystemlmao;
 		}
+		if(FlxG.save.data.advancedAccuracy != null) {
+			advancedAccuracy = FlxG.save.data.advancedAccuracy;
+		}
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null)
 		{
