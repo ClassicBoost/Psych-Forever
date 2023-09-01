@@ -1,3 +1,4 @@
+This is no longer getting any updates. Check out [Forever Engine Plus](https://github.com/ClassicBoost/Forever-Engine-Plus) or use regular [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine)
 # Friday Night Funkin' - Psych Forever Engine: Definitive Edition
 Based on Psych Engine
 
