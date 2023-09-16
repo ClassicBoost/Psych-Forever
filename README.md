@@ -1,4 +1,10 @@
 This is currently in a pre-alpha state of the 0.7.1h port, there may be bugs
+
+**Current Issues**
+* Week 7 has missing graphics
+* Pixel Notes aren't programmed
+* Lacks features from the 0.6.3 build
+
 # Friday Night Funkin' - Psych Forever Engine
 Based on Psych Engine
 
