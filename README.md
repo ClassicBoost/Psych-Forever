@@ -1,5 +1,4 @@
-This is currently in a pre-alpha state of the 0.7.1h port, there may be bugs
-# Friday Night Funkin' - Psych Forever Engine
+# Friday Night Funkin' - Psych Forever Engine: Definitive Edition
 Based on Psych Engine
 
 Psych Forever is a long project started when Psych Engine blew up (or 0.4.2) and had gone through many changes as time went on. Now with a Definitive Edition of v5 containing new content.

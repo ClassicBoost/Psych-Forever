@@ -1,11 +1,36 @@
 {
 	"song": {
-		"speed": 2.6,
-		"stage": "tank",
-		"player1": "bf-holding-gf",
-		"player2": "tankman",
-		"player3": null,
 		"events": [
+			[
+				21573.0337078652,
+				[
+					[
+						"Opponent Damage",
+						"0.01",
+						"0.1"
+					]
+				]
+			],
+			[
+				32359.5505617978,
+				[
+					[
+						"Opponent Damage",
+						"0.02",
+						"0.1"
+					]
+				]
+			],
+			[
+				53932.5842696629,
+				[
+					[
+						"Opponent Damage",
+						"0.01",
+						"0.1"
+					]
+				]
+			],
 			[
 				62022.4719101124,
 				[
@@ -40,15 +65,27 @@
 						"0.9"
 					]
 				]
+			],
+			[
+				64722.6123595506,
+				[
+					[
+						"Opponent Damage",
+						"0.02",
+						"0.1"
+					]
+				]
+			],
+			[
+				86292.1348314608,
+				[
+					[
+						"Opponent Damage",
+						"0.015",
+						"0.1"
+					]
+				]
 			]
-		],
-		"notes": [],
-		"splashSkin": null,
-		"validScore": false,
-		"gfVersion": "pico-speaker",
-		"bpm": 178,
-		"arrowSkin": null,
-		"needsVoices": true,
-		"song": "Stress"
+		]
 	}
 }
