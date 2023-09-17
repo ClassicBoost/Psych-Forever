@@ -29,8 +29,8 @@ class VisualsUISubState extends BaseOptionsMenu
 		// options
 
 		var noteSkins:Array<String> = Mods.mergeAllTextsNamed('images/notes/strum.txt', 'shared');
-		if(noteSkins.length > 0)
-		{
+	//	if(noteSkins.length > 0)
+	//	{
 			if(!noteSkins.contains(ClientPrefs.data.noteSkin))
 				ClientPrefs.data.noteSkin = ClientPrefs.defaultData.noteSkin; //Reset to default if saved noteskin couldnt be found
 
@@ -43,11 +43,11 @@ class VisualsUISubState extends BaseOptionsMenu
 			addOption(option);
 			option.onChange = onChangeNoteSkin;
 			noteOptionID = optionsArray.length - 1;
-		}
+	//	}
 		
 		var noteSplashes:Array<String> = Mods.mergeAllTextsNamed('images/notes/splash.txt', 'shared');
-		if(noteSplashes.length > 0)
-		{
+	//	if(noteSplashes.length > 0)
+	//	{
 			if(!noteSplashes.contains(ClientPrefs.data.splashSkin))
 				ClientPrefs.data.splashSkin = ClientPrefs.defaultData.splashSkin; //Reset to default if saved splashskin couldnt be found
 
@@ -58,7 +58,7 @@ class VisualsUISubState extends BaseOptionsMenu
 				'string',
 				noteSplashes);
 			addOption(option);
-		}
+	//	}
 
 		var option:Option = new Option('Note Splash Opacity',
 			'How much transparent should the Note Splashes be.',

@@ -215,7 +215,7 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(titleJSON.titlex, titleJSON.titley);
+		logoBl = new FlxSprite(titleJSON.titlex, -500);
 		logoBl.frames = Paths.getSparrowAtlas('menus/title/logoBumpin');
 		logoBl.antialiasing = ClientPrefs.data.antialiasing;
 
@@ -688,6 +688,8 @@ class TitleState extends MusicBeatState
 			}
 			else //Default! Edit this one!!
 			{
+				FlxTween.tween(logoBl, {y: titleJSON.titley}, 1, {ease: FlxEase.cubeInOut});
+				
 				remove(ngSpr);
 				remove(credGroup);
 				FlxG.camera.flash(FlxColor.WHITE, 4);
