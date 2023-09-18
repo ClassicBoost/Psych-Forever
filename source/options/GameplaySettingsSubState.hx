@@ -31,6 +31,12 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'ghostTapping',
 			'bool');
 		addOption(option);
+
+		var option:Option = new Option('Late Damage',
+			"If checked, getting a shit will make you miss.",
+			'lateDamage',
+			'bool');
+		addOption(option);
 		
 		var option:Option = new Option('Auto Pause',
 			"If checked, the game automatically pauses if the screen isn't on focus.",

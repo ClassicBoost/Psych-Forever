@@ -31,19 +31,19 @@ class Rating
 		var ratingsData:Array<Rating> = [new Rating('sick')]; //highest rating goes first
 
 		var rating:Rating = new Rating('good');
-		rating.ratingMod = 0.67;
+		rating.ratingMod = 0.75;
 		rating.score = 200;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('bad');
-		rating.ratingMod = 0.34;
+		rating.ratingMod = 0.5;
 		rating.score = 100;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
 
 		var rating:Rating = new Rating('shit');
-		rating.ratingMod = 0;
+		rating.ratingMod = (ClientPrefs.data.lateDamage ? -1 : 0.25);
 		rating.score = 50;
 		rating.noteSplash = false;
 		ratingsData.push(rating);
