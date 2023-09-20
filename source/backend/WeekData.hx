@@ -123,7 +123,7 @@ class WeekData {
 
 		#if MODS_ALLOWED
 		for (i in 0...directories.length) {
-			var directory:String = directories[i] + 'weeks/';
+			var directory:String = directories[i] + 'menus/story/weeks/';
 			if(FileSystem.exists(directory)) {
 				var listOfWeeks:Array<String> = CoolUtil.coolTextFile(directory + 'weekList.txt');
 				for (daWeek in listOfWeeks)
