@@ -60,7 +60,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			addOption(option);
 		}
 
-		var option:Option = new Option('Note Splash Opacity',
+		var option:Option = new Option('Note Splash Opacity:',
 			'How much transparent should the Note Splashes be.',
 			'splashAlpha',
 			'percent');
@@ -102,7 +102,7 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Health Bar Opacity',
+		var option:Option = new Option('Health Bar Opacity:',
 			'How much transparent should the health bar and icons be.',
 			'healthBarAlpha',
 			'percent');

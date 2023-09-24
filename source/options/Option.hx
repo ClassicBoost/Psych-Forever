@@ -44,7 +44,7 @@ class Option
 					defaultValue = 0;
 				case 'percent':
 					defaultValue = 1;
-				case 'string':
+				case 'string','none':
 					defaultValue = '';
 					if(options.length > 0) {
 						defaultValue = options[0];
@@ -115,6 +115,7 @@ class Option
 			case 'integer': newValue = 'int';
 			case 'str': newValue = 'string';
 			case 'fl': newValue = 'float';
+			case 'none': newValue = 'none';
 		}
 		type = newValue;
 		return type;

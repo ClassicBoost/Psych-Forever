@@ -26,6 +26,7 @@ class SaveVariables {
 	public var hideHud:Bool = false;
 	public var lateDamage:Bool = true;
 	public var noteOffset:Int = 0;
+	public var nothing:String = ''; // don't mess with this, currently this is the placeholder for sub-category text
 	public var arrowRGB:Array<Array<FlxColor>> = [
 		[0xFFC24B99, 0xFFFFFFFF, 0xFF3C1F56],
 		[0xFF00FFFF, 0xFFFFFFFF, 0xFF1542B7],

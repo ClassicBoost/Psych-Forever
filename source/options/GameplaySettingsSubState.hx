@@ -51,7 +51,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Hitsound Volume',
+		var option:Option = new Option('Hitsound Volume:',
 			'Funny notes does \"Tick!\" when you hit them."',
 			'hitsoundVolume',
 			'percent');
@@ -63,7 +63,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.decimals = 1;
 		option.onChange = onChangeHitsoundVolume;
 
-		var option:Option = new Option('Rating Offset',
+		var option:Option = new Option('Rating Offset:',
 			'Changes how late/early you have to hit for a "Sick!"\nHigher values mean you have to hit later.',
 			'ratingOffset',
 			'int');
@@ -73,7 +73,13 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 30;
 		addOption(option);
 
-		var option:Option = new Option('Sick! Hit Window',
+		var option:Option = new Option('Window Timings',
+		'',
+		'nothing',
+		'none');
+		addOption(option);
+
+		var option:Option = new Option('Sick:',
 			'Changes the amount of time you have\nfor hitting a "Sick!" in milliseconds.\n(MIN: 15 | DEF: 55 | MAX: 90)',
 			'sickWindow',
 			'int');
@@ -83,7 +89,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 90;
 		addOption(option);
 
-		var option:Option = new Option('Good Hit Window',
+		var option:Option = new Option('Good:',
 			'Changes the amount of time you have\nfor hitting a "Good" in milliseconds.\n(MIN: 15 | DEF: 90 | MAX: 181)',
 			'goodWindow',
 			'int');
@@ -93,7 +99,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 181;
 		addOption(option);
 
-		var option:Option = new Option('Bad Hit Window',
+		var option:Option = new Option('Bad:',
 			'Changes the amount of time you have\nfor hitting a "Bad" in milliseconds.\n(MIN: 15 | DEF: 120 | MAX: 271)',
 			'badWindow',
 			'int');
@@ -103,7 +109,7 @@ class GameplaySettingsSubState extends BaseOptionsMenu
 		option.maxValue = 271;
 		addOption(option);
 
-		var option:Option = new Option('Safe Frames',
+		var option:Option = new Option('Safe Frames:',
 			'Changes how many frames you have for\nhitting a note earlier or late.\n(MIN: 1 | DEF: 10 | MAX: 20)',
 			'safeFrames',
 			'float');

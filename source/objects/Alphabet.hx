@@ -345,7 +345,7 @@ class AlphaCharacter extends FlxSprite
 	public function new()
 	{
 		super(x, y);
-		image = 'alphabet';
+		image = 'text/alphabet';
 		antialiasing = ClientPrefs.data.antialiasing;
 	}
 	

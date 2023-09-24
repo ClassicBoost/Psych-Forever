@@ -64,7 +64,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 
 		for (i in 0...optionsArray.length)
 		{
-			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, false);
+			var optionText:Alphabet = new Alphabet(290, 260, optionsArray[i].name, (/*optionsArray[i].type == 'none' ? true :*/false));
 			optionText.isMenuItem = true;
 			/*optionText.forceX = 300;
 			optionText.yMult = 90;*/
@@ -76,7 +76,7 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				checkbox.sprTracker = optionText;
 				checkbox.ID = i;
 				checkboxGroup.add(checkbox);
-			} else {
+			} else if (optionsArray[i].type != 'none') {
 				optionText.x -= 80;
 				optionText.startPosition.x -= 80;
 				//optionText.xAdd -= 80;
@@ -86,6 +86,8 @@ class BaseOptionsMenu extends MusicBeatSubstate
 				valueText.ID = i;
 				grpTexts.add(valueText);
 				optionsArray[i].child = valueText;
+			} else {
+				// do nothing
 			}
 			//optionText.snapToPosition(); //Don't ignore me when i ask for not making a fucking pull request to uncomment this line ok
 			updateTextFrom(optionsArray[i]);
@@ -108,10 +110,12 @@ class BaseOptionsMenu extends MusicBeatSubstate
 		if (controls.UI_UP_P)
 		{
 			changeSelection(-1);
+			if (curOption.type == 'none') changeSelection(-1);
 		}
 		if (controls.UI_DOWN_P)
 		{
 			changeSelection(1);
+			if (curOption.type == 'none') changeSelection(1);
 		}
 
 		if (controls.BACK) {

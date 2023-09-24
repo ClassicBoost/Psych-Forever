@@ -222,7 +222,7 @@ class ControlsSubState extends MusicBeatSubstate
 			switch(alpha.text)
 			{
 				case '[', ']': //Square and Triangle respectively
-					letter.image = 'alphabet_playstation';
+					letter.image = 'text/alphabet_playstation';
 					letter.updateHitbox();
 					
 					letter.offset.x += 4;
