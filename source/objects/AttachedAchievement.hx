@@ -19,9 +19,9 @@ class AttachedAchievement extends FlxSprite {
 
 	public function reloadAchievementImage() {
 		if(Achievements.isAchievementUnlocked(tag)) {
-			loadGraphic(Paths.image('achievements/' + tag));
+			loadGraphic(Paths.image('menus/achievements/' + tag));
 		} else {
-			loadGraphic(Paths.image('achievements/lockedachievement'));
+			loadGraphic(Paths.image('menus/achievements/lockedachievement'));
 		}
 		scale.set(0.7, 0.7);
 		updateHitbox();

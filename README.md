@@ -1,3 +1,5 @@
+Due to technical issues HScript is temporary disabled
+
 This is currently in a pre-alpha state of the 0.7.1h port, there may be bugs
 
 **Current Issues**
