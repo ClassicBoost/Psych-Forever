@@ -219,6 +219,9 @@ class PlayState extends MusicBeatState
 	var timeTxt:FlxText;
 	var scoreTxtTween:FlxTween;
 
+	private var daTiming:String = '-early';
+	private var allSicks:Bool = true;
+
 	public static var campaignScore:Int = 0;
 	public static var campaignMisses:Int = 0;
 	public static var seenCutscene:Bool = false;
@@ -301,6 +304,8 @@ class PlayState extends MusicBeatState
 		instakillOnMiss = ClientPrefs.getGameplaySetting('instakill');
 		practiceMode = ClientPrefs.getGameplaySetting('practice');
 		cpuControlled = ClientPrefs.getGameplaySetting('botplay');
+
+		allSicks = true;
 
 		// var gameCam:FlxCamera = FlxG.camera;
 		camGame = new FlxCamera();
@@ -2413,8 +2418,15 @@ class PlayState extends MusicBeatState
 		note.rating = daRating.name;
 		score = daRating.score;
 
-		if(daRating.noteSplash && !note.noteSplashData.disabled)
-			spawnNoteSplashOnNote(note);
+		if(daRating.noteSplash) {
+			if (!note.noteSplashData.disabled) spawnNoteSplashOnNote(note);
+		}
+		else allSicks = false;
+
+		if (note.strumTime < Conductor.songPosition)
+			daTiming = "-late";
+		else
+			daTiming = "-early";
 
 		if(!cpuControlled) {
 			songScore += score;
@@ -2467,7 +2479,7 @@ class PlayState extends MusicBeatState
 			antialias = !isPixelStage;
 		}
 
-		rating.loadGraphic(Paths.image('UI/' + uiPrefix + daRatingLol + uiSuffix));
+		rating.loadGraphic(Paths.image('UI/' + uiPrefix + 'ratings/' + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRatingLol : "") + daTiming + uiSuffix));
 		rating.cameras = [camHUD];
 		rating.screenCenter();
 		rating.x = placement - 40;
@@ -2530,7 +2542,7 @@ class PlayState extends MusicBeatState
 		}
 		for (i in seperatedScore)
 		{
-			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('UI/' + uiPrefix + 'combo/num' + Std.int(i) + uiSuffix));
+			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('UI/' + uiPrefix + 'combo/${(allSicks == true ? 'golden/' : allSicks == false ? '' : "")}num' + Std.int(i) + uiSuffix));
 			numScore.cameras = [camHUD];
 			numScore.screenCenter();
 			numScore.x = placement + (43 * daLoop) - 90 + ClientPrefs.data.comboOffset[2];
