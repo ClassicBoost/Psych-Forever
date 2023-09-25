@@ -942,9 +942,9 @@ class PlayState extends MusicBeatState
 	{
 		var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 		var introImagesArray:Array<String> = switch(stageUI) {
-			case "pixel": ['${stageUI}UI/ready-pixel', '${stageUI}UI/set-pixel', '${stageUI}UI/date-pixel'];
+			case "pixel": ['pixel/ready', 'pixel/set', 'pixel/go'];
 			case "normal": ["ready", "set" ,"go"];
-			default: ['${stageUI}UI/ready', '${stageUI}UI/set', '${stageUI}UI/go'];
+			default: ['${stageUI}/ready', '${stageUI}/set', '${stageUI}/go'];
 		}
 		introAssets.set(stageUI, introImagesArray);
 		var introAlts:Array<String> = introAssets.get(stageUI);
@@ -1010,7 +1010,7 @@ class PlayState extends MusicBeatState
 
 				var introAssets:Map<String, Array<String>> = new Map<String, Array<String>>();
 				var introImagesArray:Array<String> = switch(stageUI) {
-					case "pixel": ['${stageUI}/ready-pixel', '${stageUI}/set-pixel', '${stageUI}/date-pixel'];
+					case "pixel": ['pixel/ready', 'pixel/set', 'pixel/go'];
 					case "normal": ["base/ready", "base/set" ,"base/go"];
 					default: ['${stageUI}/ready', '${stageUI}/set', '${stageUI}/go'];
 				}
@@ -2478,7 +2478,7 @@ class PlayState extends MusicBeatState
 		rating.visible = (!ClientPrefs.data.hideHud && showRating);
 		rating.x += ClientPrefs.data.comboOffset[0];
 		rating.y -= ClientPrefs.data.comboOffset[1];
-		rating.antialiasing = ClientPrefs.data.antialiasing;
+		rating.antialiasing = (isPixelStage ? false : ClientPrefs.data.antialiasing);
 
 		if (!ClientPrefs.data.comboStacking)
 		{

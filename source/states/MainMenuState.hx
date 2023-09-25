@@ -26,11 +26,11 @@ class MainMenuState extends MusicBeatState
 	var optionShit:Array<String> = [
 		'story_mode',
 		'freeplay',
+		'options',
+		'credits',
 		#if MODS_ALLOWED 'mods', #end
 		#if ACHIEVEMENTS_ALLOWED 'awards', #end
-		'credits',
-		#if !switch 'donate', #end
-		'options'
+		'donate'
 	];
 
 	var magenta:FlxSprite;
@@ -51,6 +51,7 @@ class MainMenuState extends MusicBeatState
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
 		camAchievement.bgColor.alpha = 0;
+		PlayState.stageUI = "normal";
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camAchievement, false);

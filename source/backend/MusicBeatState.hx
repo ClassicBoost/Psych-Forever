@@ -14,6 +14,7 @@ class MusicBeatState extends FlxUIState
 
 	private var curDecStep:Float = 0;
 	private var curDecBeat:Float = 0;
+	public static var mainClassState:String;
 	public var controls(get, never):Controls;
 	private function get_controls()
 	{
@@ -124,6 +125,8 @@ class MusicBeatState extends FlxUIState
 			resetState();
 			return;
 		}
+
+		mainClassState = nextState.toString();
 
 		if(FlxTransitionableState.skipNextTransIn) FlxG.switchState(nextState);
 		else startTransition(nextState);

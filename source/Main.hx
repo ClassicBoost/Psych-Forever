@@ -36,7 +36,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPS;
-	public static var foreverVersion:String = '0.2.0.2';
+	public static var foreverVersion:String = '0.2.1';
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
@@ -93,9 +93,6 @@ class Main extends Sprite
 		addChild(fpsVar);
 		Lib.current.stage.align = "tl";
 		Lib.current.stage.scaleMode = StageScaleMode.NO_SCALE;
-		if(fpsVar != null) {
-			fpsVar.visible = ClientPrefs.data.showFPS;
-		}
 		#end
 
 		#if html5

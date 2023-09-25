@@ -75,7 +75,7 @@ class Note extends FlxSprite
 	public static var SUSTAIN_SIZE:Int = 44;
 	public static var swagWidth:Float = 160 * 0.7;
 	public static var colArray:Array<String> = ['purple', 'blue', 'green', 'red'];
-	public static var defaultNoteSkin(default, never):String = 'notes/strums/NOTE_assets';
+	public static var defaultNoteSkin(default, never):String = 'notes/strums/${PlayState.stageUI == 'normal' ? 'base' : PlayState.stageUI}/NOTE_assets';
 
 	public var noteSplashData:NoteSplashData = {
 		disabled: false,
@@ -329,12 +329,13 @@ class Note extends FlxSprite
 		var skinPostfix:String = getNoteSkinPostfix();
 		var customSkin:String = skin + skinPostfix;
 		var path:String = PlayState.isPixelStage ? 'notes/strums/pixel/' : 'notes/strums/';
-		if(customSkin == _lastValidChecked || Paths.fileExists('images/' + path + customSkin + '.png', IMAGE))
+		skin = customSkin;
+	/*	if(customSkin == _lastValidChecked || Paths.fileExists('images/' + path + customSkin + '.png', IMAGE))
 		{
 			skin = customSkin;
 			_lastValidChecked = customSkin;
 		}
-		else skinPostfix = '';
+		else skinPostfix = '';*/
 
 		if(PlayState.isPixelStage) {
 			if(isSustainNote) {

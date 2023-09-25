@@ -12,6 +12,9 @@ class SaveVariables {
 	public var middleScroll:Bool = false;
 	public var opponentStrums:Bool = true;
 	public var showFPS:Bool = true;
+	public var showMemory:Bool = true;
+	public var showDebug:Bool = false;
+	public var showVersion:Bool = true;
 	public var flashing:Bool = true;
 	public var autoPause:Bool = false;
 	public var antialiasing:Bool = true;
