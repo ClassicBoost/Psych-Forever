@@ -154,6 +154,12 @@ class PlayState extends MusicBeatState
 	public var gf:Character = null;
 	public var boyfriend:Character = null;
 
+	//Camera Shit
+	private var bfCamMovementX:Int = 0;
+	private var bfCamMovementY:Int = 0;
+	private var dadCamMovementX:Int = 0;
+	private var dadCamMovementY:Int = 0;
+
 	public var notes:FlxTypedGroup<Note>;
 	public var unspawnNotes:Array<Note> = [];
 	public var eventNotes:Array<EventNote> = [];
@@ -1625,6 +1631,9 @@ class PlayState extends MusicBeatState
 
 		timeTxt.screenCenter(X);
 
+		if (generatedMusic && !endingSong && !isCameraOnForcedPos)
+			moveCameraSection();
+
 		if (controls.justPressed('debug_1') && !endingSong && !inCutscene)
 			openChartEditor();
 
@@ -1640,8 +1649,8 @@ class PlayState extends MusicBeatState
 		if (health > 2) health = 2;
 		iconP1.x = healthBar.barCenter + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
 		iconP2.x = healthBar.barCenter - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
-		iconP1.animation.curAnim.curFrame = (healthBar.percent < 20) ? 1 : 0;
-		iconP2.animation.curAnim.curFrame = (healthBar.percent > 80) ? 1 : 0;
+		iconP1.animation.curAnim.curFrame = ((healthBar.percent < 20) ? 1 : (healthBar.percent > 80) ? 2 : 0);
+		iconP2.animation.curAnim.curFrame = ((healthBar.percent > 80) ? 1 : (healthBar.percent < 20) ? 2 : 0);
 
 		updateScore(true);
 		RecalculateRating();
@@ -2160,7 +2169,6 @@ class PlayState extends MusicBeatState
 			camFollow.setPosition(gf.getMidpoint().x, gf.getMidpoint().y);
 			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
 			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
-			tweenCamIn();
 			callOnScripts('onMoveCamera', ['gf']);
 			return;
 		}
@@ -2173,38 +2181,14 @@ class PlayState extends MusicBeatState
 	var cameraTwn:FlxTween;
 	public function moveCamera(isDad:Bool)
 	{
-		if(isDad)
-		{
-			camFollow.setPosition(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
-			camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0];
-			camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1];
-			tweenCamIn();
-		}
-		else
-		{
-			camFollow.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
-			camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0];
-			camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1];
-
-			if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1)
-			{
-				cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-					function (twn:FlxTween)
-					{
-						cameraTwn = null;
-					}
-				});
-			}
-		}
-	}
-
-	public function tweenCamIn() {
-		if (Paths.formatToSongPath(SONG.song) == 'tutorial' && cameraTwn == null && FlxG.camera.zoom != 1.3) {
-			cameraTwn = FlxTween.tween(FlxG.camera, {zoom: 1.3}, (Conductor.stepCrochet * 4 / 1000), {ease: FlxEase.elasticInOut, onComplete:
-				function (twn:FlxTween) {
-					cameraTwn = null;
-				}
-			});
+		if(isDad){
+		camFollow.setPosition(dad.getMidpoint().x + 150, dad.getMidpoint().y - 100);
+		camFollow.x += dad.cameraPosition[0] + opponentCameraOffset[0] + dadCamMovementX;
+		camFollow.y += dad.cameraPosition[1] + opponentCameraOffset[1] + dadCamMovementY;
+		}else{
+		camFollow.setPosition(boyfriend.getMidpoint().x - 100, boyfriend.getMidpoint().y - 100);
+		camFollow.x -= boyfriend.cameraPosition[0] - boyfriendCameraOffset[0] + bfCamMovementX;
+		camFollow.y += boyfriend.cameraPosition[1] + boyfriendCameraOffset[1] + bfCamMovementY;
 		}
 	}
 
@@ -2442,14 +2426,14 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if(ClientPrefs.data.scoreZoom && !cpuControlled)
+		if(ClientPrefs.data.scoreZoom != 0 && !cpuControlled)
 		{
 			if(scoreTxtTween != null) {
 				scoreTxtTween.cancel();
 			}
 			scoreTxt.scale.x = 1.075;
 			scoreTxt.scale.y = 1.075;
-			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2, {
+			scoreTxtTween = FlxTween.tween(scoreTxt.scale, {x: 1, y: 1}, 0.2 * ClientPrefs.data.scoreZoom, {
 				onComplete: function(twn:FlxTween) {
 					scoreTxtTween = null;
 				}
@@ -2458,7 +2442,7 @@ class PlayState extends MusicBeatState
 
 		if (daRating.name == 'shit' && ClientPrefs.data.lateDamage) ifMiss = 'miss';
 
-		healthCall((daRating.ratingMod / 15) * healthGain);
+		healthCall((daRating.ratingMod / 20) * healthGain);
 		displayRating(daRating.name, false);
 
 	}
@@ -2866,6 +2850,9 @@ class PlayState extends MusicBeatState
 			var animToPlay:String = singAnimations[Std.int(Math.abs(Math.min(singAnimations.length-1, note.noteData)))] + altAnim;
 			if(note.gfNote) {
 				char = gf;
+				swapCharacterIcon(false, gf.healthIcon);
+			} else {
+				swapCharacterIcon(false, dad.healthIcon);
 			}
 
 			if(char != null)
@@ -2883,6 +2870,21 @@ class PlayState extends MusicBeatState
 
 		var result:Dynamic = callOnLuas('opponentNoteHit', [notes.members.indexOf(note), Math.abs(note.noteData), note.noteType, note.isSustainNote]);
 		if(result != FunkinLua.Function_Stop && result != FunkinLua.Function_StopHScript && result != FunkinLua.Function_StopAll) callOnHScript('opponentNoteHit', [note]);
+
+		switch (note.noteData){
+			case 0:
+				dadCamMovementX = -10;
+				dadCamMovementY = 0;
+			case 1:
+				dadCamMovementX = 0;
+				dadCamMovementY = 10;
+			case 2:
+				dadCamMovementX = 0;
+				dadCamMovementY = -10;
+			case 3:
+				dadCamMovementX = 10;
+				dadCamMovementY = 0;
+		}
 
 		if (!note.isSustainNote)
 		{
@@ -2954,9 +2956,11 @@ class PlayState extends MusicBeatState
 				var animCheck:String = 'hey';
 				if(note.gfNote)
 				{
+					swapCharacterIcon(true, gf.healthIcon);
 					char = gf;
 					animCheck = 'cheer';
-				}
+				} else
+					swapCharacterIcon(true, boyfriend.healthIcon);
 				
 				if(char != null)
 				{
@@ -2981,6 +2985,21 @@ class PlayState extends MusicBeatState
 			else strumPlayAnim(false, Std.int(Math.abs(note.noteData)), Conductor.stepCrochet * 1.25 / 1000 / playbackRate);
 			vocals.volume = 1;
 
+			switch (note.noteData){
+				case 0:
+					bfCamMovementX = 10;
+					bfCamMovementY = 0;
+				case 1:
+					bfCamMovementX = 0;
+					bfCamMovementY = 10;
+				case 2:
+					bfCamMovementX = 0;
+					bfCamMovementY = -10;
+				case 3:
+					bfCamMovementX = -10;
+					bfCamMovementY = 0;
+			}
+
 			var isSus:Bool = note.isSustainNote; //GET OUT OF MY HEAD, GET OUT OF MY HEAD, GET OUT OF MY HEAD
 			var leData:Int = Math.round(Math.abs(note.noteData));
 			var leType:String = note.noteType;
@@ -2996,6 +3015,21 @@ class PlayState extends MusicBeatState
 			} else {
 				healthCall(0.005 * healthGain);
 			}
+		}
+	}
+
+	var currentBFIcon:String = null;
+	var currentDadIcon:String = null;
+
+	public function swapCharacterIcon(player:Bool, swapTo:String) {
+		if (player) iconP1.changeIcon(swapTo);
+		else iconP2.changeIcon(swapTo);
+
+		if (swapTo != currentBFIcon || swapTo != currentDadIcon) {
+		reloadHealthBarColors(); // will this cause lag without the if statement?
+
+		if (player)	currentBFIcon = swapTo;
+		else currentBFIcon = swapTo;
 		}
 	}
 
@@ -3124,9 +3158,6 @@ class PlayState extends MusicBeatState
 	{
 		if (SONG.notes[curSection] != null)
 		{
-			if (generatedMusic && !endingSong && !isCameraOnForcedPos)
-				moveCameraSection();
-
 			if (camZooming && FlxG.camera.zoom < 1.35 && ClientPrefs.data.camZooms)
 			{
 				FlxG.camera.zoom += 0.015 * camZoomingMult;
@@ -3442,16 +3473,18 @@ class PlayState extends MusicBeatState
 				var unlock:Bool = false;
 				if (achievementName == WeekData.getWeekFileName() + '_nomiss') // any FC achievements, name should be "weekFileName_nomiss", e.g: "week3_nomiss";
 				{
-					if(isStoryMode && campaignMisses + songMisses < 1 && Difficulty.getString().toUpperCase() == 'HARD'
-						&& storyPlaylist.length <= 1 && !changedDifficulty)
+					if(isStoryMode && campaignMisses + songMisses < 1 && storyPlaylist.length <= 1)
 						unlock = true;
+
+					// Just so it's any difficulty
+					// If you want it hard or any specific difficulty add '&& Difficulty.getString().toUpperCase() == 'HARD' && !changedDifficulty' to the if statement
 				}
 				else
 				{
 					switch(achievementName)
 					{
-						case 'ur_bad':
-							unlock = (ratingPercent < 0.2);
+						case 'ur_bad': // Increased due to health modifications
+							unlock = (ratingPercent < 0.5);
 
 						case 'ur_good':
 							unlock = (ratingPercent >= 1);
@@ -3473,6 +3506,9 @@ class PlayState extends MusicBeatState
 
 						case 'debugger':
 							unlock = (Paths.formatToSongPath(SONG.song) == 'test');
+
+						case 'masher':
+							unlock = (songMisses == 0 && ratingPercent < 0.5);
 					}
 				}
 

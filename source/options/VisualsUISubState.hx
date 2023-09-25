@@ -96,10 +96,14 @@ class VisualsUISubState extends BaseOptionsMenu
 			'bool');
 		addOption(option);
 
-		var option:Option = new Option('Score Text Zoom on Hit',
-			"If unchecked, disables the Score text zooming\neverytime you hit a note.",
+		var option:Option = new Option('Score Text Zoom Speed:',
+			"If change how fast the score bops high the number the slower the speed, set to 0 to disable.",
 			'scoreZoom',
-			'bool');
+			'float');
+		option.minValue = 0.0;
+		option.maxValue = 5;
+		option.changeValue = 0.1;
+		option.displayFormat = '%vx';
 		addOption(option);
 
 		var option:Option = new Option('Health Bar Opacity:',

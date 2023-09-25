@@ -44,6 +44,11 @@ class CreditsState extends MusicBeatState
 		#end
 
 		var defaultList:Array<Array<String>> = [ //Name - Icon name - Description - Link - BG Color
+			['Psych Forever Engine'],
+			['Classic1926',		'raylo',		'Creator of this engine',								'https://www.youtube.com/channel/UCKcqlPIGcsoiGl9qsasAJhw',	'FF6366'],
+			['Discord Server',		'discord',		'Join Finn\'s Underground Bunker',								'https://discord.gg/hyqB3uS72V',	'5165F6'],
+			['Yoshubs',				'shubs',			'Creator of Forever Engine.\n(What this engine is based on)',						'https://twitter.com/yoshubs',			'5E99DF'],
+			[''],
 			['Psych Engine Team'],
 			['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',								'https://twitter.com/Shadow_Mario_',	'444444'],
 			['Riveren',				'riveren',			'Main Artist/Animator of Psych Engine',							'https://twitter.com/riverennn',		'B42F71'],

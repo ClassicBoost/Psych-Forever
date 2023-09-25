@@ -40,12 +40,12 @@ class SaveVariables {
 
 	public var ghostTapping:Bool = false;
 	public var timeBarType:String = 'Song Name';
-	public var scoreZoom:Bool = true;
+	public var scoreZoom:Float = 1;
 	public var noReset:Bool = false;
 	public var healthBarAlpha:Float = 1;
 	public var hitsoundVolume:Float = 0;
 	public var pauseMusic:String = 'Tea Time';
-	public var checkForUpdates:Bool = false;
+	public var checkForUpdates:Bool = true;
 	public var comboStacking:Bool = true;
 	public var gameplaySettings:Map<String, Dynamic> = [
 		'scrollspeed' => 1.0,

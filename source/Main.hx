@@ -36,7 +36,7 @@ class Main extends Sprite
 	};
 
 	public static var fpsVar:FPS;
-	public static var foreverVersion:String = '0.2.0.1';
+	public static var foreverVersion:String = '0.2.0.2';
 
 	// You can pretty much ignore everything from here on - your code should go in your states.
 
