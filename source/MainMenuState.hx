@@ -138,7 +138,7 @@ class MainMenuState extends MusicBeatState
 	var achievementID:Int = 0;
 	function giveAchievement() {
 		add(new AchievementObject(achievementID, camAchievement));
-		FlxG.sound.play(Paths.sound('confirmMenu'), 0.7);
+		FlxG.sound.play(Paths.sound('unlocked'), 0.7);
 		trace('Giving achievement ' + achievementID);
 	}
 	#end

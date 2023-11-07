@@ -3322,7 +3322,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		missedNote(!daNote.isSustainNote);
+		missedNote(daNote.isSustainNote);
 
 		var animToPlay:String = '';
 		switch (Math.abs(daNote.noteData) % 4)
@@ -3920,18 +3920,18 @@ class PlayState extends MusicBeatState
 			if(!Achievements.achievementsUnlocked[arrayIDs[i]][1]) {
 				switch(arrayIDs[i]) {
 					case 1 | 2 | 3 | 4 | 5 | 6 | 7:
-						if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD' &&
-						storyPlaylist.length <= 1 && WeekData.getWeekFileName() == ('week' + arrayIDs[i]) && !changedDifficulty && !usedPractice) {
+						if(isStoryMode && campaignMisses + songMisses < 1 &&
+						storyPlaylist.length <= 1 && WeekData.getWeekFileName() == ('week' + arrayIDs[i]) && !changedDifficulty) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
 					case 8:
-						if(ratingPercent < 0.2 && !practiceMode && !cpuControlled) {
+						if(ratingPercent < 0.2 && !cpuControlled) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
 					case 9:
-						if(ratingPercent >= 1 && !usedPractice && !cpuControlled) {
+						if(ratingPercent >= 1 && !cpuControlled) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
@@ -3941,26 +3941,24 @@ class PlayState extends MusicBeatState
 							return arrayIDs[i];
 						}
 					case 11:
-						if(boyfriend.holdTimer >= 20 && !usedPractice) {
+						if(boyfriend.holdTimer >= 20) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
 					case 12:
-						if(!boyfriendIdled && !usedPractice) {
+						if(!boyfriendIdled) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
 					case 13:
-						if(!usedPractice) {
-							var howManyPresses:Int = 0;
-							for (j in 0...keysPressed.length) {
-								if(keysPressed[j]) howManyPresses++;
-							}
+						var howManyPresses:Int = 0;
+						for (j in 0...keysPressed.length) {
+							if(keysPressed[j]) howManyPresses++;
+						}
 
-							if(howManyPresses <= 2) {
-								Achievements.unlockAchievement(arrayIDs[i]);
-								return arrayIDs[i];
-							}
+						if(howManyPresses <= 2) {
+							Achievements.unlockAchievement(arrayIDs[i]);
+							return arrayIDs[i];
 						}
 					case 14:
 						if(/*ClientPrefs.framerate <= 60 &&*/ ClientPrefs.lowQuality && !ClientPrefs.globalAntialiasing && !ClientPrefs.imagesPersist) {
@@ -3968,7 +3966,7 @@ class PlayState extends MusicBeatState
 							return arrayIDs[i];
 						}
 					case 15:
-						if(Paths.formatToSongPath(SONG.song) == 'test' && !usedPractice) {
+						if(Paths.formatToSongPath(SONG.song) == 'test') {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
