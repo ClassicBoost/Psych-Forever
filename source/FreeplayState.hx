@@ -45,6 +45,8 @@ class FreeplayState extends MusicBeatState
 	var intendedColor:Int;
 	var colorTween:FlxTween;
 
+	var barText:FlxText;
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -133,8 +135,6 @@ class FreeplayState extends MusicBeatState
 		if(curSelected >= songs.length) curSelected = 0;
 		bg.color = songs[curSelected].color;
 		intendedColor = bg.color;
-		changeSelection();
-		changeDiff();
 
 		var swag:Alphabet = new Alphabet(1, 0, "swag");
 
@@ -158,15 +158,14 @@ class FreeplayState extends MusicBeatState
 		var textBG:FlxSprite = new FlxSprite(0, FlxG.height - 26).makeGraphic(FlxG.width, 26, 0xFF000000);
 		textBG.alpha = 0.6;
 		add(textBG);
-		#if PRELOAD_ALL
-		var leText:String = "Press SPACE to listen to this Song / Press RESET to Reset your Score and Accuracy.";
-		#else
-		var leText:String = "Press RESET to Reset your Score and Accuracy.";
-		#end
-		var text:FlxText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, leText, 18);
-		text.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, RIGHT);
-		text.scrollFactor.set();
-		add(text);
+
+		barText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "", 18);
+		barText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER);
+		barText.scrollFactor.set();
+		add(barText);
+
+		changeSelection();
+		changeDiff();
 		super.create();
 	}
 
@@ -204,6 +203,8 @@ class FreeplayState extends MusicBeatState
 		{
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
+
+		barText.screenCenter(X);
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
 		lerpRating = FlxMath.lerp(lerpRating, intendedRating, CoolUtil.boundTo(elapsed * 12, 0, 1));
@@ -271,31 +272,28 @@ class FreeplayState extends MusicBeatState
 		{
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-			#if MODS_ALLOWED
-			if(!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
-			#else
-			if(!OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) {
-			#end
+			if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
 				curDifficulty = 1;
 				trace('Couldnt find file');
+				barText.text = 'Song Missing! (note: use songs instead of data)';
+			} else {
+				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
+				PlayState.isStoryMode = false;
+				PlayState.storyDifficulty = curDifficulty;
+
+				PlayState.storyWeek = songs[curSelected].week;
+				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+				if(colorTween != null) {
+					colorTween.cancel();
+				}
+				LoadingState.loadAndSwitchState(new PlayState());
+	
+				FlxG.sound.music.volume = 0;
+						
+				destroyFreeplayVocals();
 			}
 			trace(poop);
-
-			PlayState.SONG = Song.loadFromJson(poop, songLowercase);
-			PlayState.isStoryMode = false;
-			PlayState.storyDifficulty = curDifficulty;
-
-			PlayState.storyWeek = songs[curSelected].week;
-			trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-			if(colorTween != null) {
-				colorTween.cancel();
-			}
-			LoadingState.loadAndSwitchState(new PlayState());
-
-			FlxG.sound.music.volume = 0;
-					
-			destroyFreeplayVocals();
 		}
 		else if(controls.RESET)
 		{
@@ -337,6 +335,12 @@ class FreeplayState extends MusicBeatState
 		FlxG.sound.play(Paths.sound('scrollMenu'), 0.4);
 
 		curSelected += change;
+
+		#if PRELOAD_ALL
+		barText.text = "Press SPACE to listen to this Song / Press RESET to Reset your Score and Accuracy.";
+		#else
+		barText.text = "Press RESET to Reset your Score and Accuracy.";
+		#end
 
 		if (curSelected < 0)
 			curSelected = songs.length - 1;
