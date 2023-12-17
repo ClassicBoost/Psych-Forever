@@ -24,6 +24,9 @@ class Note extends FlxSprite
 	public var noteWasHit:Bool = false;
 	public var prevNote:Note;
 
+	// Basically, should this note give you score if you hit or miss them?
+	public var giveScore:Bool = true;
+
 	public var sustainLength:Float = 0;
 	public var isSustainNote:Bool = false;
 	public var noteType(default, set):String = null;
@@ -96,6 +99,7 @@ class Note extends FlxSprite
 						missHealth = 0.3;
 					}
 					hitCausesMiss = true;
+					giveScore = false;
 				case 'No Animation':
 					noAnimation = true;
 			}

@@ -120,6 +120,7 @@ class FPS extends TextField
 	//	if (ClientPrefs.data.showDebug) text += MusicBeatState.mainClassState + '\n';
 	//	if (ClientPrefs.data.showVersion) text += 'Psych Forever ${Main.foreverVersion}\n';
 
+		if (ClientPrefs.showFPS) text += 'Psych Forever v${Main.foreverVersion}\n';
 		text += "\n";
 
 	}

@@ -691,6 +691,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Anti-Mash',
 		'Note Delay',
 		'Note Splashes',
+		'Opponent Note Splashes',
 		'Hide HUD',
 		'Hide Song Length',
 		'Flashing Lights',
@@ -852,6 +853,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Note Splashes':
 						ClientPrefs.noteSplashes = !ClientPrefs.noteSplashes;
 
+					case 'Opponent Note Splashes':
+						ClientPrefs.opponentSplashes = !ClientPrefs.opponentSplashes;
+
 					case 'Flashing Lights':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
@@ -972,6 +976,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, you won't get disgusted as frequently.";
 			case 'Note Splashes':
 				daText = "If unchecked, hitting \"Sick!\" notes won't show particles.";
+			case 'Opponent Note Splashes':
+				daText = "If unchecked, the opponent won't have note splashes.";
 			case 'Flashing Lights':
 				daText = "Uncheck this if you're sensitive to flashing lights!";
 			case 'Camera Zooms':
@@ -1032,6 +1038,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.globalAntialiasing;
 					case 'Note Splashes':
 						daValue = ClientPrefs.noteSplashes;
+					case 'Opponent Note Splashes':
+						daValue = ClientPrefs.opponentSplashes;
 					case 'Flashing Lights':
 						daValue = ClientPrefs.flashing;
 					case 'Downscroll':

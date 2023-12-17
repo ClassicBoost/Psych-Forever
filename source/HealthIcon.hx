@@ -17,7 +17,7 @@ class HealthIcon extends FlxSprite
 		super();
 		isOldIcon = (char == 'bf-old');
 		this.isPlayer = isPlayer;
-		changeIcon(char);
+		changeIcon(char, isPlayer);
 		scrollFactor.set();
 	}
 
@@ -34,9 +34,15 @@ class HealthIcon extends FlxSprite
 		else changeIcon('bf');
 	}
 
-	public function changeIcon(char:String) {
+	public function changeIcon(char:String, isPlayer:Bool = false) {
 		if(this.char != char) {
 			var name:String = 'icons/' + char;
+			if (isPlayer) {
+			// Seems unneccessary but ehh, why not.
+			// basically a player version of the opponent or gf, usually if their winning and losing is flipped.
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/' + char + '-player';
+			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char + '-player';
+			}
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/' + char; //Older versions of psych engine's support
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/icon-' + char; //Fuck it
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/face'; //Prevents crash from missing icon

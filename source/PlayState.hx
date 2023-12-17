@@ -794,7 +794,7 @@ class PlayState extends MusicBeatState
 		timeBar = new FlxBar(timeBarBG.x + 4, timeBarBG.y + 4, LEFT_TO_RIGHT, Std.int(timeBarBG.width - 8), Std.int(timeBarBG.height - 8), this,
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
-		timeBar.createFilledBar(0xFF000000, 0xFFFFFFFF);
+		timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
 		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
@@ -2274,6 +2274,8 @@ class PlayState extends MusicBeatState
 						daNote.kill();
 						notes.remove(daNote, true);
 						daNote.destroy();
+
+						if (!daNote.noteSplashDisabled && ClientPrefs.opponentSplashes && opponentStrums.visible == true) spawnNoteSplashOnNote2(daNote);
 					}
 				}
 
@@ -3302,7 +3304,7 @@ class PlayState extends MusicBeatState
 			}
 		});
 
-		missedNote(daNote.isSustainNote);
+		missedNote(daNote.isSustainNote, daNote.giveScore);
 
 		var animToPlay:String = '';
 		switch (Math.abs(daNote.noteData) % 4)
@@ -3334,7 +3336,7 @@ class PlayState extends MusicBeatState
 		{
 			ghostMisses++;
 
-			missedNote(false);
+			missedNote(false, true);
 
 			switch (direction)
 			{
@@ -3350,9 +3352,9 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function missedNote(longNote:Bool = false) {
+	function missedNote(longNote:Bool = false, ?countForMiss:Bool = true) {
 		health -= 0.06; //For testing purposes
-		if (!longNote) {
+		if (!longNote && countForMiss) {
 		songMisses++;
 		totalNotes++;
 		songScore -= 10;
@@ -3396,7 +3398,7 @@ class PlayState extends MusicBeatState
 				return;
 			}
 
-			if (!note.isSustainNote)
+			if (!note.isSustainNote && note.giveScore)
 			{
 				popUpScore(note);
 				combo += 1;
@@ -3481,6 +3483,15 @@ class PlayState extends MusicBeatState
 			var strum:StrumNote = playerStrums.members[note.noteData];
 			if(strum != null) {
 				spawnNoteSplash(strum.x, strum.y, note.noteData, note);
+			}
+		}
+	}
+
+	public function spawnNoteSplashOnNote2(daNote:Note) {
+		if(ClientPrefs.noteSplashes && daNote != null) {
+			var strum:StrumNote = opponentStrums.members[daNote.noteData];
+			if(strum != null) {
+				spawnNoteSplash(strum.x, strum.y, daNote.noteData, daNote);
 			}
 		}
 	}
@@ -3862,7 +3873,7 @@ class PlayState extends MusicBeatState
 
 		if(spr != null) {
 			spr.playAnim('confirm', true);
-			spr.resetAnim = time;
+			spr.resetAnim = (isPixelStage ? (time / 2) : time);
 		}
 	}
 

@@ -1,0 +1,9 @@
+Haxe: 4.2.5
+
+flixel 4.11.0
+lime 7.9.0
+flixel-addons 3.0.2
+flixel-ui 2.5.0
+flixel-tools 1.5.1
+hxCodec 2.5.1
+openfl 9.1.0
