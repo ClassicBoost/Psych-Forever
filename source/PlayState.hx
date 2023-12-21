@@ -3096,8 +3096,7 @@ class PlayState extends MusicBeatState
 	}
 
 	function displayRating(daRatingLol:String, negative:Bool = false) {
-
-		
+		var displayCombo:Int = 0;
 		var placement:String = Std.string(combo);
 
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
@@ -3150,12 +3149,17 @@ class PlayState extends MusicBeatState
 
 		var seperatedScore:Array<Int> = [];
 
+		if (combo < 0)
+			displayCombo = combo * -1;
+		else
+			displayCombo = combo;
+
 		if(combo >= 1000) {
-			seperatedScore.push(Math.floor(combo / 1000) % 10);
+			seperatedScore.push(Math.floor(displayCombo / 1000) % 10);
 		}
-		seperatedScore.push(Math.floor(combo / 100) % 10);
-		seperatedScore.push(Math.floor(combo / 10) % 10);
-		seperatedScore.push(combo % 10);
+		seperatedScore.push(Math.floor(displayCombo / 100) % 10);
+		seperatedScore.push(Math.floor(displayCombo / 10) % 10);
+		seperatedScore.push(displayCombo % 10);
 
 		var daLoop:Int = 0;
 		for (i in seperatedScore)
@@ -3417,7 +3421,6 @@ class PlayState extends MusicBeatState
 		{
 			gf.playAnim('sad');
 		}
-		combo = 0;
 		}
 		vocals.volume = 0;
 	}
