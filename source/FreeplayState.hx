@@ -248,50 +248,51 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
-		#if PRELOAD_ALL
-		if(space && instPlaying != curSelected)
-		{
-			destroyFreeplayVocals();
-			Paths.currentModDirectory = songs[curSelected].folder;
-			var poop:String = Highscore.formatSong(songs[curSelected].songName.toLowerCase(), curDifficulty);
-			PlayState.SONG = Song.loadFromJson(poop, songs[curSelected].songName.toLowerCase());
-			if (PlayState.SONG.needsVoices)
-				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-			else
-				vocals = new FlxSound();
-
-			FlxG.sound.list.add(vocals);
-			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-			vocals.play();
-			vocals.persist = true;
-			vocals.looped = true;
-			vocals.volume = 0.7;
-			instPlaying = curSelected;
-		}
-		else #end if (accepted)
+		if (accepted || space)
 		{
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
 			if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
 				curDifficulty = 1;
+				changeDiff(0); // just show it shows Normal instead of being stuck
 				trace('Couldnt find file');
 				barText.text = 'Song Missing! (note: use songs instead of data)';
+				FlxG.sound.play(Paths.sound('ANGRY'), 0.7);
 			} else {
+				destroyFreeplayVocals();
+
+				Paths.currentModDirectory = songs[curSelected].folder;
+
 				PlayState.SONG = Song.loadFromJson(poop, songLowercase);
 				PlayState.isStoryMode = false;
 				PlayState.storyDifficulty = curDifficulty;
 
 				PlayState.storyWeek = songs[curSelected].week;
-				trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
-				if(colorTween != null) {
-					colorTween.cancel();
-				}
-				LoadingState.loadAndSwitchState(new PlayState());
+				#if PRELOAD_ALL
+				if (space && instPlaying != curSelected) {
+					if (PlayState.SONG.needsVoices)
+						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+					else
+						vocals = new FlxSound();
+		
+					FlxG.sound.list.add(vocals);
+					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+					vocals.play();
+					vocals.persist = true;
+					vocals.looped = true;
+					vocals.volume = 0.7;
+					instPlaying = curSelected;
+				
+				} else #end if (accepted) {
+					trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
+					if(colorTween != null) {
+						colorTween.cancel();
+					}
+					LoadingState.loadAndSwitchState(new PlayState());
 	
-				FlxG.sound.music.volume = 0;
-						
-				destroyFreeplayVocals();
+					FlxG.sound.music.volume = 0;
+				}
 			}
 			trace(poop);
 		}
