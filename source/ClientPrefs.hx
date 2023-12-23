@@ -27,6 +27,8 @@ class ClientPrefs {
 	public static var antiMash:Bool = true;
 	public static var hideTime:Bool = false;
 	public static var opponentSplashes:Bool = true;
+	public static var displayAccuracy:Bool = true;
+	public static var fixedJudgements:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -83,6 +85,9 @@ class ClientPrefs {
 		FlxG.save.data.ghostTapping = ghostTapping;
 		FlxG.save.data.antiMash = antiMash;
 		FlxG.save.data.hideTime = hideTime;
+		FlxG.save.data.opponentSplashes = opponentSplashes;
+		FlxG.save.data.displayAccuracy = displayAccuracy;
+		FlxG.save.data.fixedJudgements = fixedJudgements;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -130,6 +135,9 @@ class ClientPrefs {
 		if(FlxG.save.data.hideHud != null) hideHud = FlxG.save.data.hideHud;
 		if(FlxG.save.data.noteOffset != null) noteOffset = FlxG.save.data.noteOffset;
 		if(FlxG.save.data.arrowHSV != null) arrowHSV = FlxG.save.data.arrowHSV;
+		if(FlxG.save.data.opponentSplashes != null) opponentSplashes = FlxG.save.data.opponentSplashes;
+		if(FlxG.save.data.displayAccuracy != null) displayAccuracy = FlxG.save.data.displayAccuracy;
+		if(FlxG.save.data.fixedJudgements != null) fixedJudgements = FlxG.save.data.fixedJudgements;
 		if(FlxG.save.data.imagesPersist != null) {
 			imagesPersist = FlxG.save.data.imagesPersist;
 			FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;

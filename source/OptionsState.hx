@@ -693,6 +693,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Splashes',
 		'Opponent Note Splashes',
 		'Hide HUD',
+		'Display Accuracy',
+		'Fixed Judgements',
 		'Hide Song Length',
 		'Flashing Lights',
 		'Camera Zooms'
@@ -856,6 +858,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Opponent Note Splashes':
 						ClientPrefs.opponentSplashes = !ClientPrefs.opponentSplashes;
 
+					case 'Display Accuracy':
+						ClientPrefs.displayAccuracy = !ClientPrefs.displayAccuracy;
+
+					case 'Fixed Judgements':
+						ClientPrefs.fixedJudgements = !ClientPrefs.fixedJudgements;
+
 					case 'Flashing Lights':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
@@ -978,6 +986,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, hitting \"Sick!\" notes won't show particles.";
 			case 'Opponent Note Splashes':
 				daText = "If unchecked, the opponent won't have note splashes.";
+			case 'Display Accuracy':
+				daText = "If checked, your accuracy, misses, and rank will show.";
+			case 'Fixed Judgements':
+				daText = "If checked, the ratings will be placed on the\nhud instead of game.";
 			case 'Flashing Lights':
 				daText = "Uncheck this if you're sensitive to flashing lights!";
 			case 'Camera Zooms':
@@ -1040,6 +1052,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.noteSplashes;
 					case 'Opponent Note Splashes':
 						daValue = ClientPrefs.opponentSplashes;
+					case 'Display Accuracy':
+						daValue = ClientPrefs.displayAccuracy;
+					case 'Fixed Judgements':
+						daValue = ClientPrefs.fixedJudgements;
 					case 'Flashing Lights':
 						daValue = ClientPrefs.flashing;
 					case 'Downscroll':

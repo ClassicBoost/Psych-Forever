@@ -164,15 +164,15 @@ class PauseSubState extends MusicBeatSubstate
 					regenMenu();
 				case 'Toggle Practice Mode':
 					PlayState.practiceMode = !PlayState.practiceMode;
-					PlayState.usedPractice = true;
 					practiceText.visible = PlayState.practiceMode;
 				case "Restart Song":
 					CustomFadeTransition.nextCamera = transCamera;
 					MusicBeatState.resetState();
+					PlayState.usedPractice = false;
+					PlayState.usedBotplay = false;
 					FlxG.sound.music.volume = 0;
 				case 'Botplay':
 					PlayState.cpuControlled = !PlayState.cpuControlled;
-					PlayState.usedPractice = true;
 					botplayText.visible = PlayState.cpuControlled;
 				case 'Options':
 					OptionsState.onPlayState = true;
@@ -188,6 +188,7 @@ class PauseSubState extends MusicBeatSubstate
 					}
 					FlxG.sound.playMusic(Paths.music('freakyMenu'));
 					PlayState.usedPractice = false;
+					PlayState.usedBotplay = false;
 					PlayState.changedDifficulty = false;
 					PlayState.cpuControlled = false;
 

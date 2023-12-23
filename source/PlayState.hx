@@ -166,7 +166,10 @@ class PlayState extends MusicBeatState
 	private var startingSong:Bool = false;
 	private var updateTime:Bool = false;
 	public static var practiceMode:Bool = false;
+	// This below is no longer used as practice mode now saves your score.
 	public static var usedPractice:Bool = false;
+	// usedBotplay is kinda like the above (without changes) which turns on if a bot hits a note
+	public static var usedBotplay:Bool = false;
 	public static var changedDifficulty:Bool = false;
 	public static var cpuControlled:Bool = false;
 
@@ -268,6 +271,7 @@ class PlayState extends MusicBeatState
 		resetSpriteCache = false;
 
 		totalNotesHit = 0;
+		usedBotplay = false;
 
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
@@ -859,11 +863,12 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(400, timeBarBG.y + 55, FlxG.width - 800, "BOTPLAY", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt = new FlxText(0, timeBarBG.y + 55, 0, "CPU CONTROLED", 32);
+		botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
 		botplayTxt.borderSize = 1.25;
 		botplayTxt.visible = cpuControlled;
+		botplayTxt.screenCenter(X);
 		add(botplayTxt);
 		if(ClientPrefs.downScroll) botplayTxt.y = timeBarBG.y - 78;
 
@@ -2037,24 +2042,21 @@ class PlayState extends MusicBeatState
 		if (health > 2)
 			health = 2;
 
-		if (health < 0)
+		// For some god damn reason this didn't exist making practice mode extremely weird.
+		if (health < 0) {
 			health = 0;
+			usedPractice = true;
+		}
 
-		if (health >= 1.6)
-		{
-			iconP2.animation.play('hurt');
-			iconP1.animation.play('winning');
+		if (usedBotplay) {
+			songScore = 0;
+			songMisses = 0;
+			ratingPercent = 0;
 		}
-		else if (health <= 0.4)
-		{
-			iconP2.animation.play('winning');
-			iconP1.animation.play('hurt');
-		}
-		else
-		{
-			iconP2.animation.play('idle');
-			iconP1.animation.play('idle');
-		}
+
+		// adding winning support might be useless, I never clearified if they existed.
+		iconP2.animation.play((health >= 1.6 ? 'hurt' : health <= 0.4 ? 'winning' : 'idle'));
+		iconP1.animation.play((health >= 1.6 ? 'winning' : health <= 0.4 ? 'hurt' : 'idle'));
 
 		if (FlxG.keys.justPressed.EIGHT && !endingSong && !inCutscene) {
 			persistentUpdate = false;
@@ -2284,9 +2286,9 @@ class PlayState extends MusicBeatState
 					if (SONG.needsVoices)
 						vocals.volume = 1;
 
-					var time:Float = 0.15;
+					var time:Float = 0.17;
 					if(daNote.isSustainNote && !daNote.animation.curAnim.name.endsWith('end')) {
-						time += 0.15;
+						time += 0.17;
 					}
 					StrumPlayAnim(true, Std.int(Math.abs(daNote.noteData)) % 4, time);
 					daNote.hitByOpponent = true;
@@ -2410,10 +2412,17 @@ class PlayState extends MusicBeatState
 
 	function updateScore() {
 		var divider = ' • ';
-		scoreTxt.text = 'Score: ' + songScore
-		+ divider + 'Accuracy: ' + (ratingString == 'N/A' ? 0 : Highscore.floorDecimal(ratingPercent * 100, 2)) + '%'
-		+ divider + 'Misses: ' + songMisses
-		+ divider + 'Rank: ' + ratingString;
+		scoreTxt.text = 'Score: ' + songScore;
+
+		// The rest
+		if (ClientPrefs.displayAccuracy) {
+		scoreTxt.text += divider + 'Accuracy: ' + (ratingString == 'N/A' ? 0 : Highscore.floorDecimal(ratingPercent * 100, 2)) + '%';
+		scoreTxt.text += divider + 'Combo Breaks: ' + songMisses;
+		scoreTxt.text += divider + 'Rank: ' + ratingString;
+		}
+		scoreTxt.text += (usedPractice ? '${divider}died :(': '');
+
+		if (usedBotplay) scoreTxt.text = 'Used Botplay - Score not counted.';
 
 		RecalculateRating();
 	}
@@ -2934,19 +2943,17 @@ class PlayState extends MusicBeatState
 					}
 					MusicBeatState.switchState(new StoryMenuState());
 
-					// if ()
-					if(!usedPractice) {
-						StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
+					StoryMenuState.weekCompleted.set(WeekData.weeksList[storyWeek], true);
 
-						if (SONG.validScore)
-						{
-							Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
-						}
-
-						FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
-						FlxG.save.flush();
+					if (SONG.validScore)
+					{
+						Highscore.saveWeekScore(WeekData.getWeekFileName(), campaignScore, storyDifficulty);
 					}
+
+					FlxG.save.data.weekCompleted = StoryMenuState.weekCompleted;
+					FlxG.save.flush();
 					usedPractice = false;
+					usedBotplay = false;
 					changedDifficulty = false;
 					cpuControlled = false;
 				}
@@ -3002,6 +3009,7 @@ class PlayState extends MusicBeatState
 				MusicBeatState.switchState(new FreeplayState());
 				FlxG.sound.playMusic(Paths.music('freakyMenu'));
 				usedPractice = false;
+				usedBotplay = false;
 				changedDifficulty = false;
 				cpuControlled = false;
 			}
@@ -3083,7 +3091,7 @@ class PlayState extends MusicBeatState
 				score = 50;
 		}
 
-		if(!cpuControlled) {
+		if(!cpuControlled && !usedBotplay) {
 			songScore += score;
 			totalNotes++;
 
@@ -3099,6 +3107,8 @@ class PlayState extends MusicBeatState
 		var displayCombo:Int = 0;
 		var placement:String = Std.string(combo);
 
+		var hudRating:Bool = ClientPrefs.fixedJudgements;
+
 		var coolText:FlxText = new FlxText(0, 0, 0, placement, 32);
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.55;
@@ -3108,18 +3118,26 @@ class PlayState extends MusicBeatState
 		var rating:FlxSprite = new FlxSprite();
 		rating.loadGraphic(Paths.image('ui/' + uiElement + 'ratings/' + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRatingLol : "") + daTiming + uiPostfix));
 		rating.screenCenter();
-		rating.x = coolText.x - 40;
+		rating.x = coolText.x - (hudRating ? 200 : 40);
 		rating.y -= 60;
 		rating.acceleration.y = 550;
+		if (hudRating) {
+			rating.cameras = [camHUD];
+			rating.alpha = 0.7;
+		}
 		rating.velocity.y -= FlxG.random.int(140, 175);
 		rating.velocity.x -= FlxG.random.int(0, 10);
 		rating.visible = !ClientPrefs.hideHud;
 
 		var comboSpr:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/' + uiElement + 'combo${allSicks == true ? '-golden' : ''}' + uiPostfix));
 		comboSpr.screenCenter();
-		comboSpr.x = coolText.x;
+		comboSpr.x = coolText.x - (hudRating ? 160 : 0);
 		comboSpr.acceleration.y = 600;
 		comboSpr.velocity.y -= 150;
+		if (hudRating) {
+			comboSpr.cameras = [camHUD];
+			comboSpr.alpha = 0.7;
+		}
 		comboSpr.visible = !ClientPrefs.hideHud;
 
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
@@ -3166,8 +3184,12 @@ class PlayState extends MusicBeatState
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/' + uiElement + 'combo/${(allSicks == true ? 'golden/' : allSicks == false ? '' : "")}num' + Std.int(i) + uiPostfix));
 			numScore.screenCenter();
-			numScore.x = coolText.x + (43 * daLoop) - 90;
+			numScore.x = coolText.x + (43 * daLoop) - (hudRating ? 250 : 90);
 			numScore.y += 80;
+			if (hudRating) {
+				numScore.cameras = [camHUD];
+				numScore.alpha = 0.7;
+			}
 
 			if (!PlayState.isPixelStage)
 			{
@@ -3455,6 +3477,8 @@ class PlayState extends MusicBeatState
 				return;
 			}
 
+			if (cpuControlled) usedBotplay = true;
+
 			if (!note.isSustainNote && note.giveScore)
 			{
 				popUpScore(note);
@@ -3505,9 +3529,9 @@ class PlayState extends MusicBeatState
 			}
 
 			if(cpuControlled) {
-				var time:Float = 0.15;
+				var time:Float = 0.17;
 				if(note.isSustainNote && !note.animation.curAnim.name.endsWith('end')) {
-					time += 0.15;
+					time += 0.17;
 				}
 				StrumPlayAnim(false, Std.int(Math.abs(note.noteData)) % 4, time);
 			} else {
