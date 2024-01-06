@@ -669,7 +669,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 	private static var curSelected:Int = 0;
 	static var unselectableOptions:Array<String> = [
 		'GRAPHICS',
-		'GAMEPLAY'
+		'GAMEPLAY',
+		'NOTES',
+		'INPUT',
+		'SPLASHES',
+		'MISC'
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
@@ -684,14 +688,18 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#if !html5
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
-		'GAMEPLAY',
+		'NOTES',
 		'Downscroll',
 		'Middlescroll',
+		'INPUT',
 		'Ghost Tapping',
 		'Anti-Mash',
-		'Note Delay',
+		'Late Damage',
+		'SPLASHES',
 		'Note Splashes',
 		'Opponent Note Splashes',
+		'MISC',
+		'Note Delay',
 		'Hide HUD',
 		'Display Accuracy',
 		'Fixed Judgements',
@@ -891,6 +899,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Hide HUD':
 						ClientPrefs.hideHud = !ClientPrefs.hideHud;
 
+					case 'Late Damage':
+						ClientPrefs.lateDamage = !ClientPrefs.lateDamage;
+
 					case 'Persistent Cached Data':
 						ClientPrefs.imagesPersist = !ClientPrefs.imagesPersist;
 						FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
@@ -909,7 +920,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Framerate':
 						ClientPrefs.framerate += add;
 						if(ClientPrefs.framerate < 60) ClientPrefs.framerate = 60;
-						else if(ClientPrefs.framerate > 240) ClientPrefs.framerate = 240;
+						else if(ClientPrefs.framerate > 360) ClientPrefs.framerate = 360;
 
 						if(ClientPrefs.framerate > FlxG.drawFramerate) {
 							FlxG.updateFramerate = ClientPrefs.framerate;
@@ -996,6 +1007,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, the camera won't zoom in on a beat hit.";
 			case 'Hide HUD':
 				daText = "If checked, hides most HUD elements.";
+			case 'Late Damage':
+				daText = "If checked, hitting notes late will make you miss";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 		}
@@ -1076,6 +1089,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.hideHud;
 					case 'Persistent Cached Data':
 						daValue = ClientPrefs.imagesPersist;
+					case 'Late Damage':
+						daValue = ClientPrefs.lateDamage;
 					case 'Hide Song Length':
 						daValue = ClientPrefs.hideTime;
 				}

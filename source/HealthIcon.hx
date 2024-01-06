@@ -49,13 +49,9 @@ class HealthIcon extends FlxSprite
 			var file:Dynamic = Paths.image(name);
 
 			loadGraphic(file, true, 150, 150);
+			animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			animation.play(char);
 			this.char = char;
-
-			animation.add('idle', [0], 0, false, isPlayer);
-			animation.add('hurt', [1], 0, false, isPlayer);
-			animation.add('winning', [2], 0, false, isPlayer); // allow winning support
-
-			animation.play('idle');
 
 			antialiasing = ClientPrefs.globalAntialiasing;
 			if(char.endsWith('-pixel')) {

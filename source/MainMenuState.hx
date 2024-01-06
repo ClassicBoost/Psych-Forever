@@ -18,9 +18,20 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxColor;
 import lime.app.Application;
 import Achievements;
+import haxe.Json;
 import editors.MasterEditorMenu;
 
 using StringTools;
+
+typedef MenuOptionsIG =
+{
+	story_mode:Bool,
+	freeplay:Bool,
+	options:Bool,
+	awards:Bool,
+	credits:Bool,
+	donate:Bool
+}
 
 class MainMenuState extends MusicBeatState
 {
@@ -30,8 +41,16 @@ class MainMenuState extends MusicBeatState
 	var menuItems:FlxTypedGroup<FlxSprite>;
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
+
+	var menuOptions:MenuOptionsIG;
 	
-	var optionShit:Array<String> = ['story_mode', 'freeplay', #if ACHIEVEMENTS_ALLOWED 'awards', #end 'credits', #if !switch 'donate', #end 'options'];
+	var optionShit:Array<String> = [
+	'story_mode',
+	'freeplay',
+	'options',
+	#if ACHIEVEMENTS_ALLOWED 'awards', #end
+	'credits' #if !switch ,
+	'donate' #end];
 
 	var magenta:FlxSprite;
 	var camFollow:FlxObject;
@@ -43,6 +62,19 @@ class MainMenuState extends MusicBeatState
 		// Updating Discord Rich Presence
 		DiscordClient.changePresence("In the Menus", null);
 		#end
+
+		// IGNORE THIS!!!
+		menuOptions = Json.parse(Paths.getTextFromFile('images/menus/MenuOptions.json'));
+
+		// One has to be enabled, idk if the game would crash or not if there is an empty array but either way.
+		if (menuOptions.story_mode || menuOptions.freeplay || menuOptions.options || menuOptions.awards || menuOptions.credits || menuOptions.donate) {
+		if (!menuOptions.story_mode) optionShit.remove('story_mode');
+		if (!menuOptions.freeplay) optionShit.remove('freeplay');
+		if (!menuOptions.options) optionShit.remove('options');
+		if (!menuOptions.awards) optionShit.remove('awards');
+		if (!menuOptions.credits) optionShit.remove('credits');
+		if (!menuOptions.donate) optionShit.remove('donate');
+		}
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();

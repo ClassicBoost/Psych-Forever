@@ -29,6 +29,7 @@ class ClientPrefs {
 	public static var opponentSplashes:Bool = true;
 	public static var displayAccuracy:Bool = true;
 	public static var fixedJudgements:Bool = false;
+	public static var lateDamage:Bool = true;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -88,6 +89,7 @@ class ClientPrefs {
 		FlxG.save.data.opponentSplashes = opponentSplashes;
 		FlxG.save.data.displayAccuracy = displayAccuracy;
 		FlxG.save.data.fixedJudgements = fixedJudgements;
+		FlxG.save.data.lateDamage = lateDamage;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -145,6 +147,7 @@ class ClientPrefs {
 		if(FlxG.save.data.ghostTapping != null) ghostTapping = FlxG.save.data.ghostTapping;
 		if(FlxG.save.data.antiMash != null)	antiMash = FlxG.save.data.antiMash;
 		if(FlxG.save.data.hideTime != null)	hideTime = FlxG.save.data.hideTime;
+		if(FlxG.save.data.lateDamage != null)	lateDamage = FlxG.save.data.lateDamage;
 
 		var save:FlxSave = new FlxSave();
 		save.bind('controls', 'ninjamuffin99');

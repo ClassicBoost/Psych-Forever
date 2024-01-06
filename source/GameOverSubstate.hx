@@ -91,6 +91,7 @@ class GameOverSubstate extends MusicBeatSubstate
 
 		if (controls.BACK)
 		{
+			PlayState.usedPractice = false;
 			FlxG.sound.music.stop();
 			PlayState.deathCounter = 0;
 			PlayState.seenCutscene = false;
@@ -144,6 +145,7 @@ class GameOverSubstate extends MusicBeatSubstate
 	{
 		if (!isEnding)
 		{
+			PlayState.usedPractice = false;
 			isEnding = true;
 			bf.playAnim('deathConfirm', true);
 			FlxG.sound.music.stop();

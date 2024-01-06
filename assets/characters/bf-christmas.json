@@ -117,12 +117,12 @@
 		0,
 		350
 	],
-	"healthicon": "bf",
+	"healthicon": "bf-christmas",
 	"flip_x": true,
 	"healthbar_colors": [
+		209,
 		49,
-		176,
-		209
+		53
 	],
 	"camera_position": [
 		0,
