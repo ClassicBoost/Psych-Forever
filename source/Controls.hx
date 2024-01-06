@@ -42,6 +42,10 @@ enum abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	var CHART = "chart";
+	var CHAR = "char";
+	var BOTPLAY = "botplay";
+	var PRACTICE = "practice";
 }
 #else
 @:enum
@@ -75,6 +79,10 @@ abstract Action(String) to String from String
 	var BACK = "back";
 	var PAUSE = "pause";
 	var RESET = "reset";
+	var CHART = "chart";
+	var CHAR = "char";
+	var BOTPLAY = "botplay";
+	var PRACTICE = "practice";
 }
 #end
 
@@ -103,6 +111,10 @@ enum Control
 	ACCEPT;
 	BACK;
 	PAUSE;
+	CHART;
+	CHAR;
+	BOTPLAY;
+	PRACTICE;
 }
 
 enum KeyboardScheme
@@ -147,6 +159,10 @@ class Controls extends FlxActionSet
 	var _back = new FlxActionDigital(Action.BACK);
 	var _pause = new FlxActionDigital(Action.PAUSE);
 	var _reset = new FlxActionDigital(Action.RESET);
+	var _chart = new FlxActionDigital(Action.CHART);
+	var _char = new FlxActionDigital(Action.CHAR);
+	var _botplay = new FlxActionDigital(Action.BOTPLAY);
+	var _practice = new FlxActionDigital(Action.PRACTICE);
 
 	#if (haxe >= "4.0.0")
 	var byName:Map<String, FlxActionDigital> = [];
@@ -297,6 +313,26 @@ class Controls extends FlxActionSet
 	inline function get_RESET()
 		return _reset.check();
 
+	public var CHART(get, never):Bool;
+
+	inline function get_CHART()
+		return _chart.check();
+
+	public var CHAR(get, never):Bool;
+
+	inline function get_CHAR()
+		return _char.check();
+
+	public var BOTPLAY(get, never):Bool;
+
+	inline function get_BOTPLAY()
+		return _botplay.check();
+
+	public var PRACTICE(get, never):Bool;
+
+	inline function get_PRACTICE()
+		return _practice.check();
+
 	#if (haxe >= "4.0.0")
 	public function new(name, scheme = None)
 	{
@@ -330,6 +366,10 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		add(_chart);
+		add(_char);
+		add(_botplay);
+		add(_practice);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -369,6 +409,10 @@ class Controls extends FlxActionSet
 		add(_back);
 		add(_pause);
 		add(_reset);
+		add(_chart);
+		add(_char);
+		add(_botplay);
+		add(_practice);
 
 		for (action in digitalActions)
 			byName[action.name] = action;
@@ -426,6 +470,10 @@ class Controls extends FlxActionSet
 			case BACK: _back;
 			case PAUSE: _pause;
 			case RESET: _reset;
+			case CHART: _chart;
+			case CHAR: _char;
+			case BOTPLAY: _botplay;
+			case PRACTICE: _practice;
 		}
 	}
 
@@ -485,6 +533,15 @@ class Controls extends FlxActionSet
 				func(_pause, JUST_PRESSED);
 			case RESET:
 				func(_reset, JUST_PRESSED);
+			case CHART:
+				func(_chart, JUST_PRESSED);
+			case CHAR:
+				func(_char, JUST_PRESSED);
+			case BOTPLAY:
+				func(_botplay, JUST_PRESSED);
+			case PRACTICE:
+				func(_practice, JUST_PRESSED);
+
 		}
 	}
 
@@ -651,6 +708,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.BACK, [X, BACKSPACE, ESCAPE]);
 				inline bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				inline bindKeys(Control.RESET, [R]);
+				inline bindKeys(Control.CHART, [SEVEN]);
+				inline bindKeys(Control.CHAR, [EIGHT]);
+				inline bindKeys(Control.BOTPLAY, [SIX]);
+				inline bindKeys(Control.PRACTICE, [FIVE]);
 			case Duo(true):
 				inline bindKeys(Control.UI_UP, [W]);
 				inline bindKeys(Control.UI_DOWN, [S]);
@@ -664,6 +725,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.BACK, [H, X]);
 				inline bindKeys(Control.PAUSE, [ONE]);
 				inline bindKeys(Control.RESET, [R]);
+				inline bindKeys(Control.CHART, [SEVEN]);
+				inline bindKeys(Control.CHAR, [EIGHT]);
+				inline bindKeys(Control.BOTPLAY, [SIX]);
+				inline bindKeys(Control.PRACTICE, [FIVE]);
 			case Duo(false):
 				inline bindKeys(Control.UI_UP, [FlxKey.UP]);
 				inline bindKeys(Control.UI_DOWN, [FlxKey.DOWN]);
@@ -677,6 +742,10 @@ class Controls extends FlxActionSet
 				inline bindKeys(Control.BACK, [P]);
 				inline bindKeys(Control.PAUSE, [ENTER]);
 				inline bindKeys(Control.RESET, [BACKSPACE]);
+				inline bindKeys(Control.CHART, [SEVEN]);
+				inline bindKeys(Control.CHAR, [EIGHT]);
+				inline bindKeys(Control.BOTPLAY, [SIX]);
+				inline bindKeys(Control.PRACTICE, [FIVE]);
 			case None: // nothing
 			case Custom: // nothing
 		}
@@ -696,6 +765,10 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [BACKSPACE, ESCAPE]);
 				bindKeys(Control.PAUSE, [P, ENTER, ESCAPE]);
 				bindKeys(Control.RESET, [R]);
+				bindKeys(Control.CHART, [SEVEN]);
+				bindKeys(Control.CHAR, [EIGHT]);
+				bindKeys(Control.BOTPLAY, [SIX]);
+				bindKeys(Control.PRACTICE, [FIVE]);
 			case Duo(true):
 				bindKeys(Control.UI_UP, [W]);
 				bindKeys(Control.UI_DOWN, [S]);
@@ -709,6 +782,10 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [H, X]);
 				bindKeys(Control.PAUSE, [ONE]);
 				bindKeys(Control.RESET, [R]);
+				bindKeys(Control.CHART, [SEVEN]);
+				bindKeys(Control.CHAR, [EIGHT]);
+				bindKeys(Control.BOTPLAY, [SIX]);
+				bindKeys(Control.PRACTICE, [FIVE]);
 			case Duo(false):
 				bindKeys(Control.UI_UP, [FlxKey.UP]);
 				bindKeys(Control.UI_DOWN, [FlxKey.DOWN]);
@@ -722,6 +799,10 @@ class Controls extends FlxActionSet
 				bindKeys(Control.BACK, [P]);
 				bindKeys(Control.PAUSE, [ENTER]);
 				bindKeys(Control.RESET, [BACKSPACE]);
+				bindKeys(Control.CHART, [SEVEN]);
+				bindKeys(Control.CHAR, [EIGHT]);
+				bindKeys(Control.BOTPLAY, [SIX]);
+				bindKeys(Control.PRACTICE, [FIVE]);
 			case None: // nothing
 			case Custom: // nothing
 		}

@@ -912,15 +912,6 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
-		botplayTxt = new FlxText(0, timeBarBG.y + 55, 0, "CPU CONTROLED", 32);
-		botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 1.25;
-		botplayTxt.visible = cpuControlled;
-		botplayTxt.screenCenter(X);
-		add(botplayTxt);
-		if(ClientPrefs.downScroll) botplayTxt.y = timeBarBG.y - 78;
-
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
@@ -982,6 +973,15 @@ class PlayState extends MusicBeatState
 
 		FlxG.fixedTimestep = false;
 		moveCameraSection(0);
+
+		botplayTxt = new FlxText(0, timeBarBG.y + 55, 0, "CPU CONTROLED", 32);
+		botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		botplayTxt.scrollFactor.set();
+		botplayTxt.borderSize = 1.25;
+		botplayTxt.visible = cpuControlled;
+		botplayTxt.screenCenter(X);
+		add(botplayTxt);
+		if(ClientPrefs.downScroll) botplayTxt.y = timeBarBG.y - 78;
 
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
@@ -2058,7 +2058,7 @@ class PlayState extends MusicBeatState
 			}
 		}
 
-		if (FlxG.keys.justPressed.SEVEN && !endingSong && !inCutscene)
+		if (controls.CHART && !endingSong && !inCutscene)
 		{
 			persistentUpdate = false;
 			paused = true;
@@ -2107,13 +2107,20 @@ class PlayState extends MusicBeatState
 		iconP1.animation.curAnim.curFrame = (health >= 1.6 ? boyfriend.iconStepsLol[2] : health <= 0.4 ? boyfriend.iconStepsLol[1] : boyfriend.iconStepsLol[0]);
 		iconP2.animation.curAnim.curFrame = (health >= 1.6 ? dad.iconStepsLol[1] : health <= 0.4 ? dad.iconStepsLol[2] : dad.iconStepsLol[0]);
 
-		if (FlxG.keys.justPressed.EIGHT && !endingSong && !inCutscene) {
+		if (controls.CHAR && !endingSong && !inCutscene) {
 			persistentUpdate = false;
 			paused = true;
 			cancelFadeTween();
 			CustomFadeTransition.nextCamera = camOther;
-			MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
+
+			if (FlxG.keys.pressed.SHIFT) MusicBeatState.switchState(new CharacterEditorState(SONG.player1));
+			else MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
+
+		if (controls.PRACTICE)
+			practiceMode = !practiceMode;
+		if (controls.BOTPLAY)
+			cpuControlled = !cpuControlled;
 
 		if (startingSong)
 		{
@@ -2499,6 +2506,8 @@ class PlayState extends MusicBeatState
 				for (timer in modchartTimers) {
 					timer.active = true;
 				}
+
+				usedBotplay = false;
 
 				// MusicBeatState.switchState(new GameOverState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
 				
@@ -3026,7 +3035,7 @@ class PlayState extends MusicBeatState
 
 						FlxG.sound.play(Paths.sound('Lights_Shut_off'));
 					}
-
+					usedBotplay = false;
 					FlxTransitionableState.skipNextTransIn = true;
 					FlxTransitionableState.skipNextTransOut = true;
 

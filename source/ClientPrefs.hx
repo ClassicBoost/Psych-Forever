@@ -45,7 +45,12 @@ class ClientPrefs {
 		R, NONE,			//Reset
 		SPACE, ENTER,		//Accept
 		BACKSPACE, ESCAPE,	//Back
-		ENTER, ESCAPE		//Pause
+		ENTER, ESCAPE,		//Pause
+
+		SEVEN, NONE,		//Chart Editor
+		EIGHT, NONE,		//Character Editor
+		SIX, NONE,			//Botplay Toggle
+		FIVE, NONE			//Practice Mode
 	];
 	//Every key has two binds, these binds are defined on defaultKeys! If you want your control to be changeable, you have to add it on ControlsSubState (inside OptionsState)'s list
 	public static var keyBinds:Array<Dynamic> = [
@@ -63,7 +68,12 @@ class ClientPrefs {
 		[Control.RESET, 'Reset'],
 		[Control.ACCEPT, 'Accept'],
 		[Control.BACK, 'Back'],
-		[Control.PAUSE, 'Pause']
+		[Control.PAUSE, 'Pause'],
+
+		[Control.CHART, 'Chart'],
+		[Control.CHAR, 'Character'],
+		[Control.BOTPLAY, 'Botplay'],
+		[Control.PRACTICE, 'Practice']
 	];
 	public static var lastControls:Array<FlxKey> = defaultKeys.copy();
 
