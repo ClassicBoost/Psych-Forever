@@ -678,7 +678,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'NOTES',
 		'INPUT',
 		'SPLASHES',
-		'MISC'
+		'MISC',
+		'MODS'
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
@@ -710,10 +711,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Fixed Judgements',
 		'Hide Song Length',
 		'Flashing Lights',
-		'Camera Zooms'
+		'Camera Zooms',
 		#if !mobile
-		,'FPS Counter'
+		'FPS Counter',
 		#end
+		'MODS',
+		'Mod Menus'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -913,6 +916,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
+
+					case 'Mod Menus':
+						ClientPrefs.loadModMenu = !ClientPrefs.loadModMenu;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1016,6 +1022,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, hitting notes late will make you miss";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
+			case 'Mod Menus':
+				daText = "If checked, when ever you scroll into a modpack it will load its assets\n(VERY UNFINISHED)";
 		}
 		descText.text = daText;
 
@@ -1098,6 +1106,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.lateDamage;
 					case 'Hide Song Length':
 						daValue = ClientPrefs.hideTime;
+					case 'Mod Menus':
+						daValue = ClientPrefs.loadModMenu;
 				}
 				checkbox.daValue = daValue;
 			}

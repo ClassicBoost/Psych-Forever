@@ -47,6 +47,8 @@ class FreeplayState extends MusicBeatState
 
 	var barText:FlxText;
 
+	var switched:String = '';
+
 	override function create()
 	{
 		#if MODS_ALLOWED
@@ -393,6 +395,26 @@ class FreeplayState extends MusicBeatState
 		}
 		changeDiff();
 		Paths.currentModDirectory = songs[curSelected].folder;
+
+		if (ClientPrefs.loadModMenu) updateShit();
+	}
+	
+	public function updateShit() {
+		#if MODS_ALLOWED
+		// It should really only care about the modpacks as assets would juts be well. Already loaded lmao.
+		if ((sys.FileSystem.exists(Paths.modsImages('menus/bg')) && OpenFlAssets.exists(Paths.image('menus/bg')))) {
+			bg.loadGraphic(Paths.modsImages('menus/funkay'));
+			Paths.destroyLoadedImages(false);
+			bg.loadGraphic(Paths.modsImages('menus/bg'));
+		}
+		else
+			bg.loadGraphic(Paths.image('menus/bg'));
+
+		if ((sys.FileSystem.exists(Paths.modsMusic('freakyMenu')) && OpenFlAssets.exists(Paths.music('freakyMenu'))) && Paths.currentModDirectory != switched && instPlaying == -1) {
+			switched = Paths.currentModDirectory;
+			FlxG.sound.playMusic(Paths.modsMusic('freakyMenu'), 0.7);
+		}
+		#end
 	}
 
 	private function positionHighscore() {
