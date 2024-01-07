@@ -36,6 +36,8 @@ class FreeplayState extends MusicBeatState
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
 
+	var trackPlaying:Bool = false;
+
 	private var grpSongs:FlxTypedGroup<Alphabet>;
 	private var curPlaying:Bool = false;
 
@@ -277,6 +279,8 @@ class FreeplayState extends MusicBeatState
 						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
 					else
 						vocals = new FlxSound();
+
+					trackPlaying = true;
 		
 					FlxG.sound.list.add(vocals);
 					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
@@ -406,14 +410,13 @@ class FreeplayState extends MusicBeatState
 			bg.loadGraphic(Paths.modsImages('menus/funkay'));
 			Paths.destroyLoadedImages(false);
 			bg.loadGraphic(Paths.modsImages('menus/bg'));
+
+			FlxTransitionableState.skipNextTransIn = true;
+			FlxTransitionableState.skipNextTransOut = true;
+			MusicBeatState.resetState();
 		}
 		else
 			bg.loadGraphic(Paths.image('menus/bg'));
-
-		if ((sys.FileSystem.exists(Paths.modsMusic('freakyMenu')) && OpenFlAssets.exists(Paths.music('freakyMenu'))) && Paths.currentModDirectory != switched && instPlaying == -1) {
-			switched = Paths.currentModDirectory;
-			FlxG.sound.playMusic(Paths.modsMusic('freakyMenu'), 0.7);
-		}
 		#end
 	}
 

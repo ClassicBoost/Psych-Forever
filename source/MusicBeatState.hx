@@ -32,7 +32,7 @@ class MusicBeatState extends FlxUIState
 
 		// Custom made Trans out
 		if(!skip) {
-			openSubState(new CustomFadeTransition(1, true));
+			openSubState(new CustomFadeTransition(0.35, true));
 		}
 		FlxTransitionableState.skipNextTransOut = false;
 	}

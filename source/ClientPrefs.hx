@@ -162,6 +162,10 @@ class ClientPrefs {
 		if(FlxG.save.data.lateDamage != null) lateDamage = FlxG.save.data.lateDamage;
 		if(FlxG.save.data.loadModMenu != null) loadModMenu = FlxG.save.data.loadModMenu;
 
+		// flixel automatically saves your volume!
+		if(FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;
+		if (FlxG.save.data.mute != null) FlxG.sound.muted = FlxG.save.data.mute;
+
 		var save:FlxSave = new FlxSave();
 		save.bind('controls', 'ninjamuffin99');
 		if(save != null && save.data.customControls != null) {
