@@ -1859,7 +1859,7 @@ class ChartingState extends MusicBeatState
 			note.sustainLength = daSus;
 			note.noteType = i[3];
 		} else { //Event note
-			note.loadGraphic(Paths.image('eventArrow'));
+			note.loadGraphic(Paths.image('menus/eventArrow'));
 			note.eventName = daSus;
 			note.eventVal1 = i[3];
 			note.eventVal2 = i[4];
