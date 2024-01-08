@@ -22,7 +22,7 @@ typedef SwagSong =
 
 	var player1:String;
 	var player2:String;
-	var player3:String;
+	var gfVersion:String;
 	var stage:String;
 
 	var arrowSkin:String;
@@ -43,7 +43,7 @@ class Song
 
 	public var player1:String = 'bf';
 	public var player2:String = 'dad';
-	public var player3:String = 'gf';
+	public var gfVersion:String = 'gf';
 
 	public function new(song, notes, bpm)
 	{
@@ -52,10 +52,19 @@ class Song
 		this.bpm = bpm;
 	}
 
+	private static function onLoadJson(songJson:Dynamic) // Convert old charts to newest format
+	{
+		if(songJson.gfVersion == null)
+		{
+			songJson.gfVersion = songJson.player3;
+			songJson.player3 = null;
+		}
+	}
+
 	public static function loadFromJson(jsonInput:String, ?folder:String):SwagSong
 	{
 		var rawJson = null;
-		
+
 		var formattedFolder:String = Paths.formatToSongPath(folder);
 		var formattedSong:String = Paths.formatToSongPath(jsonInput);
 		#if MODS_ALLOWED
@@ -97,6 +106,7 @@ class Song
 
 		var songJson:SwagSong = parseJSONshit(rawJson);
 		if(jsonInput != 'events') StageData.loadDirectory(songJson);
+		onLoadJson(songJson);
 		return songJson;
 	}
 

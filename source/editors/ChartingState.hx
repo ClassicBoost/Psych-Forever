@@ -225,7 +225,7 @@ class ChartingState extends MusicBeatState
 				splashSkin: '',
 				player1: 'bf',
 				player2: 'dad',
-				player3: 'gf',
+				gfVersion: 'gf',
 				speed: 1,
 				stage: 'stage',
 				validScore: false
@@ -470,10 +470,10 @@ class ChartingState extends MusicBeatState
 
 		var player3DropDown = new FlxUIDropDownMenuCustom(player1DropDown.x, player1DropDown.y + 40, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
 		{
-			_song.player3 = characters[Std.parseInt(character)];
+			_song.gfVersion = characters[Std.parseInt(character)];
 			updateHeads();
 		});
-		player3DropDown.selectedLabel = _song.player3;
+		player3DropDown.selectedLabel = _song.gfVersion;
 		blockPressWhileScrolling.push(player3DropDown);
 
 		var player2DropDown = new FlxUIDropDownMenuCustom(player1DropDown.x, player3DropDown.y + 40, FlxUIDropDownMenuCustom.makeStrIdLabelArray(characters, true), function(character:String)
@@ -580,6 +580,7 @@ class ChartingState extends MusicBeatState
 	var stepperLength:FlxUINumericStepper;
 	var check_mustHitSection:FlxUICheckBox;
 	var check_changeBPM:FlxUICheckBox;
+	var check_gfSection:FlxUICheckBox;
 	var stepperSectionBPM:FlxUINumericStepper;
 	var check_altAnim:FlxUICheckBox;
 
@@ -600,7 +601,12 @@ class ChartingState extends MusicBeatState
 		check_mustHitSection.checked = _song.notes[curSection].mustHitSection;
 		// _song.needsVoices = check_mustHit.checked;
 
-		check_altAnim = new FlxUICheckBox(10, 60, null, null, "Alt Animation", 100);
+		check_gfSection = new FlxUICheckBox(10, check_mustHitSection.y + 22, null, null, "GF section", 100);
+		check_gfSection.name = 'check_gf';
+		check_gfSection.checked = _song.notes[curSection].gfSection;
+		// _song.needsVoices = check_mustHit.checked;
+
+		check_altAnim = new FlxUICheckBox(check_gfSection.x + 120, check_gfSection.y, null, null, "Alt Animation", 100);
 		check_altAnim.checked = _song.notes[curSection].altAnim;
 		check_altAnim.name = 'check_altAnim';
 
@@ -691,6 +697,7 @@ class ChartingState extends MusicBeatState
 		tab_group_section.add(stepperSectionBPM);
 		tab_group_section.add(check_mustHitSection);
 		tab_group_section.add(check_altAnim);
+		tab_group_section.add(check_gfSection);
 		tab_group_section.add(check_changeBPM);
 		tab_group_section.add(copyButton);
 		tab_group_section.add(pasteButton);
@@ -1009,6 +1016,9 @@ class ChartingState extends MusicBeatState
 
 					updateGrid();
 					updateHeads();
+
+				case 'GF section':
+					_song.notes[curSection].gfSection = check.checked;
 
 				case 'Change BPM':
 					_song.notes[curSection].changeBPM = check.checked;
@@ -1674,6 +1684,7 @@ class ChartingState extends MusicBeatState
 		stepperLength.value = sec.lengthInSteps;
 		check_mustHitSection.checked = sec.mustHitSection;
 		check_altAnim.checked = sec.altAnim;
+		check_gfSection.checked = sec.gfSection;
 		check_changeBPM.checked = sec.changeBPM;
 		stepperSectionBPM.value = sec.bpm;
 
@@ -1689,11 +1700,13 @@ class ChartingState extends MusicBeatState
 		{
 			leftIcon.changeIcon(healthIconP1);
 			rightIcon.changeIcon(healthIconP2);
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 		else
 		{
 			leftIcon.changeIcon(healthIconP2);
 			rightIcon.changeIcon(healthIconP1);
+			if (_song.notes[curSection].gfSection) leftIcon.changeIcon('gf');
 		}
 	}
 
@@ -1896,6 +1909,7 @@ class ChartingState extends MusicBeatState
 			bpm: _song.bpm,
 			changeBPM: false,
 			mustHitSection: true,
+			gfSection: false,
 			sectionNotes: [],
 			typeOfSection: 0,
 			altAnim: false
@@ -2102,6 +2116,7 @@ class ChartingState extends MusicBeatState
 				sectionNotes: arrayNotes,
 				lengthInSteps: 16,
 				typeOfSection: 0,
+				gfSection: false,
 				mustHitSection: false,
 				bpm: 0,
 				changeBPM: false,
@@ -2121,7 +2136,7 @@ class ChartingState extends MusicBeatState
 
 			player1: _song.player1,
 			player2: _song.player2,
-			player3: _song.player3,
+			gfVersion: _song.gfVersion,
 			stage: _song.stage,
 			validScore: false
 		};

@@ -34,7 +34,7 @@ class Note extends FlxSprite
 	public var eventName:String = '';
 	public var eventVal1:String = '';
 	public var eventVal2:String = '';
-
+	public var gfNote:Bool = false;
 	public var colorSwap:ColorSwap;
 	public var inEditor:Bool = false;
 	private var earlyHitMult:Float = 0.5;
@@ -102,6 +102,8 @@ class Note extends FlxSprite
 					giveScore = false;
 				case 'No Animation':
 					noAnimation = true;
+				case 'GF Sing':
+					gfNote = true;
 			}
 			noteType = value;
 		}

@@ -147,6 +147,8 @@ class PlayState extends MusicBeatState
 	private static var prevCamFollowPos:FlxObject;
 	private static var resetSpriteCache:Bool = false;
 
+	public var gfSung:Bool = false;
+
 	public var tempDisableBop:String = 'no';
 
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
@@ -765,7 +767,7 @@ class PlayState extends MusicBeatState
 		blammedLightsBlack.alpha = 0.0;
 		#end
 
-		var gfVersion:String = SONG.player3;
+		var gfVersion:String = SONG.gfVersion;
 		if(gfVersion == null || gfVersion.length < 1) {
 			switch (curStage)
 			{
@@ -778,7 +780,7 @@ class PlayState extends MusicBeatState
 				default:
 					gfVersion = 'gf';
 			}
-			SONG.player3 = gfVersion; //Fix for the Chart Editor
+		//	SONG.player3 = gfVersion; //Fix for the Chart Editor
 		}
 
 		if (PlayState.isPixelStage)
@@ -1663,6 +1665,7 @@ class PlayState extends MusicBeatState
 					swagNote.noteType = songNotes[3];
 					if(!Std.isOfType(songNotes[3], String)) swagNote.noteType = editors.ChartingState.noteTypeList[songNotes[3]]; //Backward compatibility + compatibility with Week 7 charts
 					swagNote.scrollFactor.set();
+					if (section.gfSection && (songNotes[1]<4)) swagNote.noteType = 'GF Sing';
 
 					var susLength:Float = swagNote.sustainLength;
 
@@ -1677,7 +1680,7 @@ class PlayState extends MusicBeatState
 
 							var sustainNote:Note = new Note(daStrumTime + (Conductor.stepCrochet * susNote) + (Conductor.stepCrochet / FlxMath.roundDecimal(SONG.speed, 2)), daNoteData, oldNote, true);
 							sustainNote.mustPress = gottaHitNote;
-							sustainNote.noteType = swagNote.noteType;
+							sustainNote.noteType = (section.gfSection && (songNotes[1]<4) ? 'GF Sing' : swagNote.noteType);
 							sustainNote.scrollFactor.set();
 							unspawnNotes.push(sustainNote);
 
@@ -2381,9 +2384,11 @@ class PlayState extends MusicBeatState
 						if(daNote.noteType == 'GF Sing') {
 							gf.playAnim(animToPlay + altAnim, true);
 							gf.holdTimer = 0;
+							gfSung = true;
 						} else {
 							dad.playAnim(animToPlay + altAnim, true);
 							dad.holdTimer = 0;
+							gfSung = false;
 						}
 					}
 
@@ -2917,6 +2922,13 @@ class PlayState extends MusicBeatState
 		{
 			moveCamera(true);
 			callOnLuas('onMoveCamera', ['dad']);
+		}
+		else if (!gfHidden && gfSung) {
+			camFollow.set(gf.getMidpoint().x, gf.getMidpoint().y);
+			camFollow.x += gf.cameraPosition[0] + girlfriendCameraOffset[0];
+			camFollow.y += gf.cameraPosition[1] + girlfriendCameraOffset[1];
+			callOnLuas('onMoveCamera', ['gf']);
+			return;
 		}
 		else
 		{
@@ -3628,9 +3640,11 @@ class PlayState extends MusicBeatState
 				if(gfHidden == false && note.noteType == 'GF Sing') {
 					gf.playAnim(animToPlay + daAlt, true);
 					gf.holdTimer = 0;
+					gfSung = true;
 				} else {
 					boyfriend.playAnim(animToPlay + daAlt, true);
 					boyfriend.holdTimer = 0;
+					gfSung = false;
 				}
 
 				if(note.noteType == 'Hey!') {
