@@ -74,14 +74,17 @@ class PlayState extends MusicBeatState
 	];
 	
 	#if (haxe >= "4.0.0")
+	public var variables:Map<String, Dynamic> = new Map();
 	public var modchartTweens:Map<String, FlxTween> = new Map();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map();
 	public var modchartTimers:Map<String, FlxTimer> = new Map();
 	public var modchartSounds:Map<String, FlxSound> = new Map();
 	#else
+	public var variables:Map<String, Dynamic> = new Map<String, Dynamic>();
 	public var modchartTweens:Map<String, FlxTween> = new Map<String, FlxTween>();
 	public var modchartSprites:Map<String, ModchartSprite> = new Map<String, Dynamic>();
 	public var modchartTimers:Map<String, FlxTimer> = new Map<String, FlxTimer>();
+	public var modchartTexts:Map<String, ModchartText> = new Map();
 	public var modchartSounds:Map<String, FlxSound> = new Map<String, FlxSound>();
 	#end
 
@@ -849,11 +852,10 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		timeTxt = new FlxText(STRUM_X + (FlxG.width / 2) - 248, 20, 400, "", 32);
-		timeTxt.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		timeTxt.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		timeTxt.scrollFactor.set();
-		timeTxt.alpha = 0;
 		timeTxt.borderSize = 2;
-		timeTxt.visible = !ClientPrefs.hideTime;
+		timeTxt.text = '- ${SONG.song} -';
 		if(ClientPrefs.downScroll) timeTxt.y = FlxG.height - 45;
 
 		timeBarBG = new AttachedSprite('ui/timeBar');
@@ -979,7 +981,7 @@ class PlayState extends MusicBeatState
 		botplayTxt = new FlxText(0, timeBarBG.y + 55, 0, "CPU CONTROLED", 32);
 		botplayTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		botplayTxt.scrollFactor.set();
-		botplayTxt.borderSize = 1.25;
+		botplayTxt.borderSize = 1.5;
 		botplayTxt.visible = cpuControlled;
 		botplayTxt.screenCenter(X);
 		add(botplayTxt);
@@ -1006,6 +1008,33 @@ class PlayState extends MusicBeatState
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 		updateTime = true;
+
+		// "GLOBAL" SCRIPTS
+		#if LUA_ALLOWED
+		var filesPushed:Array<String> = [];
+		var foldersToCheck:Array<String> = [Paths.getPreloadPath('scripts/')];
+
+		#if MODS_ALLOWED
+		foldersToCheck.insert(0, Paths.mods('scripts/'));
+		if(Paths.currentModDirectory != null && Paths.currentModDirectory.length > 0)
+			foldersToCheck.insert(0, Paths.mods(Paths.currentModDirectory + '/scripts/'));
+		#end
+
+		for (folder in foldersToCheck)
+		{
+			if(FileSystem.exists(folder))
+			{
+				for (file in FileSystem.readDirectory(folder))
+				{
+					if(file.endsWith('.lua') && !filesPushed.contains(file))
+					{
+						luaArray.push(new FunkinLua(folder + file));
+						filesPushed.push(file);
+					}
+				}
+			}
+		}
+		#end
 
 		#if LUA_ALLOWED
 		var filesPushed:Array<String> = [];
@@ -1165,6 +1194,11 @@ class PlayState extends MusicBeatState
 					newGf.alreadyLoaded = false;
 				}
 		}
+	}
+	public function getLuaObject(tag:String, text:Bool=true):FlxSprite {
+		if(modchartSprites.exists(tag)) return modchartSprites.get(tag);
+		if(variables.exists(tag)) return variables.get(tag);
+		return null;
 	}
 	function startCharacterPos(char:Character, ?gfCheck:Bool = false) {
 		if(gfCheck && char.curCharacter.startsWith('gf')) { //IF DAD IS GIRLFRIEND, HE GOES TO HER POSITION
@@ -2174,7 +2208,7 @@ class PlayState extends MusicBeatState
 					var minutesRemaining:Int = Math.floor(secondsTotal / 60);
 					var secondsRemaining:String = '' + secondsTotal % 60;
 					if(secondsRemaining.length < 2) secondsRemaining = '0' + secondsRemaining; //Dunno how to make it display a zero first in Haxe lol
-					timeTxt.text = minutesRemaining + ':' + secondsRemaining;
+					if (!ClientPrefs.hideTime) timeTxt.text = '- ${SONG.song} (${minutesRemaining}:${secondsRemaining}) -';
 				}
 			}
 

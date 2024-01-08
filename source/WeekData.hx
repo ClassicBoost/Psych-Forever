@@ -1,8 +1,10 @@
 package;
 
+#if !html5
 #if MODS_ALLOWED
 import sys.io.File;
 import sys.FileSystem;
+#end
 #end
 import lime.utils.Assets;
 import openfl.utils.Assets as OpenFlAssets;

@@ -11,6 +11,9 @@ class ClientPrefs {
 	public static var downScroll:Bool = false;
 	public static var middleScroll:Bool = false;
 	public static var showFPS:Bool = true;
+	public static var showMemory:Bool = true;
+	public static var showVersion:Bool = true;
+	public static var showMod:Bool = true;
 	public static var flashing:Bool = true;
 	public static var globalAntialiasing:Bool = true;
 	public static var noteSplashes:Bool = true;
@@ -82,6 +85,9 @@ class ClientPrefs {
 		FlxG.save.data.downScroll = downScroll;
 		FlxG.save.data.middleScroll = middleScroll;
 		FlxG.save.data.showFPS = showFPS;
+		FlxG.save.data.showMemory = showMemory;
+		FlxG.save.data.showVersion = showVersion;
+		FlxG.save.data.showMod = showMod;
 		FlxG.save.data.flashing = flashing;
 		FlxG.save.data.globalAntialiasing = globalAntialiasing;
 		FlxG.save.data.noteSplashes = noteSplashes;
@@ -123,12 +129,10 @@ class ClientPrefs {
 	public static function loadPrefs() {
 		if(FlxG.save.data.downScroll != null) downScroll = FlxG.save.data.downScroll;
 		if(FlxG.save.data.middleScroll != null)	middleScroll = FlxG.save.data.middleScroll;
-		if(FlxG.save.data.showFPS != null) {
-			showFPS = FlxG.save.data.showFPS;
-			if(Main.fpsVar != null) {
-				Main.fpsVar.visible = showFPS;
-			}
-		}
+		if(FlxG.save.data.showFPS != null) showFPS = FlxG.save.data.showFPS;
+		if(FlxG.save.data.showMemory != null) showMemory = FlxG.save.data.showMemory;
+		if(FlxG.save.data.showVersion != null) showVersion = FlxG.save.data.showVersion;
+		if(FlxG.save.data.showMemory != null) showMemory = FlxG.save.data.showMemory;
 		if(FlxG.save.data.flashing != null)	flashing = FlxG.save.data.flashing;
 		if(FlxG.save.data.globalAntialiasing != null) globalAntialiasing = FlxG.save.data.globalAntialiasing;
 		if(FlxG.save.data.noteSplashes != null)	noteSplashes = FlxG.save.data.noteSplashes;

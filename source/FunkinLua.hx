@@ -38,7 +38,7 @@ class FunkinLua {
 	public var lua:State = null;
 	#end
 
-	var lePlayState:PlayState = null;
+	public static var lePlayState:PlayState = null;
 	var scriptName:String = '';
 	var gonnaClose:Bool = false;
 
@@ -1283,6 +1283,77 @@ class FunkinLua {
 		}
 		#end
 		return Function_Continue;
+	}
+
+	public static function setVarInArray(instance:Dynamic, variable:String, value:Dynamic):Any
+	{
+		var shit:Array<String> = variable.split('[');
+		if(shit.length > 1)
+		{
+			var blah:Dynamic = null;
+			if(lePlayState.variables.exists(shit[0]))
+			{
+				var retVal:Dynamic = lePlayState.variables.get(shit[0]);
+				if(retVal != null)
+					blah = retVal;
+			}
+			else
+				blah = Reflect.getProperty(instance, shit[0]);
+
+			for (i in 1...shit.length)
+			{
+				var leNum:Dynamic = shit[i].substr(0, shit[i].length - 1);
+				if(i >= shit.length-1) //Last array
+					blah[leNum] = value;
+				else //Anything else
+					blah = blah[leNum];
+			}
+			return blah;
+		}
+		/*if(Std.isOfType(instance, Map))
+			instance.set(variable,value);
+		else*/
+			
+		if(lePlayState.variables.exists(variable))
+		{
+			lePlayState.variables.set(variable, value);
+			return true;
+		}
+
+		Reflect.setProperty(instance, variable, value);
+		return true;
+	}
+	public static function getVarInArray(instance:Dynamic, variable:String):Any
+	{
+		var shit:Array<String> = variable.split('[');
+		if(shit.length > 1)
+		{
+			var blah:Dynamic = null;
+			if(lePlayState.variables.exists(shit[0]))
+			{
+				var retVal:Dynamic = lePlayState.variables.get(shit[0]);
+				if(retVal != null)
+					blah = retVal;
+			}
+			else
+				blah = Reflect.getProperty(instance, shit[0]);
+
+			for (i in 1...shit.length)
+			{
+				var leNum:Dynamic = shit[i].substr(0, shit[i].length - 1);
+				blah = blah[leNum];
+			}
+			return blah;
+		}
+
+		if(lePlayState.variables.exists(variable))
+		{
+			var retVal:Dynamic = lePlayState.variables.get(variable);
+			if(retVal != null)
+				return retVal;
+		}
+
+		return Reflect.getProperty(instance, variable);
 	}
 
 	#if LUA_ALLOWED

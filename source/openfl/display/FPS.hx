@@ -46,7 +46,7 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat(Paths.font('vcr.ttf'), 18, color);
+		defaultTextFormat = new TextFormat('VCR OSD Mono', 18, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
@@ -82,6 +82,8 @@ class FPS extends TextField
 
 	// Event Handlers
 	@:noCompletion
+
+	var displayMod:String = '';
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
 		var now:Float = Timer.stamp();
@@ -103,7 +105,7 @@ class FPS extends TextField
 		var memoryMegas:Float = 0;
 			
 		#if openfl
-		if (ClientPrefs.showFPS) text += '${getInterval(mem)} / ${getInterval(memPeak)}\n';
+		if (ClientPrefs.showMemory) text += '${getInterval(mem)} / ${getInterval(memPeak)}\n';
 		#end
 
 		textColor = 0xFFFFFFFF;
@@ -120,7 +122,10 @@ class FPS extends TextField
 	//	if (ClientPrefs.data.showDebug) text += MusicBeatState.mainClassState + '\n';
 	//	if (ClientPrefs.data.showVersion) text += 'Psych Forever ${Main.foreverVersion}\n';
 
-		if (ClientPrefs.showFPS) text += 'Psych Forever v${Main.foreverVersion}\n';
+		displayMod = Paths.currentModDirectory;
+
+		if (ClientPrefs.showVersion) text += 'Psych Forever v${Main.foreverVersion}\n';
+		if (ClientPrefs.showMod) text += 'Mod: ${(displayMod == null || displayMod == '' ? 'Base Engine' : displayMod)}\n';
 		text += "\n";
 
 	}

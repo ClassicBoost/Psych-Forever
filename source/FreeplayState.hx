@@ -256,14 +256,14 @@ class FreeplayState extends MusicBeatState
 		{
 			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
 			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
-			if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
+			#if !html5 if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
 				curDifficulty = 1;
 				changeDiff(0); // just show it shows Normal instead of being stuck
 				trace('Couldnt find file');
 				barText.text = 'Song Missing! (note: use songs instead of data)';
 				FlxG.sound.play(Paths.sound('ANGRY'), 0.7);
-			} else {
+			} else {#end
 				destroyFreeplayVocals();
 
 				Paths.currentModDirectory = songs[curSelected].folder;
@@ -299,7 +299,7 @@ class FreeplayState extends MusicBeatState
 	
 					FlxG.sound.music.volume = 0;
 				}
-			}
+			#if !html5 } #end
 			trace(poop);
 		}
 		else if(controls.RESET)

@@ -46,7 +46,7 @@ class LoadingState extends MusicBeatState
 	{
 		var bg:FlxSprite = new FlxSprite(0, 0).makeGraphic(FlxG.width, FlxG.height, 0xffcaff4d);
 		add(bg);
-		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/menus/funkay.png', IMAGE));
+		funkay = new FlxSprite(0, 0).loadGraphic(Paths.getPath('images/menus/loadingScreens/loading${FlxG.random.int(1,2)}.png', IMAGE));
 		funkay.setGraphicSize(0, FlxG.height);
 		funkay.updateHitbox();
 		funkay.antialiasing = ClientPrefs.globalAntialiasing;
@@ -65,15 +65,11 @@ class LoadingState extends MusicBeatState
 			{
 				callbacks = new MultiCallback(onLoad);
 				var introComplete = callbacks.add("introComplete");
-				if (PlayState.SONG != null) {
+				/*if (PlayState.SONG != null) {
 					checkLoadSong(getSongPath());
 					if (PlayState.SONG.needsVoices)
 						checkLoadSong(getVocalPath());
-				}
-				checkLibrary("shared");
-				if(directory != null && directory.length > 0 && directory != 'shared') {
-					checkLibrary(directory);
-				}
+				}*/
 
 				var fadeTime = 0.5;
 				FlxG.camera.fade(FlxG.camera.bgColor, fadeTime, true);
@@ -161,22 +157,22 @@ class LoadingState extends MusicBeatState
 		Paths.setCurrentLevel(directory);
 		trace('Setting asset folder to ' + directory);
 
-		#if NO_PRELOAD_ALL
+
 		var loaded:Bool = false;
 		if (PlayState.SONG != null) {
-			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded("shared") && isLibraryLoaded(directory);
+			loaded = isSoundLoaded(getSongPath()) && (!PlayState.SONG.needsVoices || isSoundLoaded(getVocalPath())) && isLibraryLoaded(directory);
 		}
 		
 		if (!loaded)
 			return new LoadingState(target, stopMusic, directory);
-		#end
+
 		if (stopMusic && FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 		
 		return target;
 	}
 	
-	#if NO_PRELOAD_ALL
+
 	static function isSoundLoaded(path:String):Bool
 	{
 		return Assets.cache.hasSound(path);
@@ -186,7 +182,7 @@ class LoadingState extends MusicBeatState
 	{
 		return Assets.getLibrary(library) != null;
 	}
-	#end
+
 	
 	override function destroy()
 	{

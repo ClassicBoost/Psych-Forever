@@ -679,7 +679,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'INPUT',
 		'SPLASHES',
 		'MISC',
-		'MODS'
+		'MODS',
+		'TOP RIGHT TEXT'
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
@@ -713,7 +714,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Flashing Lights',
 		'Camera Zooms',
 		#if !mobile
+		'TOP RIGHT TEXT',
 		'FPS Counter',
+		'Memory Usage',
+		'Version',
+		'Current Mod',
 		#end
 		'MODS',
 		'Mod Menus'
@@ -848,8 +853,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 				switch(options[curSelected]) {
 					case 'FPS Counter':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;
-						if(Main.fpsVar != null)
-							Main.fpsVar.visible = ClientPrefs.showFPS;
+					case 'Memory Usage':
+						ClientPrefs.showMemory = !ClientPrefs.showMemory;
+					case 'Version':
+						ClientPrefs.showVersion = !ClientPrefs.showVersion;
+					case 'Current Mod':
+						ClientPrefs.showMod = !ClientPrefs.showMod;
 
 					case 'Low Quality':
 						ClientPrefs.lowQuality = !ClientPrefs.lowQuality;
@@ -984,8 +993,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "Pretty self explanatory, isn't it?\nDefault value is 60.";
 			case 'Note Delay':
 				daText = "Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.";
-			case 'FPS Counter':
-				daText = "If unchecked, hides FPS Counter.";
+			case 'FPS Counter','Memory Usage','Version','Current Mod':
+				daText = 'Uncheck to hide the ${options[curSelected]} from the top right.';
 			case 'Low Quality':
 				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
 			case 'Persistent Cached Data':
@@ -1070,6 +1079,12 @@ class PreferencesSubstate extends MusicBeatSubstate
 				switch(options[checkboxNumber[i]]) {
 					case 'FPS Counter':
 						daValue = ClientPrefs.showFPS;
+					case 'Memory Usage':
+						daValue = ClientPrefs.showMemory;
+					case 'Version':
+						daValue = ClientPrefs.showVersion;
+					case 'Current Mod':
+						daValue = ClientPrefs.showMod;
 					case 'Low Quality':
 						daValue = ClientPrefs.lowQuality;
 					case 'Anti-Aliasing':

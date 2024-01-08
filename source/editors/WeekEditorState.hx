@@ -27,9 +27,11 @@ import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import lime.system.Clipboard;
 import haxe.Json;
+#if !html5
 #if sys
 import sys.io.File;
 import sys.FileSystem;
+#end
 #end
 import WeekData;
 
