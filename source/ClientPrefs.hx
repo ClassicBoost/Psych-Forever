@@ -34,6 +34,7 @@ class ClientPrefs {
 	public static var fixedJudgements:Bool = false;
 	public static var lateDamage:Bool = true;
 	public static var loadModMenu:Bool = false;
+	public static var judgementCounter:Bool = true;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -108,6 +109,7 @@ class ClientPrefs {
 		FlxG.save.data.fixedJudgements = fixedJudgements;
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.loadModMenu = loadModMenu;
+		FlxG.save.data.judgementCounter = judgementCounter;
 
 		var achieves:Array<String> = [];
 		for (i in 0...Achievements.achievementsUnlocked.length) {
@@ -165,6 +167,7 @@ class ClientPrefs {
 		if(FlxG.save.data.hideTime != null)	hideTime = FlxG.save.data.hideTime;
 		if(FlxG.save.data.lateDamage != null) lateDamage = FlxG.save.data.lateDamage;
 		if(FlxG.save.data.loadModMenu != null) loadModMenu = FlxG.save.data.loadModMenu;
+		if(FlxG.save.data.judgementCounter != null) judgementCounter = FlxG.save.data.judgementCounter;
 
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;

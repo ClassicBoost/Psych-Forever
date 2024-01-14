@@ -151,6 +151,8 @@ class PlayState extends MusicBeatState
 
 	public var tempDisableBop:String = 'no';
 
+	public var judgementTxt:FlxText;
+
 	public var strumLineNotes:FlxTypedGroup<StrumNote>;
 	public var opponentStrums:FlxTypedGroup<StrumNote>;
 	public var playerStrums:FlxTypedGroup<StrumNote>;
@@ -918,6 +920,14 @@ class PlayState extends MusicBeatState
 		scoreTxt.visible = !ClientPrefs.hideHud;
 		add(scoreTxt);
 
+		judgementTxt = new FlxText(10, 0, FlxG.width, "", 20);
+		judgementTxt.setFormat(Paths.font("vcr.ttf"), 20, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		judgementTxt.scrollFactor.set();
+		judgementTxt.borderSize = 1.5;
+		judgementTxt.screenCenter(Y);
+		judgementTxt.visible = ClientPrefs.judgementCounter;
+		add(judgementTxt);
+
 		strumLineNotes = new FlxTypedGroup<StrumNote>();
 		add(strumLineNotes);
 		add(grpNoteSplashes);
@@ -989,6 +999,8 @@ class PlayState extends MusicBeatState
 		add(botplayTxt);
 		if(ClientPrefs.downScroll) botplayTxt.y = timeBarBG.y - 78;
 
+		displayRating('miss', true);
+
 		strumLineNotes.cameras = [camHUD];
 		grpNoteSplashes.cameras = [camHUD];
 		notes.cameras = [camHUD];
@@ -1001,6 +1013,7 @@ class PlayState extends MusicBeatState
 		timeBar.cameras = [camHUD];
 		timeBarBG.cameras = [camHUD];
 		timeTxt.cameras = [camHUD];
+		judgementTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -2128,8 +2141,8 @@ class PlayState extends MusicBeatState
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
 			moveCameraSection(Std.int(curStep / 16));
 
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1))));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1))));
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -3220,6 +3233,8 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		if (daRating != 'sick') allSicks = false;
+
 		if(!cpuControlled && !usedBotplay) {
 			songScore += score;
 			totalNotes++;
@@ -3242,7 +3257,8 @@ class PlayState extends MusicBeatState
 		coolText.screenCenter();
 		coolText.x = FlxG.width * 0.55;
 
-		if (daRatingLol != 'sick') allSicks = false;
+		judgementTxt.text = 'Sick: $sicks\nGood: $goods\nBad: $bads\nShit: $shits\nMiss: ${ClientPrefs.lateDamage ? (songMisses - shits) : songMisses}\n';
+		judgementTxt.screenCenter(Y);
 
 		var rating:FlxSprite = new FlxSprite();
 		rating.loadGraphic(Paths.image('ui/' + uiElement + 'ratings/' + (allSicks == true ? 'sick-perfect' : allSicks == false ? daRatingLol : "") + daTiming + uiPostfix));

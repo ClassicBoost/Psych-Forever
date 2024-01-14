@@ -708,6 +708,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'MISC',
 		'Note Delay',
 		'Hide HUD',
+		'Judgement Counter',
 		'Display Accuracy',
 		'Fixed Judgements',
 		'Hide Song Length',
@@ -886,6 +887,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Display Accuracy':
 						ClientPrefs.displayAccuracy = !ClientPrefs.displayAccuracy;
 
+					case 'Judgement Counter':
+						ClientPrefs.judgementCounter = !ClientPrefs.judgementCounter;
+
 					case 'Fixed Judgements':
 						ClientPrefs.fixedJudgements = !ClientPrefs.fixedJudgements;
 
@@ -1027,6 +1031,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If unchecked, the camera won't zoom in on a beat hit.";
 			case 'Hide HUD':
 				daText = "If checked, hides most HUD elements.";
+			case 'Judgement Counter':
+				daText = 'If checked, a judgement counter willl appear on your left of your screen';
 			case 'Late Damage':
 				daText = "If checked, hitting notes late will make you miss";
 			case 'Hide Song Length':
@@ -1115,6 +1121,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.camZooms;
 					case 'Hide HUD':
 						daValue = ClientPrefs.hideHud;
+					case 'Judgement Counter':
+						daValue = ClientPrefs.judgementCounter;
 					case 'Persistent Cached Data':
 						daValue = ClientPrefs.imagesPersist;
 					case 'Late Damage':
