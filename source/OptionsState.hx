@@ -679,7 +679,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'INPUT',
 		'SPLASHES',
 		'MISC',
-		'MODS',
+		'EXPERIMENTAL',
 		'TOP RIGHT TEXT'
 	];
 	static var noCheckbox:Array<String> = [
@@ -721,8 +721,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Version',
 		'Current Mod',
 		#end
-		'MODS',
-		'Mod Menus'
+		'EXPERIMENTAL',
+		'Mod Menus',
+		'New Editors',
+		'New Gameplay'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -932,6 +934,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 
 					case 'Mod Menus':
 						ClientPrefs.loadModMenu = !ClientPrefs.loadModMenu;
+					case 'New Editors':
+						ClientPrefs.newEditors = !ClientPrefs.newEditors;
+					case 'New Gameplay':
+						ClientPrefs.newGameplay = !ClientPrefs.newGameplay;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1039,6 +1045,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 			case 'Mod Menus':
 				daText = "If checked, when ever you scroll into a modpack it will load its assets\n(VERY UNFINISHED)";
+			default:
+				daText = "";
 		}
 		descText.text = daText;
 
@@ -1131,6 +1139,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.hideTime;
 					case 'Mod Menus':
 						daValue = ClientPrefs.loadModMenu;
+					case 'New Editors':
+						daValue = ClientPrefs.newEditors;
+					case 'New Gameplay':
+						daValue = ClientPrefs.newGameplay;
 				}
 				checkbox.daValue = daValue;
 			}

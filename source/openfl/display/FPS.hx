@@ -84,8 +84,12 @@ class FPS extends TextField
 	@:noCompletion
 
 	var displayMod:String = '';
+	var experimentalFeatures:Bool = false;
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
+		if (ClientPrefs.loadModMenu || ClientPrefs.newEditors) experimentalFeatures = true;
+		else experimentalFeatures = false;
+
 		var now:Float = Timer.stamp();
 		times.push(now);
 		while (times[0] < now - 1)
@@ -126,6 +130,7 @@ class FPS extends TextField
 
 		if (ClientPrefs.showVersion) text += 'Psych Forever v${Main.foreverVersion}\n';
 		if (ClientPrefs.showMod) text += 'Mod: ${(displayMod == null || displayMod == '' ? 'Base Engine' : displayMod)}\n';
+		if (experimentalFeatures) text += '!EXPERIMENTAL FEATURES ENABLED!';
 		text += "\n";
 
 	}

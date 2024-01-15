@@ -14,17 +14,18 @@ import flixel.util.FlxColor;
 import flixel.system.FlxSound;
 import flixel.tweens.FlxTween;
 import flixel.tweens.FlxEase;
+import editors.updated.*;
 
 using StringTools;
 
 class MasterEditorMenu extends MusicBeatState
 {
 	var options:Array<String> = [
+		'Character Editor',
 		'Week Editor',
 		'Menu Character Editor',
 		'Dialogue Editor',
-		'Dialogue Portrait Editor',
-		'Character Editor'
+		'Dialogue Portrait Editor'
 	];
 	private var grpTexts:FlxTypedGroup<Alphabet>;
 
@@ -80,7 +81,8 @@ class MasterEditorMenu extends MusicBeatState
 		{
 			switch(options[curSelected]) {
 				case 'Character Editor':
-					LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					if (ClientPrefs.newEditors) LoadingState.loadAndSwitchState(new NewCharacterEditorState(Character.DEFAULT_CHARACTER, false));
+					else LoadingState.loadAndSwitchState(new CharacterEditorState(Character.DEFAULT_CHARACTER, false));
 				case 'Week Editor':
 					MusicBeatState.switchState(new WeekEditorState());
 				case 'Menu Character Editor':

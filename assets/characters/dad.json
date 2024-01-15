@@ -118,17 +118,6 @@
 				58,
 				59
 			]
-		},
-		{
-			"offsets": [
-				140,
-				-100
-			],
-			"loop": false,
-			"fps": 24,
-			"anim": "hey",
-			"indices": [],
-			"name": "WhatYouKnowAboutRollingDownInTheDeep"
 		}
 	],
 	"no_antialiasing": false,
