@@ -43,5 +43,6 @@ Everything from Psych Engine 0.4.2, as well with some features from 0.6.3
 ## Experimental
 * Right now, I am planning on adding a feature where the game automatically switches over to the modpack when you have it selected. (Such as different background and music)
 * Updated Editors
-** Icon steps (Character editor icon steps is a bit buggy)
+	* Icon steps (Character editor icon steps is a bit buggy)
+* New Score System
 * Some features from newer Psych, not all though.
