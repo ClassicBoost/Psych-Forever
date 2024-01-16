@@ -142,6 +142,7 @@ class ClientPrefs {
 		if(FlxG.save.data.showMemory != null) showMemory = FlxG.save.data.showMemory;
 		if(FlxG.save.data.showVersion != null) showVersion = FlxG.save.data.showVersion;
 		if(FlxG.save.data.showMemory != null) showMemory = FlxG.save.data.showMemory;
+		if(FlxG.save.data.showMod != null) showMod = FlxG.save.data.showMod;
 		if(FlxG.save.data.flashing != null)	flashing = FlxG.save.data.flashing;
 		if(FlxG.save.data.globalAntialiasing != null) globalAntialiasing = FlxG.save.data.globalAntialiasing;
 		if(FlxG.save.data.noteSplashes != null)	noteSplashes = FlxG.save.data.noteSplashes;

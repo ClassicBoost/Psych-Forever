@@ -46,7 +46,6 @@ class FPS extends TextField
 		currentFPS = 0;
 		selectable = false;
 		mouseEnabled = false;
-		defaultTextFormat = new TextFormat('VCR OSD Mono', 18, color);
 		autoSize = LEFT;
 		multiline = true;
 		text = "FPS: ";
@@ -87,6 +86,7 @@ class FPS extends TextField
 	var experimentalFeatures:Bool = false;
 	private #if !flash override #end function __enterFrame(deltaTime:Float):Void
 	{
+	
 		if (ClientPrefs.loadModMenu || ClientPrefs.newEditors) experimentalFeatures = true;
 		else experimentalFeatures = false;
 
@@ -117,6 +117,12 @@ class FPS extends TextField
 		{
 			textColor = 0xFFFF0000;
 		}
+
+		#if !html5
+		defaultTextFormat = new TextFormat(Paths.font('vcr.ttf'), 18, textColor);
+		#else
+		defaultTextFormat = new TextFormat('VCR OSD Mono', 18, textColor);
+		#end
 
 		#if (gl_stats && !disable_cffi && (!html5 || !canvas))
 		text += "\ntotalDC: " + Context3DStats.totalDrawCalls();
