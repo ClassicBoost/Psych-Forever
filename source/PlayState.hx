@@ -49,6 +49,9 @@ import Achievements;
 import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
+import gameObjects.background.*;
+import gameObjects.*;
+import gameObjects.userInterface.*;
 
 #if sys
 import sys.FileSystem;
@@ -184,6 +187,9 @@ class PlayState extends MusicBeatState
 	public static var changedDifficulty:Bool = false;
 	public static var cpuControlled:Bool = false;
 
+	public var opponentDamage:Float = 0;
+	public var opponentHealthLimit:Float = 0;
+
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
 
@@ -314,6 +320,9 @@ class PlayState extends MusicBeatState
 		goods = 0;
 		bads = 0;
 		shits = 0;
+
+		opponentDamage = 0;
+		opponentHealthLimit = 0;
 
 		FlxG.cameras.reset(camGame);
 		FlxG.cameras.add(camHUD);
@@ -2088,7 +2097,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		updateScore();
+		updateScore(songScore, Highscore.floorDecimal(ratingPercent * 100, 2), fcRating, songMisses, ratingString);
 
 		if(cpuControlled) {
 			botplaySine += 180 * elapsed;
@@ -2436,6 +2445,8 @@ class PlayState extends MusicBeatState
 							dadCamMovementX = 10;
 					}
 
+					if (health >= opponentHealthLimit) health -= opponentDamage;
+
 					if (!daNote.isSustainNote)
 					{
 						daNote.kill();
@@ -2537,15 +2548,15 @@ class PlayState extends MusicBeatState
 		#end
 	}
 
-	function updateScore() {
+	function updateScore(score:Int, accuracy:Float, fc:String, misses:Int, rank:String) {
 		var divider = ' • ';
-		scoreTxt.text = 'Score: ' + songScore;
+		scoreTxt.text = 'Score: ' + score;
 
 		// The rest
 		if (ClientPrefs.displayAccuracy) {
-		scoreTxt.text += divider + 'Accuracy: ' + (ratingString == 'N/A' ? 0 : Highscore.floorDecimal(ratingPercent * 100, 2)) + '%$fcRating';
-		scoreTxt.text += divider + 'Combo Breaks: ' + songMisses;
-		scoreTxt.text += divider + 'Rank: ' + ratingString;
+		scoreTxt.text += divider + 'Accuracy: ${(rank == 'N/A' ? 0 : accuracy)}%$fc';
+		scoreTxt.text += divider + 'Combo Breaks: $misses';
+		scoreTxt.text += divider + 'Rank: $rank';
 		}
 		scoreTxt.text += (usedPractice ? '${divider}died :(': '');
 
@@ -2662,6 +2673,7 @@ class PlayState extends MusicBeatState
 				gfSpeed = value;
 
 			case 'Blammed Lights':
+			if(curStage == 'philly') { // Fuck you
 				var lightId:Int = Std.parseInt(value1);
 				if(Math.isNaN(lightId)) lightId = 0;
 
@@ -2776,6 +2788,7 @@ class PlayState extends MusicBeatState
 					curLight = 0;
 					curLightEvent = 0;
 				}
+			}
 
 			case 'Kill Henchmen':
 				killHenchmen();
@@ -2929,6 +2942,12 @@ class PlayState extends MusicBeatState
 			
 			case 'BG Freaks Expression':
 				if(bgGirls != null) bgGirls.swapDanceType();
+
+			case 'Opponent Damage':
+				opponentDamage = Std.parseFloat(value1);
+				opponentHealthLimit = Std.parseFloat(value2);
+				if(Math.isNaN(opponentDamage)) opponentDamage = 0;
+				if(Math.isNaN(opponentHealthLimit)) opponentHealthLimit = 0;
 		}
 		callOnLuas('onEvent', [eventName, value1, value2]);
 	}
@@ -4193,7 +4212,7 @@ class PlayState extends MusicBeatState
 							return arrayIDs[i];
 						}
 					case 8:
-						if(ratingPercent < 0.2 && !cpuControlled) {
+						if(ratingPercent < 0.4 && !cpuControlled) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
@@ -4203,12 +4222,12 @@ class PlayState extends MusicBeatState
 							return arrayIDs[i];
 						}
 					case 10:
-						if(Achievements.henchmenDeath >= 100) {
+						if(Achievements.henchmenDeath >= 50) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}
 					case 11:
-						if(boyfriend.holdTimer >= 20) {
+						if(boyfriend.holdTimer >= 10) {
 							Achievements.unlockAchievement(arrayIDs[i]);
 							return arrayIDs[i];
 						}

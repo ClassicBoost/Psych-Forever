@@ -1,4 +1,4 @@
-package;
+package gameObjects.background;
 
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
