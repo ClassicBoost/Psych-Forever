@@ -34,6 +34,8 @@ class ClientPrefs {
 	public static var fixedJudgements:Bool = false;
 	public static var lateDamage:Bool = true;
 	public static var judgementCounter:Bool = true;
+	public static var autoPause:Bool = true;
+	public static var noteMovements:Bool = true;
 
 	// EXPERIMENTAL!!!
 	public static var loadModMenu:Bool = false;
@@ -114,17 +116,13 @@ class ClientPrefs {
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.judgementCounter = judgementCounter;
 		FlxG.save.data.newGameplay = newGameplay;
+		FlxG.save.data.autoPause = autoPause;
+		FlxG.save.data.noteMovements = noteMovements;
 
 		FlxG.save.data.loadModMenu = loadModMenu;
 		FlxG.save.data.newEditors = newEditors;
 
-		var achieves:Array<String> = [];
-		for (i in 0...Achievements.achievementsUnlocked.length) {
-			if(Achievements.achievementsUnlocked[i][1]) {
-				achieves.push(Achievements.achievementsUnlocked[i][0]);
-			}
-		}
-		FlxG.save.data.achievementsUnlocked = achieves;
+		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
 		FlxG.save.flush();
 
@@ -175,6 +173,8 @@ class ClientPrefs {
 		if(FlxG.save.data.hideTime != null)	hideTime = FlxG.save.data.hideTime;
 		if(FlxG.save.data.lateDamage != null) lateDamage = FlxG.save.data.lateDamage;
 		if(FlxG.save.data.judgementCounter != null) judgementCounter = FlxG.save.data.judgementCounter;
+		if(FlxG.save.data.newGameplay != null) autoPause = FlxG.save.data.autoPause;
+		if(FlxG.save.data.newGameplay != null) noteMovements = FlxG.save.data.noteMovements;
 
 		if(FlxG.save.data.loadModMenu != null) loadModMenu = FlxG.save.data.loadModMenu;
 		if(FlxG.save.data.newEditors != null) newEditors = FlxG.save.data.newEditors;

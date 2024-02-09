@@ -80,6 +80,8 @@ class OptionsState extends MusicBeatState
 			changeSelection(1);
 		}
 
+		FlxG.autoPause = ClientPrefs.autoPause;
+
 		if (controls.BACK) {
 			FlxG.sound.play(Paths.sound('cancelMenu'));
 			if (onPlayState) {
@@ -680,6 +682,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'SPLASHES',
 		'MISC',
 		'EXPERIMENTAL',
+		'MOVEMENTS',
 		'TOP RIGHT TEXT'
 	];
 	static var noCheckbox:Array<String> = [
@@ -705,15 +708,18 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'SPLASHES',
 		'Note Splashes',
 		'Opponent Note Splashes',
+		'MOVEMENTS',
+		'Note Movements',
+		'Camera Zooms',
 		'MISC',
+		'Flashing Lights',
 		'Note Delay',
 		'Hide HUD',
 		'Judgement Counter',
 		'Display Accuracy',
 		'Fixed Judgements',
 		'Hide Song Length',
-		'Flashing Lights',
-		'Camera Zooms',
+		'Auto Pause',
 		#if !mobile
 		'TOP RIGHT TEXT',
 		'FPS Counter',
@@ -932,6 +938,11 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 
+					case 'Auto Pause':
+						ClientPrefs.autoPause = !ClientPrefs.autoPause;
+					case 'Note Movements':
+						ClientPrefs.noteMovements = !ClientPrefs.noteMovements;
+
 					case 'Mod Menus':
 						ClientPrefs.loadModMenu = !ClientPrefs.loadModMenu;
 					case 'New Editors':
@@ -1043,6 +1054,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, hitting notes late will make you miss";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
+			case 'Auto Pause':
+				daText = 'Turning this on will make the game pause if unfocused';
+			case 'Note Movements':
+				daText = 'Should the camera move on notes?';
 			case 'Mod Menus':
 				daText = "If checked, when ever you scroll into a modpack it will load its assets\n(VERY UNFINISHED)";
 			default:
@@ -1143,6 +1158,10 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.newEditors;
 					case 'New Gameplay':
 						daValue = ClientPrefs.newGameplay;
+					case 'Auto Pause':
+						daValue = ClientPrefs.autoPause;
+					case 'Note Movements':
+						daValue = ClientPrefs.noteMovements;
 				}
 				checkbox.daValue = daValue;
 			}

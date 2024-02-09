@@ -124,7 +124,8 @@ class FreeplayState extends MusicBeatState
 		WeekData.setDirectoryFromWeek();
 
 		scoreText = new FlxText(FlxG.width * 0.7, 5, 0, "", 32);
-		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT);
+		scoreText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreText.borderSize = 1.5;
 
 		scoreBG = new FlxSprite(scoreText.x - 6, 0).makeGraphic(1, 66, 0xFF000000);
 		scoreBG.alpha = 0.6;
@@ -132,6 +133,7 @@ class FreeplayState extends MusicBeatState
 
 		diffText = new FlxText(scoreText.x, scoreText.y + 36, 0, "", 24);
 		diffText.font = scoreText.font;
+		diffText.borderSize = 1.5;
 		add(diffText);
 
 		add(scoreText);
@@ -164,7 +166,8 @@ class FreeplayState extends MusicBeatState
 		add(textBG);
 
 		barText = new FlxText(textBG.x, textBG.y + 4, FlxG.width, "", 18);
-		barText.setFormat(Paths.font("vcr.ttf"), 18, FlxColor.WHITE, CENTER);
+		barText.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		barText.borderSize = 1.5;
 		barText.scrollFactor.set();
 		add(barText);
 
@@ -252,10 +255,17 @@ class FreeplayState extends MusicBeatState
 			MusicBeatState.switchState(new MainMenuState());
 		}
 
+		var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
+		var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+
+	/*	if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop)))	&& !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
+			curDifficulty = 1;
+			changeDiff();
+		}*/
+
 		if (accepted || space)
 		{
-			var songLowercase:String = Paths.formatToSongPath(songs[curSelected].songName);
-			var poop:String = Highscore.formatSong(songLowercase, curDifficulty);
+			
 			#if !html5 if((!sys.FileSystem.exists(Paths.modsJson(songLowercase + '/' + poop)) && !OpenFlAssets.exists(Paths.json(songLowercase + '/' + poop))) && !sys.FileSystem.exists(Paths.json(songLowercase + '/' + poop))) {
 				poop = songLowercase;
 				curDifficulty = 1;
@@ -275,20 +285,23 @@ class FreeplayState extends MusicBeatState
 				PlayState.storyWeek = songs[curSelected].week;
 				#if PRELOAD_ALL
 				if (space && instPlaying != curSelected) {
-					if (PlayState.SONG.needsVoices)
-						vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-					else
-						vocals = new FlxSound();
+				if (PlayState.SONG.needsVoices)
+					vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+				else
+					vocals = new FlxSound();
 
-					trackPlaying = true;
+				trackPlaying = true;
 		
-					FlxG.sound.list.add(vocals);
-					FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
-					vocals.play();
-					vocals.persist = true;
-					vocals.looped = true;
-					vocals.volume = 0.7;
-					instPlaying = curSelected;
+				FlxG.sound.list.add(vocals);
+				FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 0.7);
+				vocals.play();
+				vocals.persist = true;
+				vocals.looped = true;
+				if (FlxG.keys.pressed.SHIFT) vocals.volume = 0.7;
+				else vocals.volume = 0;
+				instPlaying = curSelected;
+
+				barText.text = 'Track Playing: $songLowercase' + (vocals.volume == 0 ? ' (INST ONLY)' : '');
 				
 				} else #end if (accepted) {
 					trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
@@ -344,7 +357,7 @@ class FreeplayState extends MusicBeatState
 		curSelected += change;
 
 		#if PRELOAD_ALL
-		barText.text = "Press SPACE to listen to this Song / Press RESET to Reset your Score and Accuracy.";
+		barText.text = "Press SPACE to listen to this Song (SHIFT + SPACE for Vocals) / Press RESET to Reset your Score and Accuracy.";
 		#else
 		barText.text = "Press RESET to Reset your Score and Accuracy.";
 		#end
