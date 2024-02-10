@@ -1,0 +1,1 @@
+image files must be at least 512x512 in order to upload those icons to discord apps
