@@ -3296,7 +3296,7 @@ class PlayState extends MusicBeatState
 		judgementTxt.screenCenter(Y);
 
 		var rating:FlxSprite = new FlxSprite();
-		rating.loadGraphic(Paths.image('ui/' + uiElement + 'ratings/' + (allSicks == true && !negative ? 'sick-perfect' : allSicks == false ? daRatingLol : "") + daTiming + uiPostfix));
+		rating.loadGraphic(Paths.image('ui/' + uiElement + 'ratings/' + (allSicks == true && !negative ? 'sick-perfect' : daRatingLol) + daTiming + uiPostfix));
 		rating.screenCenter();
 		rating.x = coolText.x - (hudRating ? 200 : 40);
 		rating.y -= 60;
