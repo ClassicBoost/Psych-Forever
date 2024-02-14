@@ -10,6 +10,7 @@ export/*
 .vscode/*
 wiplol/*
 old/*
+temporary/*
 *.code-workspace
 # Local history which shouldn't be shared.
 .history

@@ -58,7 +58,9 @@ class CreditsState extends MusicBeatState
 		DiscordClient.changePresence("In the Menus", null);
 		#end
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menus/bg'));
+		MainMenuState.loadMenuJson();
+
+		bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidcreditsBG}'));
 		add(bg);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();
@@ -90,7 +92,7 @@ class CreditsState extends MusicBeatState
 		}
 
 		descText = new FlxText(50, 600, 1180, "", 32);
-		descText.setFormat(Paths.font("vcr.ttf"), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		descText.setFormat(Paths.font(MainMenuState.choosenFont), 32, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		descText.scrollFactor.set();
 		descText.borderSize = 2.4;
 		add(descText);

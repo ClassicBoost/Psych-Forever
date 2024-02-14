@@ -119,7 +119,7 @@ class FPS extends TextField
 		}
 
 		#if !html5
-		defaultTextFormat = new TextFormat(Paths.font('vcr.ttf'), 18, textColor);
+		defaultTextFormat = new TextFormat(Paths.font(MainMenuState.choosenFont), 18, textColor);
 		#else
 		defaultTextFormat = new TextFormat('VCR OSD Mono', 18, textColor);
 		#end

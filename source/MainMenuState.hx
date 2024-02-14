@@ -25,12 +25,20 @@ using StringTools;
 
 typedef MenuOptionsIG =
 {
-	story_mode:Bool,
-	freeplay:Bool,
-	options:Bool,
-	awards:Bool,
-	credits:Bool,
-	donate:Bool
+	var story_mode:Bool;
+	var freeplay:Bool;
+	var options:Bool;
+	var awards:Bool;
+	var credits:Bool;
+	var donate:Bool;
+
+	var menu_bg:String;
+	var freeplay_bg:String;
+	var options_bg:String;
+	var awards_bg:String;
+	var credits_bg:String;
+
+	var main_font:String;
 }
 
 class MainMenuState extends MusicBeatState
@@ -42,7 +50,15 @@ class MainMenuState extends MusicBeatState
 	private var camGame:FlxCamera;
 	private var camAchievement:FlxCamera;
 
-	var menuOptions:MenuOptionsIG;
+	public static var menuOptions:MenuOptionsIG;
+
+	public static var stupidmenuBG:String = 'bg';
+	public static var stupidfreeplayBG:String = 'bg';
+	public static var stupidoptionsBG:String = 'bg';
+	public static var stupidawardsBG:String = 'bg';
+	public static var stupidcreditsBG:String = 'bg';
+
+	public static var choosenFont:String = 'vcr.ttf';
 	
 	var optionShit:Array<String> = [
 	'story_mode',
@@ -64,17 +80,19 @@ class MainMenuState extends MusicBeatState
 		#end
 
 		// IGNORE THIS!!!
-		menuOptions = Json.parse(Paths.getTextFromFile('images/menus/MenuOptions.json'));
+		menuOptions = cast Json.parse(Paths.getTextFromFile('images/menus/MenuOptions.json'));
 
 		// One has to be enabled, idk if the game would crash or not if there is an empty array but either way.
 		if (menuOptions.story_mode || menuOptions.freeplay || menuOptions.options || menuOptions.awards || menuOptions.credits || menuOptions.donate) {
-		if (!menuOptions.story_mode) optionShit.remove('story_mode');
-		if (!menuOptions.freeplay) optionShit.remove('freeplay');
-		if (!menuOptions.options) optionShit.remove('options');
-		if (!menuOptions.awards) optionShit.remove('awards');
-		if (!menuOptions.credits) optionShit.remove('credits');
-		if (!menuOptions.donate) optionShit.remove('donate');
+			if (!menuOptions.story_mode) optionShit.remove('story_mode');
+			if (!menuOptions.freeplay) optionShit.remove('freeplay');
+			if (!menuOptions.options) optionShit.remove('options');
+			if (!menuOptions.awards) optionShit.remove('awards');
+			if (!menuOptions.credits) optionShit.remove('credits');
+			if (!menuOptions.donate) optionShit.remove('donate');
 		}
+
+		loadMenuJson();
 
 		camGame = new FlxCamera();
 		camAchievement = new FlxCamera();
@@ -90,7 +108,7 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/$stupidmenuBG'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
 		bg.color = 0xFFFDE871;
@@ -104,7 +122,7 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menus/bg'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menus/$stupidmenuBG'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
@@ -141,11 +159,11 @@ class MainMenuState extends MusicBeatState
 
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 44, 0, "Psych Engine v" + psychEngineVersion, 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font(choosenFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 		var versionShit:FlxText = new FlxText(12, FlxG.height - 24, 0, "Friday Night Funkin' v" + Application.current.meta.get('version'), 12);
 		versionShit.scrollFactor.set();
-		versionShit.setFormat("VCR OSD Mono", 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		versionShit.setFormat(Paths.font(choosenFont), 16, FlxColor.WHITE, LEFT, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		add(versionShit);
 
 		// NG.core.calls.event.logEvent('swag').send();
@@ -302,5 +320,15 @@ class MainMenuState extends MusicBeatState
 				FlxG.log.add(spr.frameWidth);
 			}
 		});
+	}
+
+	public static function loadMenuJson() {
+		if (menuOptions.menu_bg != null) stupidmenuBG = menuOptions.menu_bg;
+		if (menuOptions.freeplay_bg != null) stupidfreeplayBG = menuOptions.freeplay_bg;
+		if (menuOptions.options_bg != null) stupidoptionsBG = menuOptions.options_bg;
+		if (menuOptions.awards_bg != null) stupidawardsBG = menuOptions.awards_bg;
+		if (menuOptions.credits_bg != null) stupidcreditsBG = menuOptions.credits_bg;
+
+		if (menuOptions.main_font != null) choosenFont = menuOptions.main_font;
 	}
 }
