@@ -16,6 +16,7 @@ import flixel.tweens.FlxTween;
 import lime.utils.Assets;
 import flixel.system.FlxSound;
 import openfl.utils.Assets as OpenFlAssets;
+import flixel.tweens.FlxEase;
 import WeekData;
 
 using StringTools;
@@ -35,6 +36,8 @@ class FreeplayState extends MusicBeatState
 	var lerpRating:Float = 0;
 	var intendedScore:Int = 0;
 	var intendedRating:Float = 0;
+
+	var allowBop:Bool = false;
 
 	var trackPlaying:Bool = false;
 
@@ -92,6 +95,11 @@ class FreeplayState extends MusicBeatState
 				addSong(songArray[0], 0, songArray[1], Std.parseInt(songArray[2]));
 			}
 		}
+
+		Conductor.changeBPM(100);
+
+		persistentUpdate = true;
+		persistentDraw = true;
 
 		// LOAD MUSIC
 
@@ -213,6 +221,8 @@ class FreeplayState extends MusicBeatState
 			FlxG.sound.music.volume += 0.5 * FlxG.elapsed;
 		}
 
+		if (allowBop) Conductor.songPosition = FlxG.sound.music.time;
+
 		barText.screenCenter(X);
 
 		lerpScore = Math.floor(FlxMath.lerp(lerpScore, intendedScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
@@ -304,6 +314,11 @@ class FreeplayState extends MusicBeatState
 				instPlaying = curSelected;
 
 				barText.text = 'Track Playing: $songLowercase' + (vocals.volume == 0 ? ' (INST ONLY)' : '');
+
+				Conductor.mapBPMChanges(PlayState.SONG);
+				Conductor.changeBPM(PlayState.SONG.bpm);
+
+				allowBop = true;
 				
 				} else #end if (accepted) {
 					trace('CURRENT WEEK: ' + WeekData.getWeekFileName());
@@ -433,6 +448,15 @@ class FreeplayState extends MusicBeatState
 		else
 			bg.loadGraphic(Paths.image('menus/bg'));
 		#end
+	}
+
+	override function beatHit() {
+		super.beatHit();
+
+		if (allowBop) FlxG.camera.zoom = 1.05;
+
+		FlxTween.cancelTweensOf(FlxG.camera);
+		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 650, {ease: FlxEase.quadOut});
 	}
 
 	private function positionHighscore() {
