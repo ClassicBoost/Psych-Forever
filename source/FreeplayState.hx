@@ -456,7 +456,7 @@ class FreeplayState extends MusicBeatState
 		if (allowBop) FlxG.camera.zoom = 1.05;
 
 		FlxTween.cancelTweensOf(FlxG.camera);
-		FlxTween.tween(FlxG.camera, {zoom: 1}, Conductor.crochet / 650, {ease: FlxEase.quadOut});
+		FlxTween.tween(FlxG.camera, {zoom: 1}, 0.3, {ease: FlxEase.quadOut});
 	}
 
 	private function positionHighscore() {
