@@ -182,6 +182,11 @@
 	],
 	"no_antialiasing": false,
 	"image": "characters/bfCar",
+	"iconSteps": [
+		0,
+		1,
+		2
+	],
 	"position": [
 		0,
 		350

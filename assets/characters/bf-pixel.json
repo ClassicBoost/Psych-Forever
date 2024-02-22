@@ -102,6 +102,11 @@
 	],
 	"no_antialiasing": true,
 	"image": "characters/bfPixel",
+	"iconSteps": [
+		0,
+		1,
+		2
+	],
 	"position": [
 		0,
 		350

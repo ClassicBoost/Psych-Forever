@@ -58,6 +58,11 @@
 	],
 	"no_antialiasing": false,
 	"image": "characters/Mom_Assets",
+	"iconSteps": [
+		0,
+		1,
+		2
+	],
 	"position": [
 		0,
 		0

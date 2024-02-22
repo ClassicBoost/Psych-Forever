@@ -93,6 +93,11 @@
 		0,
 		200
 	],
+	"iconSteps": [
+		0,
+		1,
+		2
+	],
 	"healthicon": "spooky",
 	"flip_x": false,
 	"healthbar_colors": [

@@ -137,6 +137,11 @@
 		0,
 		100
 	],
+	"iconSteps": [
+		0,
+		1,
+		2
+	],
 	"healthicon": "monster",
 	"flip_x": false,
 	"healthbar_colors": [
