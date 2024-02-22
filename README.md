@@ -17,7 +17,7 @@ Everything from Psych Engine 0.4.2, as well with some features from 0.6.3
 
 ## Organization
 * One of the main changes in the entire engine. The images folder is now organized, making the entire image folder less of a mess
-* The data folder is also removed. Moving all songs code into the songs folder, Characters, Stage Data, and Intro text is moved out of the folder.
+* **The data folder is also removed**. Moving all songs code into the songs folder, Characters, Stage Data, and Intro text is moved out of the folder.
 ## Characters
 * The characters can now support winning icons by changing their icon steps.
 * The editor will now show the full icon instead of just the first frame.
@@ -25,7 +25,8 @@ Everything from Psych Engine 0.4.2, as well with some features from 0.6.3
 ## Customizable Menu*
 * The menu options can be found in images/menus/MenuOptions.json
 * Setting those to false will hide the option.
-** Setting all to false would instead revert to prevent a crash.
+  * Setting all to false would instead revert to prevent a crash.
+* You could also set a background for each menu as well with base font
 ## Visuals
 * Winning icons.
 * Opponent Note Splashes.
@@ -43,6 +44,7 @@ Everything from Psych Engine 0.4.2, as well with some features from 0.6.3
 ## Experimental
 * Right now, I am planning on adding a feature where the game automatically switches over to the modpack when you have it selected. (Such as different background and music)
 * Updated Editors
-	* Icon steps (Character editor icon steps is a bit buggy)
+  * Icon steps (Character editor icon steps is a bit buggy)
 * New Score System
+  * millisecond based score
 * Some features from newer Psych, not all though.
