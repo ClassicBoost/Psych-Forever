@@ -23,6 +23,7 @@ import flixel.tweens.FlxTween;
 import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
+import flixel.effects.FlxFlicker;
 import Controls;
 
 using StringTools;
@@ -30,7 +31,7 @@ using StringTools;
 // TO DO: Redo the menu creation system for not being as dumb
 class OptionsState extends MusicBeatState
 {
-	var options:Array<String> = ['Notes', 'Controls', 'Preferences'];
+	var options:Array<String> = ['Preferences', 'Notes', 'Controls', 'Exit'];
 	private var grpOptions:FlxTypedGroup<Alphabet>;
 	private static var curSelected:Int = 0;
 	public static var menuBG:FlxSprite;
@@ -50,7 +51,7 @@ class OptionsState extends MusicBeatState
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
 		add(menuBG);
-
+		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
 
@@ -58,7 +59,7 @@ class OptionsState extends MusicBeatState
 		{
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
-			optionText.y += (100 * (i - (options.length / 2))) + 50;
+			optionText.y += (90 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
 		changeSelection();
@@ -84,31 +85,40 @@ class OptionsState extends MusicBeatState
 
 		FlxG.autoPause = ClientPrefs.autoPause;
 
-		if (controls.BACK) {
-			FlxG.sound.play(Paths.sound('cancelMenu'));
-			if (onPlayState) {
-			onPlayState = false;
-			MusicBeatState.switchState(new PlayState());
-			} else
-				MusicBeatState.switchState(new MainMenuState());
-		}
+		if (controls.BACK) exitOptions(true);
 
 		if (controls.ACCEPT) {
-			for (item in grpOptions.members) {
-				item.alpha = 0;
-			}
+			FlxG.sound.play(Paths.sound('confirmMenu'));
 
-			switch(options[curSelected]) {
-				case 'Notes':
-					openSubState(new NotesSubstate());
+			FlxFlicker.flicker(grpOptions.members[curSelected], 0.5, 0.06 * 2, true, false, function(flick:FlxFlicker)
+			{
+				for (item in grpOptions.members) {
+					item.alpha = 0;
+				}
 
-				case 'Controls':
-					openSubState(new ControlsSubstate());
+				switch(options[curSelected]) {
+					case 'Notes':
+						openSubState(new NotesSubstate());
 
-				case 'Preferences':
-					openSubState(new PreferencesSubstate());
-			}
+					case 'Controls':
+						openSubState(new ControlsSubstate());
+
+					case 'Preferences':
+						openSubState(new PreferencesSubstate());
+						
+					case 'Exit':
+						exitOptions(false);
+				}
+			});
 		}
+	}
+
+	function exitOptions(daSound:Bool = true) {
+		if (daSound) FlxG.sound.play(Paths.sound('cancelMenu'));
+		if (onPlayState) {
+		onPlayState = false;
+		MusicBeatState.switchState(new PlayState());
+		} else MusicBeatState.switchState(new MainMenuState());
 	}
 	
 	function changeSelection(change:Int = 0) {
