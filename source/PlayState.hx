@@ -1943,6 +1943,8 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
+		if (!ClientPrefs.autoPause && !paused) pauseGame();
+
 		super.onFocusLost();
 	}
 
@@ -2109,33 +2111,7 @@ class PlayState extends MusicBeatState
 
 		if (FlxG.keys.justPressed.ENTER && startedCountdown && canPause)
 		{
-			var ret:Dynamic = callOnLuas('onPause', []);
-			if(ret != FunkinLua.Function_Stop) {
-				persistentUpdate = false;
-				persistentDraw = true;
-				paused = true;
-
-				// 1 / 1000 chance for Gitaroo Man easter egg
-				if (FlxG.random.bool(0.1))
-				{
-					// gitaroo man easter egg
-					cancelFadeTween();
-					CustomFadeTransition.nextCamera = camOther;
-					MusicBeatState.switchState(new GitarooPause());
-				}
-				else {
-					if(FlxG.sound.music != null) {
-						FlxG.sound.music.pause();
-						vocals.pause();
-					}
-				//	PauseSubState.transCamera = camOther;
-					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
-				}
-			
-				#if desktop
-				DiscordClient.changePresence("Paused - " + detailsSub, scoreTxt.text, iconP2.getCharacter());
-				#end
-			}
+			pauseGame();
 		}
 
 		if (controls.CHART && !endingSong && !inCutscene)
@@ -2608,6 +2584,36 @@ class PlayState extends MusicBeatState
 			}
 		}
 		return false;
+	}
+
+	public function pauseGame() {
+		var ret:Dynamic = callOnLuas('onPause', []);
+			if(ret != FunkinLua.Function_Stop) {
+				persistentUpdate = false;
+				persistentDraw = true;
+				paused = true;
+
+				// 1 / 1000 chance for Gitaroo Man easter egg
+				if (FlxG.random.bool(0.1))
+				{
+					// gitaroo man easter egg
+					cancelFadeTween();
+					CustomFadeTransition.nextCamera = camOther;
+					MusicBeatState.switchState(new GitarooPause());
+				}
+				else {
+					if(FlxG.sound.music != null) {
+						FlxG.sound.music.pause();
+						vocals.pause();
+					}
+				//	PauseSubState.transCamera = camOther;
+					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
+				}
+			
+				#if desktop
+				DiscordClient.changePresence("Paused - " + detailsSub, scoreTxt.text, iconP2.getCharacter());
+				#end
+			}
 	}
 
 	public function checkEventNote() {

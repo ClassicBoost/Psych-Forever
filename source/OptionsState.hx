@@ -731,7 +731,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Display Accuracy',
 		'Fixed Judgements',
 		'Hide Song Length',
-		'Auto Pause',
+		'Focus Loss Pause',
 		#if !mobile
 		'TOP RIGHT TEXT',
 		'FPS Counter',
@@ -950,7 +950,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Hide Song Length':
 						ClientPrefs.hideTime = !ClientPrefs.hideTime;
 
-					case 'Auto Pause':
+					case 'Focus Loss Pause':
 						ClientPrefs.autoPause = !ClientPrefs.autoPause;
 					case 'Note Movements':
 						ClientPrefs.noteMovements = !ClientPrefs.noteMovements;
@@ -1066,8 +1066,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, hitting notes late will make you miss";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
-			case 'Auto Pause':
-				daText = 'Turning this on will make the game pause if unfocused';
+			case 'Focus Loss Pause':
+				daText = 'Turning this on will make the game pause if unfocused.\n(Not to be confused with Auto Pause)';
 			case 'Note Movements':
 				daText = 'Should the camera move on notes?';
 			case 'Mod Menus':
@@ -1170,7 +1170,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.newEditors;
 					case 'New Gameplay':
 						daValue = ClientPrefs.newGameplay;
-					case 'Auto Pause':
+					case 'Focus Loss Pause':
 						daValue = ClientPrefs.autoPause;
 					case 'Note Movements':
 						daValue = ClientPrefs.noteMovements;
