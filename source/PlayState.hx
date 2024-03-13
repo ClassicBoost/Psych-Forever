@@ -1943,7 +1943,7 @@ class PlayState extends MusicBeatState
 		}
 		#end
 
-		if (!ClientPrefs.autoPause && !paused) pauseGame();
+		if (ClientPrefs.autoPause && !paused) pauseGame();
 
 		super.onFocusLost();
 	}
