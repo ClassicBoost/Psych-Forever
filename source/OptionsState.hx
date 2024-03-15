@@ -749,8 +749,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#end
 		'EXPERIMENTAL',
 		'Mod Menus',
-		'New Editors',
-		'New Gameplay'
+		'New Editors'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -967,8 +966,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.loadModMenu = !ClientPrefs.loadModMenu;
 					case 'New Editors':
 						ClientPrefs.newEditors = !ClientPrefs.newEditors;
-					case 'New Gameplay':
-						ClientPrefs.newGameplay = !ClientPrefs.newGameplay;
 				}
 				FlxG.sound.play(Paths.sound('scrollMenu'));
 				reloadValues();
@@ -1176,8 +1173,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.loadModMenu;
 					case 'New Editors':
 						daValue = ClientPrefs.newEditors;
-					case 'New Gameplay':
-						daValue = ClientPrefs.newGameplay;
 					case 'Focus Loss Pause':
 						daValue = ClientPrefs.autoPause;
 					case 'Note Movements':

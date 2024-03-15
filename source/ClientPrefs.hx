@@ -40,7 +40,6 @@ class ClientPrefs {
 	// EXPERIMENTAL!!!
 	public static var loadModMenu:Bool = false;
 	public static var newEditors:Bool = false;
-	public static var newGameplay:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -115,7 +114,6 @@ class ClientPrefs {
 		FlxG.save.data.fixedJudgements = fixedJudgements;
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.judgementCounter = judgementCounter;
-		FlxG.save.data.newGameplay = newGameplay;
 		FlxG.save.data.autoPause = autoPause;
 		FlxG.save.data.noteMovements = noteMovements;
 
@@ -173,12 +171,11 @@ class ClientPrefs {
 		if(FlxG.save.data.hideTime != null)	hideTime = FlxG.save.data.hideTime;
 		if(FlxG.save.data.lateDamage != null) lateDamage = FlxG.save.data.lateDamage;
 		if(FlxG.save.data.judgementCounter != null) judgementCounter = FlxG.save.data.judgementCounter;
-		if(FlxG.save.data.newGameplay != null) autoPause = FlxG.save.data.autoPause;
-		if(FlxG.save.data.newGameplay != null) noteMovements = FlxG.save.data.noteMovements;
+		if(FlxG.save.data.autoPause != null) autoPause = FlxG.save.data.autoPause;
+		if(FlxG.save.data.noteMovements != null) noteMovements = FlxG.save.data.noteMovements;
 
 		if(FlxG.save.data.loadModMenu != null) loadModMenu = FlxG.save.data.loadModMenu;
 		if(FlxG.save.data.newEditors != null) newEditors = FlxG.save.data.newEditors;
-		if(FlxG.save.data.newGameplay != null) newGameplay = FlxG.save.data.newGameplay;
 
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;

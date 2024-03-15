@@ -240,6 +240,9 @@ class PlayState extends MusicBeatState
 	public var bads:Int = 0;
 	public var shits:Int = 0;
 
+	public var lerpScore:Float = 0.0;
+	public var lerpHealth:Float = 1;
+
 	public var fcRating:String = '';
 
 	public var boyfriendCameraOffset:Array<Float> = null;
@@ -890,7 +893,7 @@ class PlayState extends MusicBeatState
 			'songPercent', 0, 1);
 		timeBar.scrollFactor.set();
 		timeBar.createFilledBar(0xFF000000, FlxColor.fromRGB(dad.healthColorArray[0], dad.healthColorArray[1], dad.healthColorArray[2]));
-		timeBar.numDivisions = 800; //How much lag this causes?? Should i tone it down to idk, 400 or 200?
+		timeBar.numDivisions = (ClientPrefs.lowQuality ? 100 : 1000); //How much lag this causes?? Should i tone it down to idk, 400 or 200?
 		timeBar.alpha = 0;
 		timeBar.visible = !ClientPrefs.hideTime;
 		add(timeBar);
@@ -908,10 +911,11 @@ class PlayState extends MusicBeatState
 		if(ClientPrefs.downScroll) healthBarBG.y = 0.11 * FlxG.height;
 
 		healthBar = new FlxBar(healthBarBG.x + 4, healthBarBG.y + 4, RIGHT_TO_LEFT, Std.int(healthBarBG.width - 8), Std.int(healthBarBG.height - 8), this,
-			'health', 0, 2);
+			'lerpHealth', 0, 2);
 		healthBar.scrollFactor.set();
 		// healthBar
 		healthBar.visible = !ClientPrefs.hideHud;
+		healthBar.numDivisions = (ClientPrefs.lowQuality ? 100 : 1000);
 		add(healthBar);
 		healthBarBG.sprTracker = healthBar;
 
@@ -2101,7 +2105,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		updateScore(songScore, Highscore.floorDecimal(ratingPercent * 100, 2), fcRating, songMisses, ratingString);
+		updateScore(Math.floor(lerpScore), Highscore.floorDecimal(ratingPercent * 100, 2), fcRating, songMisses, ratingString);
 
 		if(cpuControlled) {
 			botplaySine += 180 * elapsed;
@@ -2122,6 +2126,8 @@ class PlayState extends MusicBeatState
 			CustomFadeTransition.nextCamera = camOther;
 			MusicBeatState.switchState(new ChartingState());
 
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+
 			#if desktop
 			DiscordClient.changePresence("Chart Editor", null, null, true);
 			#end
@@ -2129,6 +2135,19 @@ class PlayState extends MusicBeatState
 
 		// FlxG.watch.addQuick('VOL', vocals.amplitudeLeft);
 		// FlxG.watch.addQuick('VOLRight', vocals.amplitudeRight);
+
+		if (ClientPrefs.lowQuality) {
+			lerpScore = songScore;
+			lerpHealth = health;
+		} else {
+		lerpScore = Math.floor(FlxMath.lerp(lerpScore, songScore, CoolUtil.boundTo(elapsed * 24, 0, 1)));
+		lerpHealth = FlxMath.lerp(lerpHealth, health, CoolUtil.boundTo(elapsed * 9, 0, 1));
+
+		if (Math.abs(lerpScore - songScore) <= 10)
+			lerpScore = songScore;
+		if (Math.abs(lerpHealth - health) <= 0.01)
+			lerpHealth = health;
+		}
 
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
 			moveCameraSection(Std.int(curStep / 16));
@@ -2173,14 +2192,20 @@ class PlayState extends MusicBeatState
 			cancelFadeTween();
 			CustomFadeTransition.nextCamera = camOther;
 
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+
 			if (FlxG.keys.pressed.SHIFT) MusicBeatState.switchState(new CharacterEditorState(SONG.player1));
 			else MusicBeatState.switchState(new CharacterEditorState(SONG.player2));
 		}
 
-		if (controls.PRACTICE)
+		if (controls.PRACTICE) {
 			practiceMode = !practiceMode;
-		if (controls.BOTPLAY)
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
+		if (controls.BOTPLAY) {
 			cpuControlled = !cpuControlled;
+			FlxG.sound.play(Paths.sound('scrollMenu'));
+		}
 
 		if (startingSong)
 		{
@@ -3241,7 +3266,7 @@ class PlayState extends MusicBeatState
 			if(ClientPrefs.noteSplashes) spawnNoteSplashOnNote(note);
 		}
 
-		if (ClientPrefs.newGameplay) songScore += Std.int(500 * (1 - (noteDiff / 200)));
+		songScore += Std.int(500 * (1 - (noteDiff / 200)));
 	}
 
 	private var negativeColor = FlxColor.fromRGB(204, 66, 66);
@@ -3274,10 +3299,11 @@ class PlayState extends MusicBeatState
 				}
 		}
 
+		healthCall(score/600);
+
 		if (daRating != 'sick') allSicks = false;
 
 		if(!cpuControlled && !usedBotplay) {
-			if (!ClientPrefs.newGameplay) songScore += score;
 			totalNotes++;
 
 			FlxTween.cancelTweensOf(scoreTxt);
@@ -3622,11 +3648,14 @@ class PlayState extends MusicBeatState
 		if (combo > 0) combo = 0;
 		combo--;
 
-		if (!shitRating) displayRating('miss', true);
+		if (!shitRating) {
+			displayRating('miss', true);
+			healthCall(-1);
+		}
 
 		songMisses++;
 		totalNotes++;
-		songScore -= (ClientPrefs.newGameplay ? 25 : 10);
+		songScore -= 25;
 		FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 		if (combo > 5 && gf.animOffsets.exists('sad'))
 		{
@@ -3766,6 +3795,10 @@ class PlayState extends MusicBeatState
 				note.destroy();
 			}
 		}
+	}
+
+	function healthCall(heal:Float) {
+		health += (heal/10);
 	}
 
 	function spawnNoteSplashOnNote(note:Note) {

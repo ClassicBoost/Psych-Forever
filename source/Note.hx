@@ -62,8 +62,8 @@ class Note extends FlxSprite
 	public var copyAngle:Bool = true;
 	public var copyAlpha:Bool = true;
 
-	public var hitHealth:Float = 0.023;
-	public var missHealth:Float = 0.0475;
+	public var hitHealth:Float = 0.02;
+	public var missHealth:Float = 0.1;
 
 	public var texture(default, set):String = null;
 
