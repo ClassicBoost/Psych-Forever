@@ -37,6 +37,8 @@ class OptionsState extends MusicBeatState
 	public static var menuBG:FlxSprite;
 	public static var onPlayState:Bool = false;
 
+	var disableControls:Bool = false;
+
 	override function create() {
 		#if desktop
 		DiscordClient.changePresence("Options Menu", null);
@@ -54,6 +56,8 @@ class OptionsState extends MusicBeatState
 		
 		grpOptions = new FlxTypedGroup<Alphabet>();
 		add(grpOptions);
+
+		disableControls = false;
 
 		for (i in 0...options.length)
 		{
@@ -76,11 +80,13 @@ class OptionsState extends MusicBeatState
 	override function update(elapsed:Float) {
 		super.update(elapsed);
 
-		if (controls.UI_UP_P) {
-			changeSelection(-1);
-		}
-		if (controls.UI_DOWN_P) {
-			changeSelection(1);
+		if (!disableControls) {
+			if (controls.UI_UP_P) {
+				changeSelection(-1);
+			}
+			if (controls.UI_DOWN_P) {
+				changeSelection(1);
+			}
 		}
 
 		FlxG.autoPause = ClientPrefs.autoPause;
@@ -89,12 +95,14 @@ class OptionsState extends MusicBeatState
 
 		if (controls.ACCEPT) {
 			FlxG.sound.play(Paths.sound('confirmMenu'));
+			disableControls = true;
 
 			FlxFlicker.flicker(grpOptions.members[curSelected], 0.5, 0.06 * 2, true, false, function(flick:FlxFlicker)
 			{
 				for (item in grpOptions.members) {
 					item.alpha = 0;
 				}
+				disableControls = false;
 
 				switch(options[curSelected]) {
 					case 'Notes':
