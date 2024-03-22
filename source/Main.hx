@@ -9,6 +9,19 @@ import openfl.display.FPS;
 import openfl.display.Sprite;
 import openfl.events.Event;
 
+#if CRASH_HANDLER
+import lime.app.Application;
+import openfl.events.UncaughtErrorEvent;
+import haxe.CallStack;
+import haxe.io.Path;
+import Discord.DiscordClient;
+import sys.FileSystem;
+import sys.io.File;
+import sys.io.Process;
+#end
+
+using StringTools;
+
 class Main extends Sprite
 {
 	var game = {
@@ -87,6 +100,10 @@ class Main extends Sprite
 		#if html5
 		FlxG.autoPause = false;
 		FlxG.mouse.visible = false;
+		#end
+
+		#if CRASH_HANDLER
+		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onCrash);
 		#end
 	}
 
