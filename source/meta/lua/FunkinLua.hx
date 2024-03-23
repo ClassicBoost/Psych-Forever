@@ -271,8 +271,14 @@ class FunkinLua {
 					altShort = 'gameObjects.userInterface.notes.';
 				case 'HealthIcon':
 					altShort = 'gameObjects.userInterface.';
-				case 'Discord','CoolUtil','StageData':
+				case 'CoolUtil','StageData','FlxVideo','Song','Section','Highscore','WeekData','StageData','Conductor':
 					altShort = 'meta.data.';
+				case 'PlayState':
+					altShort = 'meta.states.';
+				case 'Discord':
+					altShort = 'meta.data.dependency.';
+				case 'HealthIcon':
+					altShort = 'gameObjects.userInterface.';
 				default:
 					altShort = '';
 			}
