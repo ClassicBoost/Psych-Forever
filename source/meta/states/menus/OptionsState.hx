@@ -21,7 +21,7 @@ import flixel.util.FlxTimer;
 import flixel.input.keyboard.FlxKey;
 import flixel.graphics.FlxGraphic;
 import flixel.effects.FlxFlicker;
-import Controls;
+import backend.Controls;
 
 using StringTools;
 

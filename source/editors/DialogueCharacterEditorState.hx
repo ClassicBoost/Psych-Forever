@@ -22,10 +22,10 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
-import DialogueBoxPsych;
 import flixel.FlxCamera;
 import flixel.group.FlxSpriteGroup;
 import lime.system.Clipboard;
+import gameObjects.userInterface.dialogue.DialogueBoxPsych;
 #if sys
 import sys.io.File;
 #end

@@ -1,6 +1,6 @@
 package meta.substates;
 
-import Controls.Control;
+import backend.Controls.Control;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.FlxSubState;

@@ -22,8 +22,8 @@ import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import flash.net.FileFilter;
 import haxe.Json;
-import DialogueBoxPsych;
 import lime.system.Clipboard;
+import gameObjects.userInterface.dialogue.DialogueBoxPsych;
 #if sys
 import sys.io.File;
 #end

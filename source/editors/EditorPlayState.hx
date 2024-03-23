@@ -1,7 +1,5 @@
 package editors;
 
-import Section.SwagSection;
-import Song.SwagSong;
 import flixel.group.FlxGroup.FlxTypedGroup;
 import flixel.addons.transition.FlxTransitionableState;
 import flixel.util.FlxColor;
@@ -16,7 +14,7 @@ import flixel.math.FlxRect;
 import flixel.system.FlxSound;
 import flixel.util.FlxSort;
 import flixel.util.FlxTimer;
-import FunkinLua;
+import meta.lua.FunkinLua;
 
 using StringTools;
 
