@@ -222,27 +222,63 @@ class FunkinLua {
 			Reflect.getProperty(lePlayState, obj).remove(Reflect.getProperty(lePlayState, obj)[index]);
 		});
 
+		// This should go straight to where it needs to go without needing to put those extra line there.
+		// You can still insert those pariamaters as well and it'll still work.
+		var altShort:String = '';
+		
 		Lua_helper.add_callback(lua, "getPropertyFromClass", function(classVar:String, variable:String) {
 			var killMe:Array<String> = variable.split('.');
+
+			switch (classVar) {
+				case 'Achievements','ClientPrefs','Main','Paths':
+					altShort = 'backend.';
+				case 'Alphabet','Boyfriend','Character':
+					altShort = 'gameObjects.';
+				case 'Note','NoteSplash','StrumNote':
+					altShort = 'gameObjects.userInterface.notes.';
+				case 'HealthIcon':
+					altShort = 'gameObjects.userInterface.';
+				case 'Discord','CoolUtil','StageData':
+					altShort = 'meta.data.';
+				default:
+					altShort = '';
+			}
+
 			if(killMe.length > 1) {
-				var coverMeInPiss:Dynamic = Reflect.getProperty(Type.resolveClass(classVar), killMe[0]);
+				var coverMeInPiss:Dynamic = Reflect.getProperty(Type.resolveClass(altShort + classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
 					coverMeInPiss = Reflect.getProperty(coverMeInPiss, killMe[i]);
 				}
 				return Reflect.getProperty(coverMeInPiss, killMe[killMe.length-1]);
 			}
-			return Reflect.getProperty(Type.resolveClass(classVar), variable);
+			return Reflect.getProperty(Type.resolveClass(altShort + classVar), variable);
 		});
 		Lua_helper.add_callback(lua, "setPropertyFromClass", function(classVar:String, variable:String, value:Dynamic) {
 			var killMe:Array<String> = variable.split('.');
+
+			switch (classVar) {
+				case 'Achievements','ClientPrefs','Main','Paths':
+					altShort = 'backend.';
+				case 'Alphabet','Boyfriend','Character':
+					altShort = 'gameObjects.';
+				case 'Note','NoteSplash','StrumNote':
+					altShort = 'gameObjects.userInterface.notes.';
+				case 'HealthIcon':
+					altShort = 'gameObjects.userInterface.';
+				case 'Discord','CoolUtil','StageData':
+					altShort = 'meta.data.';
+				default:
+					altShort = '';
+			}
+
 			if(killMe.length > 1) {
-				var coverMeInPiss:Dynamic = Reflect.getProperty(Type.resolveClass(classVar), killMe[0]);
+				var coverMeInPiss:Dynamic = Reflect.getProperty(Type.resolveClass(altShort + classVar), killMe[0]);
 				for (i in 1...killMe.length-1) {
 					coverMeInPiss = Reflect.getProperty(coverMeInPiss, killMe[i]);
 				}
 				return Reflect.setProperty(coverMeInPiss, killMe[killMe.length-1], value);
 			}
-			return Reflect.setProperty(Type.resolveClass(classVar), variable, value);
+			return Reflect.setProperty(Type.resolveClass(altShort + classVar), variable, value);
 		});
 
 		//shitass stuff for epic coders like me B)  *image of obama giving himself a medal*

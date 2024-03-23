@@ -1,8 +1,5 @@
 package editors;
 
-#if desktop
-import Discord.DiscordClient;
-#end
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.display.FlxGridOverlay;
@@ -33,7 +30,7 @@ import sys.io.File;
 import sys.FileSystem;
 #end
 #end
-import WeekData;
+import meta.data.WeekData;
 
 using StringTools;
 

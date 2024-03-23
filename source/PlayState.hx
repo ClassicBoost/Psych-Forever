@@ -1,8 +1,5 @@
 package;
 
-#if desktop
-import Discord.DiscordClient;
-#end
 import Section.SwagSection;
 import Song.SwagSong;
 import WiggleEffect.WiggleEffectType;
@@ -45,8 +42,6 @@ import openfl.utils.Assets as OpenFlAssets;
 import editors.ChartingState;
 import editors.CharacterEditorState;
 import flixel.group.FlxSpriteGroup;
-import Achievements;
-import StageData;
 import FunkinLua;
 import DialogueBoxPsych;
 import gameObjects.background.*;
@@ -193,6 +188,8 @@ class PlayState extends MusicBeatState
 	var botplaySine:Float = 0;
 	var botplayTxt:FlxText;
 
+	var totalNotesInSong:Float = 0;
+
 	public var iconP1:HealthIcon;
 	public var iconP2:HealthIcon;
 	public var camHUD:FlxCamera;
@@ -253,7 +250,7 @@ class PlayState extends MusicBeatState
 	var wiggleShit:WiggleEffect = new WiggleEffect();
 	var bgGhouls:BGSprite;
 
-	public var songScore:Int = 0;
+	public var songScore:Float = 0;
 	public var songMisses:Int = 0;
 	public var ghostMisses:Int = 0;
 	public var scoreTxt:FlxText;
@@ -1725,6 +1722,7 @@ class PlayState extends MusicBeatState
 
 					if (swagNote.mustPress)
 					{
+						totalNotesInSong += 1;
 						swagNote.x += FlxG.width / 2; // general offset
 					}
 					else {}
@@ -2152,12 +2150,8 @@ class PlayState extends MusicBeatState
 		if (generatedMusic && PlayState.SONG.notes[Std.int(curStep / 16)] != null && !endingSong && !isCameraOnForcedPos)
 			moveCameraSection(Std.int(curStep / 16));
 
-		var iconLerp = 0.85;
-		iconP1.setGraphicSize(Std.int(FlxMath.lerp(iconP1.initialWidth, iconP1.width, iconLerp)));
-		iconP2.setGraphicSize(Std.int(FlxMath.lerp(iconP2.initialWidth, iconP2.width, iconLerp)));
-
-		// iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1))));
-		// iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 20), 0, 1))));
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
 
 		iconP1.updateHitbox();
 		iconP2.updateHitbox();
@@ -3119,13 +3113,13 @@ class PlayState extends MusicBeatState
 				#if !switch
 				var percent:Float = ratingPercent;
 				if(Math.isNaN(percent)) percent = 0;
-				Highscore.saveScore(SONG.song, songScore, storyDifficulty, percent);
+				Highscore.saveScore(SONG.song, Std.int(songScore), storyDifficulty, percent);
 				#end
 			}
 
 			if (isStoryMode)
 			{
-				campaignScore += songScore;
+				campaignScore += Std.int(songScore);
 				campaignMisses += songMisses;
 
 				storyPlaylist.remove(storyPlaylist[0]);
@@ -3266,7 +3260,7 @@ class PlayState extends MusicBeatState
 			if(ClientPrefs.noteSplashes) spawnNoteSplashOnNote(note);
 		}
 
-		songScore += Std.int(500 * (1 - (noteDiff / 200)));
+		// songScore += Std.int(500 * (1 - (noteDiff / 200)));
 	}
 
 	private var negativeColor = FlxColor.fromRGB(204, 66, 66);
@@ -3274,21 +3268,21 @@ class PlayState extends MusicBeatState
 	function ratingInput(?rating:String = 'sick') {
 		var daRating:String = "sick";
 		var score:Int = 350;
+		var hitPercent:Float = 1;
 
 		switch (rating) {
 			case 'sick':
-				totalNotesHit++;
 				sicks++;
 			case 'good':
 				daRating = 'good';
 				score = 200;
 				goods++;
-				totalNotesHit += 0.75;
+				hitPercent = 0.75;
 			case 'bad':
 				daRating = 'bad';
 				score = 100;
 				bads++;
-				totalNotesHit += 0.5;
+				hitPercent = 0.5;
 			case 'shit':
 				daRating = 'shit';
 				shits++;
@@ -3296,10 +3290,15 @@ class PlayState extends MusicBeatState
 				if (ClientPrefs.lateDamage) {
 					missedNote(false, true, true);
 					missLmao = 'miss';
-				}
+				} else hitPercent = 0.25;
 		}
 
+		songScore += ((100000 / totalNotesInSong) * hitPercent);
+		if (songScore > 100000) songScore = 100000;
+
 		healthCall(score/600);
+
+		totalNotesHit += hitPercent;
 
 		if (daRating != 'sick') allSicks = false;
 

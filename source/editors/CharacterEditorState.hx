@@ -1,8 +1,5 @@
 package editors;
 
-#if desktop
-import Discord.DiscordClient;
-#end
 import flixel.FlxG;
 import flixel.FlxObject;
 import flixel.FlxSprite;
@@ -28,10 +25,10 @@ import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 import haxe.Json;
-import Character;
 import flixel.system.debug.interaction.tools.Pointer.GraphicCursorCross;
 import lime.system.Clipboard;
 import flixel.animation.FlxAnimation;
+import gameObjects.Character;
 
 #if MODS_ALLOWED
 import sys.FileSystem;

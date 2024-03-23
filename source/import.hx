@@ -1,1 +1,19 @@
-import Paths;
+import backend.Paths;
+import gameObjects.*;
+import gameObjects.userInterface.*;
+import gameObjects.background.*;
+import backend.*;
+import userInterface.notes.*;
+import meta.*;
+import meta.states.*;
+import meta.substates.*;
+import meta.states.menus.*;
+import meta.data.*;
+import meta.MusicBeatState;
+import meta.MusicBeatSubstate;
+import gameObjects.userInterface.notes.*;
+import backend.Achievements.AchievementObject;
+import meta.data.StageData.StageFile;
+#if desktop
+import meta.data.Discord.DiscordClient;
+#end
