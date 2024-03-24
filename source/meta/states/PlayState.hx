@@ -1715,7 +1715,7 @@ class PlayState extends MusicBeatState
 
 					if (swagNote.mustPress)
 					{
-						totalNotesInSong += 1;
+						if (swagNote.giveScore) totalNotesInSong += 1;
 						swagNote.x += FlxG.width / 2; // general offset
 					}
 					else {}
