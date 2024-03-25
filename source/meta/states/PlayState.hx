@@ -2169,9 +2169,8 @@ class PlayState extends MusicBeatState
 			ratingPercent = 0;
 		}
 
-		// adding winning support might be useless, I never clearified if they existed.
-		iconP1.animation.curAnim.curFrame = (health >= 1.6 ? boyfriend.iconStepsLol[2] : health <= 0.4 ? boyfriend.iconStepsLol[1] : boyfriend.iconStepsLol[0]);
-		iconP2.animation.curAnim.curFrame = (health >= 1.6 ? dad.iconStepsLol[1] : health <= 0.4 ? dad.iconStepsLol[2] : dad.iconStepsLol[0]);
+		iconP1.animation.curAnim.curFrame = (health >= 1.6 ? 2 : health <= 0.4 ? 1 : 0);
+		iconP2.animation.curAnim.curFrame = (health >= 1.6 ? 1 : health <= 0.4 ? 2 : 0);
 
 		if (controls.CHAR && !endingSong && !inCutscene) {
 			persistentUpdate = false;

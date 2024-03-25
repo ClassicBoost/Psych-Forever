@@ -453,10 +453,6 @@ class CharacterEditorState extends MusicBeatState
 		healthColorStepperG = new FlxUINumericStepper(singDurationStepper.x + 65, saveCharacterButton.y, 20, char.healthColorArray[1], 0, 255, 0);
 		healthColorStepperB = new FlxUINumericStepper(singDurationStepper.x + 130, saveCharacterButton.y, 20, char.healthColorArray[2], 0, 255, 0);
 
-		idleIcon = new FlxUINumericStepper(singDurationStepper.x, saveCharacterButton.y + 30, 20, char.iconStepsLol[0], 0, 2, 0);
-		loseIcon = new FlxUINumericStepper(singDurationStepper.x + 65, saveCharacterButton.y + 30, 20, char.iconStepsLol[1], 0, 2, 1);
-		winIcon = new FlxUINumericStepper(singDurationStepper.x + 130, saveCharacterButton.y + 30, 20, char.iconStepsLol[2], 0, 2, 0);
-
 		tab_group.add(new FlxText(15, imageInputText.y - 18, 0, 'Image file name:'));
 		tab_group.add(new FlxText(15, healthIconInputText.y - 18, 0, 'Health icon name:'));
 		tab_group.add(new FlxText(15, singDurationStepper.y - 18, 0, 'Sing Animation length:'));
@@ -1147,7 +1143,6 @@ class CharacterEditorState extends MusicBeatState
 			"scale": char.jsonScale,
 			"sing_duration": char.singDuration,
 			"healthicon": char.healthIcon,
-			"iconSteps": char.iconStepsLol,
 		
 			"position":	char.positionArray,
 			"camera_position": char.cameraPosition,

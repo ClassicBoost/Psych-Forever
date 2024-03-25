@@ -29,7 +29,6 @@ typedef CharacterFile = {
 	var flip_x:Bool;
 	var no_antialiasing:Bool;
 	var healthbar_colors:Array<Int>;
-	var iconSteps:Array<Int>;
 }
 
 typedef AnimArray = {
@@ -71,7 +70,6 @@ class Character extends FlxSprite
 	public var noAntialiasing:Bool = false;
 	public var originalFlipX:Bool = false;
 	public var healthColorArray:Array<Int> = [255, 0, 0];
-	public var iconStepsLol:Array<Int> = [0, 1, 0]; // By default the 3rd one is set to 0 but for winning icons you put 2.
 	public var alreadyLoaded:Bool = true; //Used by "Change Character" event
 
 	public static var DEFAULT_CHARACTER:String = 'bf'; //In case a character is missing, it will use BF on its place
@@ -143,9 +141,6 @@ class Character extends FlxSprite
 
 				if(json.healthbar_colors != null && json.healthbar_colors.length > 2)
 					healthColorArray = json.healthbar_colors;
-
-				if(json.iconSteps != null)
-					iconStepsLol = json.iconSteps;
 
 				antialiasing = !noAntialiasing;
 				if(!ClientPrefs.globalAntialiasing) antialiasing = false;

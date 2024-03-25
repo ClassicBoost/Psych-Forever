@@ -15,6 +15,9 @@ class HealthIcon extends FlxSprite
 	public var initialWidth:Float = 0;
 	public var initialHeight:Float = 0;
 
+	var splitThing:Int = 2;
+
+	private var iconOffsets:Array<Float> = [0, 0];
 	public function new(char:String = 'bf', isPlayer:Bool = false, ?loadFullIcon:Bool = false)
 	{
 		super();
@@ -51,9 +54,15 @@ class HealthIcon extends FlxSprite
 			if(!Paths.fileExists('images/' + name + '.png', IMAGE)) name = 'icons/face'; //Prevents crash from missing icon
 			var file:Dynamic = Paths.image(name);
 			loadGraphic(file);
+
 			if (!loadFullIcon) {
-			loadGraphic(file, true, 150, 150);
-			animation.add(char, [0, 1, 2], 0, false, isPlayer);
+			splitThing = width/3 == height ? 3 : 2;
+			loadGraphic(graphic, true, Math.floor(width / splitThing), Math.floor(height));
+			iconOffsets[0] = (width - 150) / splitThing;
+			iconOffsets[1] = (width - 150) / splitThing;
+			if (splitThing == 3) iconOffsets[2] = (width - 150) / 3;
+
+			animation.add(char, [0, 1, (splitThing == 3 ? 2 : 0)], 0, false, isPlayer);
 			animation.play(char);
 			}
 
@@ -63,9 +72,8 @@ class HealthIcon extends FlxSprite
 			initialHeight = height;
 
 			antialiasing = ClientPrefs.globalAntialiasing;
-			if(char.endsWith('-pixel')) {
+			if(char.endsWith('-pixel'))
 				antialiasing = false;
-			}
 		}
 	}
 
