@@ -1,5 +1,5 @@
 name: Missing Documentation
-description: Ask for documentation if something is missing.
+description: Ask for documentation if something is missing. (PE Wiki - https://github.com/ShadowMario/FNF-PsychEngine/wiki)
 labels: [documentation]
 body:
   - type: textarea

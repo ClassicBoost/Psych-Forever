@@ -14,7 +14,7 @@ body:
     attributes:
       label: "Are you modding a build from source or with Lua?"
       options:
-        - Lua
+        - Lua (Note that this engine isn't too reliant on Lua.)
         - Source
     validations:
       required: true
