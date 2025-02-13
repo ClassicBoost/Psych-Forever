@@ -84,13 +84,15 @@ class OptionsState extends MusicBeatState
 			if (controls.UI_DOWN_P) {
 				changeSelection(1);
 			}
+			if(FlxG.mouse.wheel != 0)
+				changeSelection(-FlxG.mouse.wheel);
 		}
 
 		FlxG.autoPause = ClientPrefs.autoPause;
 
 		if (controls.BACK) exitOptions(true);
 
-		if (controls.ACCEPT) {
+		if (controls.ACCEPT || FlxG.mouse.justPressed) {
 			FlxG.sound.play(Paths.sound('menus/base/confirmMenu'));
 			disableControls = true;
 
@@ -500,6 +502,8 @@ class ControlsSubstate extends MusicBeatSubstate {
 			if (controls.UI_LEFT_P || controls.UI_RIGHT_P) {
 				changeAlt();
 			}
+			if(FlxG.mouse.wheel != 0)
+				changeSelection(-FlxG.mouse.wheel);
 
 			if (controls.BACK) {
 				ClientPrefs.reloadControls(controlArray);
@@ -516,7 +520,7 @@ class ControlsSubstate extends MusicBeatSubstate {
 				FlxG.sound.play(Paths.sound('menus/base/cancelMenu'));
 			}
 
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if((controls.ACCEPT || FlxG.mouse.justPressed) && nextAccept <= 0) {
 				if(optionShit[curSelected] == defaultKey) {
 					controlArray = ClientPrefs.defaultKeys.copy();
 					reloadKeys();
@@ -869,6 +873,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 			changeSelection(1);
 		}
 
+		if(FlxG.mouse.wheel != 0)
+			changeSelection(-FlxG.mouse.wheel);
+
 		if (controls.BACK) {
 			grpOptions.forEachAlive(function(spr:Alphabet) {
 				spr.alpha = 0;
@@ -901,7 +908,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		}
 
 		if(usesCheckbox) {
-			if(controls.ACCEPT && nextAccept <= 0) {
+			if((controls.ACCEPT || FlxG.mouse.justPressed) && nextAccept <= 0) {
 				switch(options[curSelected]) {
 					case 'FPS Counter':
 						ClientPrefs.showFPS = !ClientPrefs.showFPS;

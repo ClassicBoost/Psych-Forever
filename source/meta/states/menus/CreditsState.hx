@@ -125,6 +125,9 @@ class CreditsState extends MusicBeatState
 			changeSelection(1);
 		}
 
+		if(FlxG.mouse.wheel != 0)
+			changeSelection(-FlxG.mouse.wheel);
+
 		if (controls.BACK)
 		{
 			if(colorTween != null) {
@@ -133,7 +136,7 @@ class CreditsState extends MusicBeatState
 			FlxG.sound.play(Paths.sound('menus/base/cancelMenu'));
 			MusicBeatState.switchState(new MainMenuState());
 		}
-		if(controls.ACCEPT && creditsStuff[curSelected][3] != '') {
+		if((controls.ACCEPT || FlxG.mouse.justPressed) && creditsStuff[curSelected][3] != '') {
 			CoolUtil.browserLoad(creditsStuff[curSelected][3]);
 		}
 		super.update(elapsed);

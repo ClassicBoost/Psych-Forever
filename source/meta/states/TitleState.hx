@@ -336,12 +336,12 @@ class TitleState extends MusicBeatState
 		{
 			if(pressedEnter)
 			{
+				pressedEnter = false;
 				if(titleText != null) titleText.animation.play('press');
 
 				FlxG.camera.flash(FlxColor.WHITE, 1);
 				FlxG.sound.play(Paths.sound('menus/base/confirmMenu'), 0.7);
 
-				transitioning = true;
 				// FlxG.sound.music.stop();
 
 				new FlxTimer().start((transitioning ? 0.01 : 1), function(tmr:FlxTimer)
@@ -350,6 +350,8 @@ class TitleState extends MusicBeatState
 					closedState = true;
 				});
 				// FlxG.sound.play(Paths.music('titleShoot'), 0.7);
+
+				transitioning = true;
 			}
 			else if(easterEggEnabled)
 			{
@@ -393,6 +395,10 @@ class TitleState extends MusicBeatState
 						}
 					}
 				}
+			}
+			if (pressedEnter && transitioning) {
+				MusicBeatState.switchState(new MainMenuState());
+				closedState = true;
 			}
 		}
 

@@ -79,6 +79,9 @@ class MasterEditorMenu extends MusicBeatState
 				changeSelection(1);
 			}
 
+			if(FlxG.mouse.wheel != 0)
+				changeSelection(-FlxG.mouse.wheel);
+
 			if (controls.BACK)
 			{
 			//	FlxTween.tween(FlxG.sound.music, {pitch: 1, volume: 0.7}, 1, {ease: FlxEase.cubeOut});
@@ -88,7 +91,7 @@ class MasterEditorMenu extends MusicBeatState
 				MusicBeatState.switchState(new MainMenuState());
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT || FlxG.mouse.justPressed)
 			{
 				FlxG.sound.play(Paths.sound('menus/base/confirmMenu'), 0.4);
 				FlxFlicker.flicker(grpTexts.members[curSelected], 0.5, 0.06 * 2, true, false, function(flick:FlxFlicker)

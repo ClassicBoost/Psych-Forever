@@ -217,6 +217,11 @@ class MainMenuState extends MusicBeatState
 				changeItem(1);
 			}
 
+			if(FlxG.mouse.wheel != 0) {
+				FlxG.sound.play(Paths.sound('menus/base/scrollMenu'));
+				changeItem(-FlxG.mouse.wheel);
+			}
+
 			if (controls.BACK)
 			{
 				selectedSomethin = true;
@@ -224,7 +229,7 @@ class MainMenuState extends MusicBeatState
 				MusicBeatState.switchState(new TitleState());
 			}
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT || FlxG.mouse.justPressed)
 			{
 				if (optionShit[curSelected] == 'donate')
 				{

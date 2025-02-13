@@ -206,6 +206,9 @@ class StoryMenuState extends MusicBeatState
 			if (controls.UI_DOWN_P)
 				changeWeek(1);
 
+			if(FlxG.mouse.wheel != 0)
+				changeWeek(-FlxG.mouse.wheel);
+
 			if (controls.UI_RIGHT)
 				rightArrow.animation.play('press')
 			else
@@ -221,7 +224,7 @@ class StoryMenuState extends MusicBeatState
 			if (controls.UI_LEFT_P)
 				changeDifficulty(-1);
 
-			if (controls.ACCEPT)
+			if (controls.ACCEPT || FlxG.mouse.justPressed)
 			{
 				selectWeek();
 			}
