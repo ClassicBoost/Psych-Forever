@@ -710,7 +710,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'MISC',
 		'EXPERIMENTAL',
 		'MOVEMENTS',
-		'TOP RIGHT TEXT'
+		'TOP RIGHT TEXT',
+		'VISUALS'
 	];
 	static var noCheckbox:Array<String> = [
 		'Framerate',
@@ -726,9 +727,13 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#if !html5
 		'Framerate', //Apparently 120FPS isn't correctly supported on Browser? Probably it has some V-Sync shit enabled by default, idk
 		#end
-		'SPLASHES',
+		'VISUALS',
 		'Note Splashes',
 		'Opponent Note Splashes',
+		'Judgement Counter',
+		'Display Accuracy',
+		'Fixed Judgements',
+		'Simply Judgements',
 		'MOVEMENTS',
 		'Note Movements',
 		'Camera Zooms',
@@ -746,9 +751,6 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Language',
 		'Flashing Lights',
 		'Hide HUD',
-		'Judgement Counter',
-		'Display Accuracy',
-		'Fixed Judgements',
 		'Hide Song Length',
 		'Focus Loss Pause',
 		'Skip Splash',
@@ -761,7 +763,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 		#end
 		'EXPERIMENTAL',
 		'Mod Menus',
-		'New Editors'
+		'New Editors',
+		'Strum Cameras'
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
@@ -951,6 +954,9 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Fixed Judgements':
 						ClientPrefs.fixedJudgements = !ClientPrefs.fixedJudgements;
 
+					case 'Simply Judgements':
+						ClientPrefs.simplyJudgements = !ClientPrefs.simplyJudgements;
+
 					case 'Flashing Lights':
 						ClientPrefs.flashing = !ClientPrefs.flashing;
 
@@ -1001,6 +1007,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						ClientPrefs.loadModMenu = !ClientPrefs.loadModMenu;
 					case 'New Editors':
 						ClientPrefs.newEditors = !ClientPrefs.newEditors;
+					case 'Strum Cameras':
+						ClientPrefs.strumCameras = !ClientPrefs.strumCameras;
 				}
 				FlxG.sound.play(Paths.sound('menus/base/confirmMenu'));
 				reloadValues();
@@ -1114,6 +1122,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = "If checked, your accuracy, misses, and rank will show.";
 			case 'Fixed Judgements':
 				daText = "If checked, the ratings will be placed on the\nhud instead of game.";
+			case 'Simply Judgements':
+				daText = "If checked, the game will only display one rating.";
 			case 'Flashing Lights':
 				daText = "Uncheck this if you're sensitive to flashing lights!";
 			case 'Camera Zooms':
@@ -1136,6 +1146,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 				daText = 'If checked, the custom splash screen is skipped.';
 			case 'Old Scoring':
 				daText = 'If checked, the game will use the pre-weekend 1 scoring system.';
+			case 'Strum Cameras':
+				daText = 'If the notes should be a seperate camera.';
 			default:
 				daText = "";
 		}
@@ -1222,6 +1234,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.hideHud;
 					case 'Judgement Counter':
 						daValue = ClientPrefs.judgementCounter;
+					case 'Simply Judgements':
+						daValue = ClientPrefs.simplyJudgements;
 					case 'Persistent Cached Data':
 						daValue = ClientPrefs.imagesPersist;
 					case 'Late Damage':
@@ -1240,6 +1254,8 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.skipSplash;
 					case 'Old Scoring':
 						daValue = ClientPrefs.oldScore;
+					case 'Strum Cameras':
+						daValue = ClientPrefs.strumCameras;
 				}
 				checkbox.daValue = daValue;
 			}

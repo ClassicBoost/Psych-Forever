@@ -32,6 +32,7 @@ class ClientPrefs {
 	public static var opponentSplashes:Bool = true;
 	public static var displayAccuracy:Bool = true;
 	public static var fixedJudgements:Bool = false;
+	public static var simplyJudgements:Bool = false;
 	public static var lateDamage:Bool = true;
 	public static var judgementCounter:Bool = true;
 	public static var autoPause:Bool = true;
@@ -44,6 +45,7 @@ class ClientPrefs {
 	// EXPERIMENTAL!!!
 	public static var loadModMenu:Bool = false;
 	public static var newEditors:Bool = false;
+	public static var strumCameras:Bool = false;
 
 	public static var defaultKeys:Array<FlxKey> = [
 		A, LEFT,			//Note Left
@@ -118,6 +120,7 @@ class ClientPrefs {
 		FlxG.save.data.opponentSplashes = opponentSplashes;
 		FlxG.save.data.displayAccuracy = displayAccuracy;
 		FlxG.save.data.fixedJudgements = fixedJudgements;
+		FlxG.save.data.simplyJudgements = simplyJudgements;
 		FlxG.save.data.lateDamage = lateDamage;
 		FlxG.save.data.judgementCounter = judgementCounter;
 		FlxG.save.data.autoPause = autoPause;
@@ -128,6 +131,7 @@ class ClientPrefs {
 
 		FlxG.save.data.loadModMenu = loadModMenu;
 		FlxG.save.data.newEditors = newEditors;
+		FlxG.save.data.strumCameras = strumCameras;
 
 		FlxG.save.data.achievementsMap = Achievements.achievementsMap;
 		FlxG.save.data.henchmenDeath = Achievements.henchmenDeath;
@@ -171,6 +175,7 @@ class ClientPrefs {
 		if(FlxG.save.data.opponentSplashes != null) opponentSplashes = FlxG.save.data.opponentSplashes;
 		if(FlxG.save.data.displayAccuracy != null) displayAccuracy = FlxG.save.data.displayAccuracy;
 		if(FlxG.save.data.fixedJudgements != null) fixedJudgements = FlxG.save.data.fixedJudgements;
+		if(FlxG.save.data.simplyJudgements != null) simplyJudgements = FlxG.save.data.simplyJudgements;
 		if(FlxG.save.data.imagesPersist != null) {
 			imagesPersist = FlxG.save.data.imagesPersist;
 			FlxGraphic.defaultPersist = ClientPrefs.imagesPersist;
@@ -188,6 +193,7 @@ class ClientPrefs {
 
 		if(FlxG.save.data.loadModMenu != null) loadModMenu = FlxG.save.data.loadModMenu;
 		if(FlxG.save.data.newEditors != null) newEditors = FlxG.save.data.newEditors;
+		if(FlxG.save.data.strumCameras != null) strumCameras = FlxG.save.data.strumCameras;
 
 		// flixel automatically saves your volume!
 		if(FlxG.save.data.volume != null) FlxG.sound.volume = FlxG.save.data.volume;

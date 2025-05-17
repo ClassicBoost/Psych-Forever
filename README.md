@@ -15,7 +15,9 @@ Engine was only created for my mods so why not release it here lol.
 
 ## Credits
 * Classic1926 - Programmer
-* Yoshubs - Creator of Forever Engine (I do not support her)
+* [crowplexus](https://x.com/IamMorwen) - Maintainer of Forever Engine as of Late 2022. (I suppose)
+* Yoshubs - Creator of Forever Engine
+  * I do not support her, like seriously. She's a fucking creep.
 * [Psych Engine](https://github.com/ShadowMario/FNF-PsychEngine) - The engine I forked over 2 years ago lol.
 
 # Features

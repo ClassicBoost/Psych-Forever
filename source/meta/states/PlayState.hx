@@ -307,6 +307,13 @@ class PlayState extends MusicBeatState
 	// Lua shit
 	private var luaDebugGroup:FlxTypedGroup<DebugLuaText>;
 
+	// stores the last judgement object
+	var lastRating:FlxSprite;
+	// stores the last combo sprite object
+	var lastCombo:FlxSprite;
+	// stores the last combo score objects in an array
+	var lastScore:Array<FlxSprite> = [];
+
 	override public function create()
 	{
 		#if MODS_ALLOWED
@@ -1150,9 +1157,14 @@ class PlayState extends MusicBeatState
 
 		displayRating('sick', true);
 
-		strumLineNotes.cameras = [camNotes];
-		grpNoteSplashes.cameras = [camNotes];
-		notes.cameras = [camNotes];
+		strumLineNotes.cameras = [camHUD];
+		grpNoteSplashes.cameras = [camHUD];
+		notes.cameras = [camHUD];
+		if (ClientPrefs.strumCameras) {
+			strumLineNotes.cameras = [camNotes];
+			grpNoteSplashes.cameras = [camNotes];
+			notes.cameras = [camNotes];
+		}
 		healthBar.cameras = [camHUD];
 		healthBarBG.cameras = [camHUD];
 		iconP1.cameras = [camHUD];
@@ -1840,7 +1852,8 @@ class PlayState extends MusicBeatState
 							sustainNote.noteType = (section.gfSection && (songNotes[1]<4) ? 'GF Sing' : swagNote.noteType);
 							sustainNote.scrollFactor.set();
 							unspawnNotes.push(sustainNote);
-							sustainNote.cameras = [camSustain];
+							if (ClientPrefs.strumCameras) sustainNote.cameras = [camSustain];
+							else sustainNote.cameras = [camHUD];
 
 							if (sustainNote.mustPress)
 							{
@@ -2301,16 +2314,14 @@ class PlayState extends MusicBeatState
 
 		var iconOffset:Int = 26;
 
-		var mult:Float = FlxMath.lerp(1, iconP1.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-		iconP1.scale.set(mult, mult);
-		iconP1.updateHitbox();
+		iconP1.setGraphicSize(Std.int(FlxMath.lerp(150, iconP1.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
+		iconP2.setGraphicSize(Std.int(FlxMath.lerp(150, iconP2.width, CoolUtil.boundTo(1 - (elapsed * 10), 0, 1))));
 
-		var mult:Float = FlxMath.lerp(1, iconP2.scale.x, CoolUtil.boundTo(1 - (elapsed * 9), 0, 1));
-		iconP2.scale.set(mult, mult);
+		iconP1.updateHitbox();
 		iconP2.updateHitbox();
 
-		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) + (150 * iconP1.scale.x - 150) / 2 - iconOffset;
-		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (150 * iconP2.scale.x) / 2 - iconOffset * 2;
+		iconP1.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01) - iconOffset);
+		iconP2.x = healthBar.x + (healthBar.width * (FlxMath.remapToRange(healthBar.percent, 0, 100, 100, 0) * 0.01)) - (iconP2.width - iconOffset);
 		
 
 		if (health > 2)
@@ -3585,6 +3596,13 @@ class PlayState extends MusicBeatState
 		if (hudRating) comboSpr.cameras = [camHUD];
 		comboSpr.visible = !ClientPrefs.hideHud;
 
+		if (ClientPrefs.simplyJudgements) {
+			if (lastRating != null) lastRating.kill();
+				lastRating = rating;
+			if (lastCombo != null) lastCombo.kill();
+				lastCombo = comboSpr;
+		}
+
 		comboSpr.velocity.x += FlxG.random.int(1, 10);
 		if (combo >= 10) judgementGroup.add(comboSpr);
 		judgementGroup.add(rating);
@@ -3625,6 +3643,14 @@ class PlayState extends MusicBeatState
 		seperatedScore.push(displayCombo % 10);
 
 		var daLoop:Int = 0;
+		if (lastScore != null)
+		{
+			while (lastScore.length > 0)
+			{
+				lastScore[0].kill();
+				lastScore.remove(lastScore[0]);
+			}
+		}
 		for (i in seperatedScore)
 		{
 			var numScore:FlxSprite = new FlxSprite().loadGraphic(Paths.image('ui/' + uiElement + '/combo/${(allSicks == true && !negative ? 'golden/' : '')}num' + Std.int(i) + uiPostfix));
@@ -3635,6 +3661,9 @@ class PlayState extends MusicBeatState
 			numScore.x = coolText.x + (43 * daLoop) - (hudRating ? 250 : 390 + (GF_X*-1));
 			numScore.y += 80 + (hudRating ? 0 : GF_Y);
 			if (hudRating) numScore.cameras = [camHUD];
+
+			if (!ClientPrefs.simplyJudgements)
+				lastScore.push(numScore);
 
 			if (!PlayState.isPixelStage)
 			{
@@ -4314,9 +4343,9 @@ class PlayState extends MusicBeatState
 	
 	public function bopIcons() {
 		if (!isPixelStage) {
-			iconP1.scale.set(1.2, 1.2);
-			iconP2.scale.set(1.2, 1.2);
-
+			iconP1.setGraphicSize(Std.int(iconP1.width + 30));
+			iconP2.setGraphicSize(Std.int(iconP2.width + 30));
+	
 			iconP1.updateHitbox();
 			iconP2.updateHitbox();
 		}
