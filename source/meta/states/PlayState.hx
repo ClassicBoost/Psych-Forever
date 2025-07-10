@@ -2080,6 +2080,7 @@ class PlayState extends MusicBeatState
 	
 	override public function onFocusLost():Void
 	{
+		if (!inCutscene) {
 		#if desktop
 		if (health > 0 && !paused)
 		{
@@ -2088,6 +2089,7 @@ class PlayState extends MusicBeatState
 		#end
 
 		if (ClientPrefs.autoPause && !paused) pauseGame();
+		}
 
 		super.onFocusLost();
 	}
