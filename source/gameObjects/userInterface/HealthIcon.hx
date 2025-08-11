@@ -57,7 +57,7 @@ class HealthIcon extends FlxSprite
 			loadGraphic(file);
 
 			if (!loadFullIcon) {
-			splitThing = width/3 == height ? 3 : 2;
+			splitThing = width/3 == height ? 3 : width == height ? 1 : 2;
 			loadGraphic(graphic, true, Math.floor(width / splitThing), Math.floor(height));
 			iconOffsets[0] = (width - 150) / splitThing;
 			iconOffsets[1] = (width - 150) / splitThing;

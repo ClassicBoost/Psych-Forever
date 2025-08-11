@@ -4490,11 +4490,13 @@ class PlayState extends MusicBeatState
 		}
 
 		fcRating = '';
+		if (songMisses < 10) {
 		if (sicks > 0) fcRating = ' [SFC]';
 		if (goods > 0) fcRating = ' [GFC]';
 		if (bads > 0) fcRating = ' [FC]';
 		if (shits > 0 || missedLongNote) fcRating = ' [FC-]';
-		if (songMisses > 0) fcRating = '';
+		if (songMisses > 0) fcRating = ' [SDCB]';
+		}
 	}
 
 	#if ACHIEVEMENTS_ALLOWED
@@ -4507,14 +4509,13 @@ class PlayState extends MusicBeatState
 				
 				if (achievementName.contains(WeekData.getWeekFileName()) && achievementName.endsWith('nomiss')) // any FC achievements, name should be "weekFileName_nomiss", e.g: "weekd_nomiss";
 				{
-					if(isStoryMode && campaignMisses + songMisses < 1 && CoolUtil.difficultyString() == 'HARD'
-						&& storyPlaylist.length <= 1 && !changedDifficulty && !usedPractice)
+					if(isStoryMode && campaignMisses + songMisses < 1 && storyPlaylist.length <= 1 && !usedPractice)
 						unlock = true;
 				}
 				switch(achievementName)
 				{
 					case 'ur_bad':
-						if(ratingPercent < 0.2 && !practiceMode) {
+						if(ratingPercent < 0.4 && !practiceMode) {
 							unlock = true;
 						}
 					case 'ur_good':

@@ -60,7 +60,8 @@ class OptionsState extends MusicBeatState
 		{
 			var optionText:Alphabet = new Alphabet(0, 0, options[i], true, false);
 			optionText.screenCenter();
-			optionText.y += (90 * (i - (options.length / 2))) + 50;
+			optionText.isMenuItemCenter = true;
+			optionText.y += (5 * (i - (options.length / 2))) + 50;
 			grpOptions.add(optionText);
 		}
 		changeSelection();
@@ -146,6 +147,8 @@ class OptionsState extends MusicBeatState
 				item.alpha = 1;
 			}
 		}
+
+		FlxG.sound.play(Paths.sound('menus/base/scrollMenu'));
 	}
 }
 

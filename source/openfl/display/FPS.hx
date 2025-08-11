@@ -115,7 +115,7 @@ class FPS extends TextField
 		#end
 
 		textColor = 0xFFFFFFFF;
-		if (memoryMegas > 3000 || times.length <= 60) // there is kinda no reason why it should warn you if you have 50% of 240 FPS
+		if (memoryMegas > 3000 || times.length <= 30) // there is kinda no reason why it should warn you if you have 50% of 240 FPS
 		{
 			textColor = 0xFFFF0000;
 		}
