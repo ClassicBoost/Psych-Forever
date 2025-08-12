@@ -3664,7 +3664,7 @@ class PlayState extends MusicBeatState
 			numScore.y += 80 + (hudRating ? 0 : GF_Y);
 			if (hudRating) numScore.cameras = [camHUD];
 
-			if (!ClientPrefs.simplyJudgements)
+			if (ClientPrefs.simplyJudgements)
 				lastScore.push(numScore);
 
 			if (!PlayState.isPixelStage)
