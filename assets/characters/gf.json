@@ -14,6 +14,17 @@
 		{
 			"loop": false,
 			"offsets": [
+				3,
+				0
+			],
+			"fps": 24,
+			"anim": "combo",
+			"indices": [],
+			"name": "GF Cheer"
+		},
+		{
+			"loop": false,
+			"offsets": [
 				0,
 				-19
 			],

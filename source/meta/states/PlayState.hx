@@ -55,15 +55,15 @@ class PlayState extends MusicBeatState
 	var translationShit:TranslationThing;
 
 	public static var ratingStuff:Array<Dynamic> = [
-		['You Suck!', 0.2], //From 0% to 19%
-		['F', 0.7], //From 20% to 39%
-		['E', 0.75], //From 40% to 49%
-		['D', 0.8], //From 50% to 59%
-		['C', 0.85], //From 60% to 68%
-		['B', 0.9], //From 70% to 79%
-		['A', 0.95], //From 80% to 89%
-		['S', 1], //From 90% to 99%
-		['S+', 1] //The value on this one isn't used actually, since Perfect is always "1"
+		['You Suck!', 0.2],
+		['F', 0.7],
+		['E', 0.75],
+		['D', 0.8],
+		['C', 0.85],
+		['B', 0.9],
+		['A', 0.95],
+		['S', 1],
+		['S+', 1]
 	];
 	
 	#if (haxe >= "4.0.0")
@@ -3969,6 +3969,9 @@ class PlayState extends MusicBeatState
 					if (combo < 0) combo = 0;
 					combo++;
 					if(combo > 9999) combo = 9999;
+
+					if(!gfHidden && gf.animOffsets.exists('combo') && combo % 50 == 0)
+						gf.playAnim('combo', true);
 
 					popUpScore(note);
 				} else health += note.hitHealth;
