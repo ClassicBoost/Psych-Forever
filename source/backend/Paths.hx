@@ -193,6 +193,17 @@ class Paths
 		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices.$SOUND_EXT';
 	}
 
+	inline static public function voicesChar(song:String, player:Bool):Any {
+		var char:String = player ? 'player' : 'opponent';
+		#if MODS_ALLOWED
+		var file:Sound = returnSongFile(modsSongs(song.toLowerCase().replace(' ', '-') + '/Voices-' + char));
+		if(file != null) {
+			return file;
+		}
+		#end
+		return 'songs:assets/songs/${song.toLowerCase().replace(' ', '-')}/Voices-$char.$SOUND_EXT';
+	}
+
 	inline static public function inst(song:String):Any
 	{
 		#if MODS_ALLOWED

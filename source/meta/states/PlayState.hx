@@ -125,6 +125,7 @@ class PlayState extends MusicBeatState
 	var foregroundSprites:FlxTypedGroup<BGSprite>;
 
 	public var vocals:FlxSound;
+	public var vocalsDad:FlxSound;
 
 	public var dad:Character;
 	public var gf:Character;
@@ -1722,11 +1723,13 @@ class PlayState extends MusicBeatState
 		FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
 		FlxG.sound.music.onComplete = finishSong;
 		vocals.play();
+		vocalsDad.play();
 
 		if(paused) {
 			//trace('Oopsie doopsie! Paused sound');
 			FlxG.sound.music.pause();
 			vocals.pause();
+			vocalsDad.pause();
 		}
 
 		switch(curStage)
@@ -1767,12 +1770,26 @@ class PlayState extends MusicBeatState
 
 		curSong = songData.song;
 
-		if (SONG.needsVoices)
-			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
-		else
+		if (SONG.needsVoices) {
+			if (OpenFlAssets.exists(Paths.voicesChar(PlayState.SONG.song, true))) // Use "Voice-player" instead if it exists. It's not neccessary to have but if you are porting a song with the file names it'd be easier I guess.
+				vocals = new FlxSound().loadEmbedded(Paths.voicesChar(PlayState.SONG.song, true));
+			else
+				vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+
+			if (OpenFlAssets.exists(Paths.voicesChar(PlayState.SONG.song, false))) { // Use "Voice-opponent" if it exists. If it doesn't, just don't play lol.
+				vocalsDad = new FlxSound().loadEmbedded(Paths.voicesChar(PlayState.SONG.song, false));
+				vocalsDad.volume = 1; // Make sure it plays
+			}
+			else
+				vocalsDad = new FlxSound();
+		}
+		else {
 			vocals = new FlxSound();
+			vocalsDad = new FlxSound();
+		}
 
 		FlxG.sound.list.add(vocals);
+		FlxG.sound.list.add(vocalsDad);
 		FlxG.sound.list.add(new FlxSound().loadEmbedded(Paths.inst(PlayState.SONG.song)));
 
 		notes = new FlxTypedGroup<Note>();
@@ -1974,6 +1991,7 @@ class PlayState extends MusicBeatState
 			{
 				FlxG.sound.music.pause();
 				vocals.pause();
+				vocalsDad.pause();
 			}
 
 			if (!startTimer.finished)
@@ -2099,11 +2117,14 @@ class PlayState extends MusicBeatState
 		if(finishTimer != null) return;
 
 		vocals.pause();
+		vocalsDad.pause();
 
 		FlxG.sound.music.play();
 		Conductor.songPosition = FlxG.sound.music.time;
 		vocals.time = Conductor.songPosition;
+		vocalsDad.time = Conductor.songPosition;
 		vocals.play();
+		vocalsDad.play();
 	}
 
 	private var paused:Bool = false;
@@ -2605,7 +2626,7 @@ class PlayState extends MusicBeatState
 						}
 					}
 
-					if (SONG.needsVoices)
+					if (SONG.needsVoices && !OpenFlAssets.exists(Paths.voicesChar(PlayState.SONG.song, false)))
 						vocals.volume = 1;
 
 					var time:Float = 0.165;
@@ -2693,6 +2714,7 @@ class PlayState extends MusicBeatState
 			if(FlxG.keys.justPressed.TWO) { //Go 10 seconds into the future :O
 				FlxG.sound.music.pause();
 				vocals.pause();
+				vocalsDad.pause();
 				Conductor.songPosition += 10000;
 				notes.forEachAlive(function(daNote:Note)
 				{
@@ -2723,7 +2745,9 @@ class PlayState extends MusicBeatState
 				FlxG.sound.music.play();
 
 				vocals.time = Conductor.songPosition;
+				vocalsDad.time = Conductor.songPosition;
 				vocals.play();
+				vocalsDad.play();
 			}
 		}
 
@@ -2800,6 +2824,7 @@ class PlayState extends MusicBeatState
 				paused = true;
 
 				vocals.stop();
+				vocalsDad.stop();
 				FlxG.sound.music.stop();
 
 				openSubState(new GameOverSubstate(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y, camFollowPos.x, camFollowPos.y, this));
@@ -2844,6 +2869,7 @@ class PlayState extends MusicBeatState
 					if(FlxG.sound.music != null) {
 						FlxG.sound.music.pause();
 						vocals.pause();
+						vocalsDad.pause();
 					}
 				//	PauseSubState.transCamera = camOther;
 					openSubState(new PauseSubState(boyfriend.getScreenPosition().x, boyfriend.getScreenPosition().y));
@@ -3264,6 +3290,8 @@ class PlayState extends MusicBeatState
 		FlxG.sound.music.volume = 0;
 		vocals.volume = 0;
 		vocals.pause();
+		vocalsDad.volume = 0;
+		vocalsDad.pause();
 		if(ClientPrefs.noteOffset <= 0) {
 			finishCallback();
 		} else {
