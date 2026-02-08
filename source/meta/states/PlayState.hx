@@ -2660,7 +2660,7 @@ class PlayState extends MusicBeatState
 						notes.remove(daNote, true);
 						daNote.destroy();
 
-						if (!daNote.noteSplashDisabled && ClientPrefs.opponentSplashes && opponentStrums.visible == true) spawnNoteSplashOnNote2(daNote);
+						if (!daNote.noteSplashDisabled && ClientPrefs.opponentSplashes && !ClientPrefs.middleScroll && opponentStrums.visible == true) spawnNoteSplashOnNote2(daNote);
 					}
 				}
 

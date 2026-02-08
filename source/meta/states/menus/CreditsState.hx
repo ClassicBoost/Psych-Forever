@@ -25,7 +25,7 @@ class CreditsState extends MusicBeatState
 		['Classic1926',		'classic',		'Made the fork',					'https://www.youtube.com/channel/UCKcqlPIGcsoiGl9qsasAJhw',	'FF6868'],
 		[''],
 		['Translations'],
-		['ytggobs',		'',		'French Translation',					'',	'FF6868'],
+		['ytggobs',		'',		'French Translation',					'',	'FFFFFF'],
 		[''],
 		['Other Credits'],
 		['crowplexus',		'crowplexus',		'Maintainer of Forever Engine as of 2022.',					'https://x.com/IamMorwen',	'E1E1E1'],

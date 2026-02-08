@@ -742,7 +742,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Camera Zooms',
 		'NOTES',
 		'Downscroll',
-		'Middlescroll',
+		'Centered Notefield',
 		'INPUT',
 		'Ghost Tapping',
 		'Anti-Mash',
@@ -972,7 +972,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 					case 'Downscroll':
 						ClientPrefs.downScroll = !ClientPrefs.downScroll;
 
-					case 'Middlescroll':
+					case 'Centered Notefield':
 						ClientPrefs.middleScroll = !ClientPrefs.middleScroll;
 
 					case 'Ghost Tapping':
@@ -1094,25 +1094,25 @@ class PreferencesSubstate extends MusicBeatSubstate
 		var daText:String = '';
 		switch(options[curSelected]) {
 			case 'Framerate':
-				daText = "Pretty self explanatory, isn't it?\nDefault value is 60.";
+				daText = "Pretty self explanatory, isn't it?\nDefault value is 120.";
 			case 'Note Delay':
 				daText = "Changes how late a note is spawned.\nUseful for preventing audio lag from wireless earphones.";
 			case 'FPS Counter','Memory Usage','Version','Current Mod':
 				daText = 'Uncheck to hide the ${options[curSelected]} from the top right.';
 			case 'Low Quality':
 				daText = "If checked, disables some background details,\ndecreases loading times and improves performance.";
-			case 'Persistent Cached Data':
+			case 'Persistent Cached Data': // Feel like there is a reason why this setting is removed in newer Psych Engines. Probably because this can cause memory leaks?
 				daText = "If checked, images loaded will stay in memory\nuntil the game is closed, this increases memory usage,\nbut basically makes reloading times instant.";
 			case 'Anti-Aliasing':
 				daText = "If unchecked, disables anti-aliasing, increases performance\nat the cost of the graphics not looking as smooth.";
 			case 'Downscroll':
 				daText = "If checked, notes go Down instead of Up, simple enough.";
-			case 'Middlescroll':
+			case 'Centered Notefield':
 				daText = "If checked, hides Opponent's notes and your notes get centered.";
 			case 'Ghost Tapping':
 				daText = "If checked, you won't get misses from pressing keys\nwhile there are no notes able to be hit.";
 			case 'Anti-Mash':
-				daText = "If checked, mashing will make you miss.";
+				daText = "If checked, mashing will make you miss.\n(If Ghost Tapping is off this does nothing)";
 			case 'Swearing':
 				daText = "If unchecked, your mom won't be angry at you.";
 			case 'Violence':
@@ -1120,7 +1120,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'Note Splashes':
 				daText = "If unchecked, hitting \"Sick!\" notes won't show particles.";
 			case 'Opponent Note Splashes':
-				daText = "If unchecked, the opponent won't have note splashes.";
+				daText = "If unchecked, the opponent won't have note splashes when they hit a note.";
 			case 'Display Accuracy':
 				daText = "If checked, your accuracy, misses, and rank will show.";
 			case 'Fixed Judgements':
@@ -1134,21 +1134,21 @@ class PreferencesSubstate extends MusicBeatSubstate
 			case 'Hide HUD':
 				daText = "If checked, hides most HUD elements.";
 			case 'Judgement Counter':
-				daText = 'If checked, a judgement counter willl appear on your left of your screen';
+				daText = 'If checked, a judgement counter willl appear on your left of your screen.\nThis shows Sicks, Goods, etc.';
 			case 'Late Damage':
-				daText = "If checked, hitting notes late will make you miss";
+				daText = "If checked, hitting notes very early or late will make you miss.";
 			case 'Hide Song Length':
 				daText = "If checked, the bar showing how much time is left\nwill be hidden.";
 			case 'Focus Loss Pause':
-				daText = 'Turning this on will make the game pause if unfocused.\n(Not to be confused with Auto Pause)';
+				daText = 'Turning this on will make the game pause if unfocused.';
 			case 'Note Movements':
-				daText = 'Should the camera move on notes?';
+				daText = 'Should the camera move whenever a note is hit?\n(Assuming if the camera isn\'t locked)';
 			case 'Mod Menus':
 				daText = "If checked, when ever you scroll into a modpack it will load its assets\n(VERY UNFINISHED)";
 			case 'Skip Splash':
-				daText = 'If checked, the custom splash screen is skipped.';
+				daText = 'If checked, the splash screen video when opening the game is skipped.';
 			case 'Old Scoring':
-				daText = 'If checked, the game will use the pre-weekend 1 scoring system.';
+				daText = 'If checked, the game will use the old scoring system instead of \"percentage based\".';
 			case 'Strum Cameras':
 				daText = 'If the notes should be a seperate camera.';
 			default:
@@ -1221,7 +1221,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 						daValue = ClientPrefs.flashing;
 					case 'Downscroll':
 						daValue = ClientPrefs.downScroll;
-					case 'Middlescroll':
+					case 'Centered Notefield':
 						daValue = ClientPrefs.middleScroll;
 					case 'Ghost Tapping':
 						daValue = ClientPrefs.ghostTapping;
