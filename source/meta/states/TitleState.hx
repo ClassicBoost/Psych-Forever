@@ -462,11 +462,10 @@ class TitleState extends MusicBeatState
 		if(!closedState) {
 			switch (curBeat)
 			{
-				case 1:
-					createCoolText(['Psych Engine by'], 45);
+				case 1,2: // Sometimes the first text doesn't load so it just adds for Beat 1 and 2. If this causes problems I'll revert it.
+					createCoolText(['Psych Forever Engine by'], 45);
 				case 3:
-					addMoreText('Shadow Mario', 45);
-					addMoreText('RiverOaken', 45);
+					addMoreText('Classic1926', 45);
 				case 4:
 					deleteCoolText();
 				case 5:

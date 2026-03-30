@@ -64,7 +64,7 @@ class CreditsState extends MusicBeatState
 
 		MainMenuState.loadMenuJson();
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidcreditsBG}'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.menuBS[4]}'));
 		add(bg);
 
 		grpOptions = new FlxTypedGroup<Alphabet>();

@@ -34,12 +34,18 @@ typedef MenuOptionsIG =
 	var awards_bg:String;
 	var credits_bg:String;
 
+	var menu_color:String;
+	var menu_color2:String;
+	var options_color:String;
+	var awards_color:String;
+
 	var main_font:String;
 }
 
 class MainMenuState extends MusicBeatState
 {
-	public static var psychEngineVersion:String = '0.4.2'; //This is also used for Discord RPC
+	public static var psychEngineVersion:String = '0.4.2'; //This is also used for Discord RPC.
+	// Ignore the fact that the actual PFE version string is in a different file. (in Main.hx). Not like it matters because this mod stays in Psych Engine 0.4.2.
 	public static var curSelected:Int = 0;
 
 	var menuItems:FlxTypedGroup<FlxSprite>;
@@ -48,11 +54,17 @@ class MainMenuState extends MusicBeatState
 
 	public static var menuOptions:MenuOptionsIG;
 
-	public static var stupidmenuBG:String = 'bg';
-	public static var stupidfreeplayBG:String = 'bg';
-	public static var stupidoptionsBG:String = 'bg';
-	public static var stupidawardsBG:String = 'bg';
-	public static var stupidcreditsBG:String = 'bg';
+	public static var menuBS:Array<String> = [ // Don't break please. This took like around 5 or 6 attempts to get this to work.
+		"bg", // Menu BG 0
+		"bg", // Freeplay BG 1
+		"bg", // Options 2 
+		"bg", // Awards 3
+		"bg", // Credits 4
+		"FDE871", // Menu BG Color 5
+		"FD719B", // Menu BG Secondary Color (used for the flash when you select something) 6
+		"EA71FD", // Options BG Color 7
+		"9271FD", // Awards BG Color 8
+	];
 
 	public static var choosenFont:String = 'vcr.ttf';
 	
@@ -104,10 +116,10 @@ class MainMenuState extends MusicBeatState
 		persistentUpdate = persistentDraw = true;
 
 		var yScroll:Float = Math.max(0.25 - (0.05 * (optionShit.length - 4)), 0.1);
-		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/$stupidmenuBG'));
+		var bg:FlxSprite = new FlxSprite(-80).loadGraphic(Paths.image('menus/${menuBS[0]}'));
 		bg.scrollFactor.set(0, yScroll);
 		bg.setGraphicSize(Std.int(bg.width * 1.175));
-		bg.color = 0xFFFDE871;
+		bg.color = Std.parseInt("0xFF" + menuBS[5]);
 		bg.updateHitbox();
 		bg.screenCenter();
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
@@ -118,14 +130,14 @@ class MainMenuState extends MusicBeatState
 		add(camFollow);
 		add(camFollowPos);
 
-		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menus/$stupidmenuBG'));
+		magenta = new FlxSprite(-80).loadGraphic(Paths.image('menus/${menuBS[0]}'));
 		magenta.scrollFactor.set(0, yScroll);
 		magenta.setGraphicSize(Std.int(magenta.width * 1.175));
 		magenta.updateHitbox();
 		magenta.screenCenter();
 		magenta.visible = false;
 		magenta.antialiasing = ClientPrefs.globalAntialiasing;
-		magenta.color = 0xFFfd719b;
+		magenta.color = Std.parseInt("0xFF" + menuBS[6]);
 		add(magenta);
 		// magenta.scrollFactor.set();
 
@@ -324,11 +336,16 @@ class MainMenuState extends MusicBeatState
 	}
 
 	public static function loadMenuJson() {
-		if (menuOptions.menu_bg != null) stupidmenuBG = menuOptions.menu_bg;
-		if (menuOptions.freeplay_bg != null) stupidfreeplayBG = menuOptions.freeplay_bg;
-		if (menuOptions.options_bg != null) stupidoptionsBG = menuOptions.options_bg;
-		if (menuOptions.awards_bg != null) stupidawardsBG = menuOptions.awards_bg;
-		if (menuOptions.credits_bg != null) stupidcreditsBG = menuOptions.credits_bg;
+		if (menuOptions.menu_bg != null) menuBS[0] = menuOptions.menu_bg;
+		if (menuOptions.freeplay_bg != null) menuBS[1] = menuOptions.freeplay_bg;
+		if (menuOptions.options_bg != null) menuBS[2] = menuOptions.options_bg;
+		if (menuOptions.awards_bg != null) menuBS[3] = menuOptions.awards_bg;
+		if (menuOptions.credits_bg != null) menuBS[4] = menuOptions.credits_bg;
+
+		if (menuOptions.menu_color != null) menuBS[5] = menuOptions.menu_color;
+		if (menuOptions.menu_color2 != null) menuBS[6] = menuOptions.menu_color2;
+		if (menuOptions.options_color != null) menuBS[7] = menuOptions.options_color;
+		if (menuOptions.awards_color != null) menuBS[8] = menuOptions.awards_color;
 
 		if (menuOptions.main_font != null) choosenFont = menuOptions.main_font;
 	}

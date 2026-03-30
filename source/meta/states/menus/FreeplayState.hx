@@ -116,7 +116,7 @@ class FreeplayState extends MusicBeatState
 		bgThing = new FlxTypedGroup<FlxSprite>();
 		add(bgThing);
 
-		bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidfreeplayBG}'));
+		bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.menuBS[1]}'));
 		bg.antialiasing = ClientPrefs.globalAntialiasing;
 		bgThing.add(bg);
 
@@ -495,11 +495,11 @@ class FreeplayState extends MusicBeatState
 	public function updateShit() {
 		#if MODS_ALLOWED
 		// It should really only care about the modpacks as assets would juts be well. Already loaded lmao.
-		if ((sys.FileSystem.exists(Paths.modsImages('menus/${MainMenuState.stupidfreeplayBG}')) && OpenFlAssets.exists(Paths.image('menus/${MainMenuState.stupidfreeplayBG}'))) && Paths.currentModDirectory != selectedMod) {
+		if ((sys.FileSystem.exists(Paths.modsImages('menus/${MainMenuState.menuBS[1]}')) && OpenFlAssets.exists(Paths.image('menus/${MainMenuState.menuBS[1]}'))) && Paths.currentModDirectory != selectedMod) {
 			remove(bg);
 			// can you just not change background images without actually leaving and re-entering the state?
 			Paths.destroyLoadedImages(true);
-			bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidfreeplayBG}'));
+			bg = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.menuBS[1]}'));
 			bg.antialiasing = ClientPrefs.globalAntialiasing;
 			bgThing.add(bg);
 		}

@@ -379,14 +379,8 @@ class PlayState extends MusicBeatState
 		storyDifficultyText = '' + CoolUtil.difficultyStuff[storyDifficulty][0];
 
 		// String that contains the mode defined here so it isn't necessary to call changePresence for each mode
-		if (isStoryMode)
-		{
-			detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
-		}
-		else
-		{
-			detailsText = "Freeplay";
-		}
+		if (isStoryMode) detailsText = "Story Mode: " + WeekData.getCurrentWeek().weekName;
+		else detailsText = "Freeplay";
 
 		// String for when the game is paused
 		detailsPausedText = "Paused - " + detailsText;
@@ -401,7 +395,7 @@ class PlayState extends MusicBeatState
 			{
 				case 'spookeez' | 'south' | 'monster':
 					curStage = 'spooky';
-				case 'pico' | 'blammed' | 'philly' | 'philly-nice':
+				case 'pico' | 'blammed' | 'philly' | 'philly-nice': // There is no reason to put both philly and philly-nice, especially since philly got renamed in Week 7 I think.
 					curStage = 'philly';
 				case 'milf' | 'satin-panties' | 'high':
 					curStage = 'limo';

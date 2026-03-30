@@ -43,8 +43,8 @@ class OptionsState extends MusicBeatState
 
 		MainMenuState.loadMenuJson();
 
-		menuBG = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidoptionsBG}'));
-		menuBG.color = 0xFFea71fd;
+		menuBG = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.menuBS[2]}'));
+		menuBG.color = Std.parseInt("0xFF" + MainMenuState.menuBS[7]);
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
 		menuBG.updateHitbox();
 		menuBG.screenCenter();

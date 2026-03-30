@@ -11,6 +11,10 @@
 	"options_bg": "bg",
 	"awards_bg": "bg",
 	"credits_bg": "bg",
+	"menu_color": "FDE871",
+	"menu_color2": "FD719B",
+	"options_color": "EA71FD",
+	"awards_color": "9271FD",
 
 	"main_font": "vcr.ttf"
 }

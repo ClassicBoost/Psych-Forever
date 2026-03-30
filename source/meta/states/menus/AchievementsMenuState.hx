@@ -30,9 +30,9 @@ class AchievementsMenuState extends MusicBeatState
 
 		MainMenuState.loadMenuJson();
 
-		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.stupidawardsBG}'));
+		var menuBG:FlxSprite = new FlxSprite().loadGraphic(Paths.image('menus/${MainMenuState.menuBS[3]}'));
 		menuBG.setGraphicSize(Std.int(menuBG.width * 1.1));
-		menuBG.color = 0xFF9271FD;
+		menuBG.color = Std.parseInt("0xFF" + MainMenuState.menuBS[8]);
 		menuBG.updateHitbox();
 		menuBG.screenCenter();
 		menuBG.antialiasing = ClientPrefs.globalAntialiasing;
