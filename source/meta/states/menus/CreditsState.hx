@@ -29,7 +29,7 @@ class CreditsState extends MusicBeatState
 		[''],
 		['Other Credits'],
 		['crowplexus',		'crowplexus',		'Maintainer of Forever Engine as of 2022.',					'https://x.com/IamMorwen',	'E1E1E1'],
-		['Cehroaza',		'cehroaza',		'Loading BG',					'https://twitter.com/Cehroaza',	'68B7D8'],
+		['Cehroaza',		'cehroaza',		'Loading BG',					'https://bsky.app/profile/cehroaza.bsky.social',	'68B7D8'],
 		[''],
 		['Psych Engine Team'],
 		['Shadow Mario',		'shadowmario',		'Main Programmer of Psych Engine',					'https://twitter.com/Shadow_Mario_',	'FFDD33'],
